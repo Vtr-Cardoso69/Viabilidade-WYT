@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/05/2026 às 13:39
+-- Tempo de geração: 20/05/2026 às 13:56
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -79,6 +79,7 @@ CREATE TABLE `form_empresa` (
 
 CREATE TABLE `simulacoes` (
   `id` int(11) NOT NULL,
+  `empresa_id` int(11) NOT NULL,
   `cidade_id` int(11) NOT NULL,
   `form_empresa_id` int(11) NOT NULL,
   `probabilidade_sucesso` varchar(255) NOT NULL,
@@ -114,7 +115,8 @@ ALTER TABLE `form_empresa`
 ALTER TABLE `simulacoes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `SimulacaoCidade` (`cidade_id`),
-  ADD KEY `SimulacaoFormEmpresa` (`form_empresa_id`);
+  ADD KEY `SimulacaoFormEmpresa` (`form_empresa_id`),
+  ADD KEY `SimulacaoEmpresa` (`empresa_id`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -153,6 +155,7 @@ ALTER TABLE `simulacoes`
 --
 ALTER TABLE `simulacoes`
   ADD CONSTRAINT `SimulacaoCidade` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `SimulacaoEmpresa` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `SimulacaoFormEmpresa` FOREIGN KEY (`form_empresa_id`) REFERENCES `form_empresa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
