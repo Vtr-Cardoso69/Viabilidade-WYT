@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/05/2026 às 13:28
+-- Tempo de geração: 20/05/2026 às 13:39
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -64,6 +64,7 @@ CREATE TABLE `empresas` (
 CREATE TABLE `form_empresa` (
   `id` int(11) NOT NULL,
   `tipo_comercio` varchar(255) NOT NULL,
+  `valor_medio_produto` varchar(255) NOT NULL,
   `publico_etario` varchar(255) NOT NULL,
   `publico_economico` varchar(255) NOT NULL,
   `quant_ancoras` varchar(255) NOT NULL,
