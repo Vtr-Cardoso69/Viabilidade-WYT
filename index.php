@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+<a href="Pages/adm/index.php">Admin Cidades</a>
+=======
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -74,3 +77,4 @@
 </footer>
 </body>
 </html>
+>>>>>>> 1a3923145a530fc0899dfee2715c6c784ef6c1b4
