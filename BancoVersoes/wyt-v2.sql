@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20/05/2026 às 14:07
+-- Tempo de geração: 20/05/2026 às 14:39
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -30,15 +30,61 @@ SET time_zone = "+00:00";
 CREATE TABLE `cidades` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
-  `populacao_quant` int(255) NOT NULL,
+  `populacao_quant` int NOT NULL,
   `perfil_etario` varchar(255) NOT NULL,
   `perfil_economico` varchar(255) NOT NULL,
-  `comercio_alimentacao` int(255) NOT NULL,
-  `comercio_moda` int(255) NOT NULL,
-  `comercio_tecnologia` int(255) NOT NULL,
-  `comercio_varejo` int(255) NOT NULL,
-  `comercio_servicos` int(255) NOT NULL,
-  `comercio_turismo` int(255) NOT NULL
+  `comercio_alimentacao` int NOT NULL,
+  `comercio_moda` int NOT NULL,
+  `comercio_tecnologia` int NOT NULL,
+  `comercio_varejo` int NOT NULL,
+  `comercio_servicos` int NOT NULL,
+  `comercio_turismo` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `empresas`
+--
+
+CREATE TABLE `empresas` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `cnpj` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `form_empresa`
+--
+
+CREATE TABLE `form_empresa` (
+  `id` int(11) NOT NULL,
+  `tipo_comercio` varchar(255) NOT NULL,
+  `valor_medio_produto` varchar(255) NOT NULL,
+  `publico_etario` varchar(255) NOT NULL,
+  `publico_economico` varchar(255) NOT NULL,
+  `quant_ancoras` varchar(255) NOT NULL,
+  `investimento` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `simulacoes`
+--
+
+CREATE TABLE `simulacoes` (
+  `id` int(11) NOT NULL,
+  `empresa_id` int(11) NOT NULL,
+  `cidade_id` int(11) NOT NULL,
+  `form_empresa_id` int(11) NOT NULL,
+  `probabilidade_sucesso` varchar(255) NOT NULL,
+  `renda_mensal` varchar(255) NOT NULL,
+  `break_even` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -52,6 +98,27 @@ ALTER TABLE `cidades`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices de tabela `empresas`
+--
+ALTER TABLE `empresas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `form_empresa`
+--
+ALTER TABLE `form_empresa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `simulacoes`
+--
+ALTER TABLE `simulacoes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `SimulacaoCidade` (`cidade_id`),
+  ADD KEY `SimulacaoFormEmpresa` (`form_empresa_id`),
+  ADD KEY `SimulacaoEmpresa` (`empresa_id`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -60,6 +127,36 @@ ALTER TABLE `cidades`
 --
 ALTER TABLE `cidades`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `empresas`
+--
+ALTER TABLE `empresas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `form_empresa`
+--
+ALTER TABLE `form_empresa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `simulacoes`
+--
+ALTER TABLE `simulacoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `simulacoes`
+--
+ALTER TABLE `simulacoes`
+  ADD CONSTRAINT `SimulacaoCidade` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `SimulacaoEmpresa` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `SimulacaoFormEmpresa` FOREIGN KEY (`form_empresa_id`) REFERENCES `form_empresa` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
