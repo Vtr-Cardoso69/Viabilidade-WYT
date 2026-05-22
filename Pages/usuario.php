@@ -3,6 +3,26 @@ session_start();
 
 require_once __DIR__ . '/../BE/DB/Database.php';
 
+class EmpresaModel
+{
+    private PDO $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    public function listarInformacoesEmpresa(int $id): ?array
+    {
+        $sql = "SELECT id, nome, email, cnpj FROM empresas WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $empresa = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $empresa ?: null;
+    }
+}
+
 if (isset($_GET['logout'])) {
     $_SESSION = [];
     session_destroy();
@@ -15,9 +35,8 @@ $error = null;
 
 try {
     if (!empty($_SESSION['empresa_id'])) {
-        $stmt = $conn->prepare('SELECT id, nome, email, cnpj FROM empresas WHERE id = :id LIMIT 1');
-        $stmt->execute([':id' => (int)$_SESSION['empresa_id']]);
-        $empresa = $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        $model = new EmpresaModel($conn);
+        $empresa = $model->listarInformacoesEmpresa((int)$_SESSION['empresa_id']);
     }
 } catch (Throwable $e) {
     $error = 'Erro ao carregar seus dados.';
@@ -37,6 +56,16 @@ try {
         <a href="adm.php">Admin</a> |
         <a href="../index.php">Início</a>
     </p>
+
+    <?php if (!empty($_SESSION['empresa_id']) && $empresa): ?>
+        <p>
+            <a href="perfilUsuarios.php?id=<?= urlencode((string)$empresa['id']) ?>">
+                Bem-vindo(a), <?= htmlspecialchars((string)$empresa['nome'], ENT_QUOTES, 'UTF-8') ?>!
+            </a>
+        </p>
+    <?php else: ?>
+        <p><a href="cadastro.php">Cadastre-se</a></p>
+    <?php endif; ?>
 
     <?php if ($error): ?>
         <p><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
