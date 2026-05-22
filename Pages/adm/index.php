@@ -37,6 +37,7 @@ $cidades = $controller->index();
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -45,6 +46,7 @@ $cidades = $controller->index();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Cidades</title>
 
+    <!-- ESTILO PARA SITE -->
     <style>
 
         * {
@@ -61,10 +63,17 @@ $cidades = $controller->index();
 
         h1 {
             margin-bottom: 20px;
+            color: #333;
         }
 
         h2 {
             margin-bottom: 20px;
+            color: #333;
+            margin-top: 25px;
+        }
+
+        h3 {
+            color: #333;
         }
 
         form {
@@ -81,9 +90,14 @@ $cidades = $controller->index();
             gap: 20px;
         }
 
-        /* LADO ESQUERDO */
         .form-left {
             width: 50%;
+        }
+
+        .form-left h2 {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
         }
 
         /* LADO DIREITO */
@@ -118,6 +132,17 @@ $cidades = $controller->index();
             font-size: 15px;
         }
 
+        /* SELECT */
+        .form-group select {
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+            font-size: 15px;
+            background-color: white;
+            cursor: pointer;
+        }
+
         /* BOTÕES */
         button {
             padding: 12px 20px;
@@ -126,12 +151,28 @@ $cidades = $controller->index();
             cursor: pointer;
             color: white;
             font-size: 15px;
+            transition: background-color 0.3s ease;
         }
+
+
 
         button[name="create"],
         button[name="update"] {
             background: #4CAF50;
         }
+        button[name="cancel"] {
+            background: #c41717;
+        }
+
+        button[name="create"]:hover,
+        button[name="update"]:hover {
+            background: #45a049;
+        }
+        button[name="cancel"]:hover {
+            background: #a51e1e;
+        }
+
+
 
         .btn-cancel {
             padding: 12px 20px;
@@ -140,6 +181,12 @@ $cidades = $controller->index();
             text-decoration: none;
             border-radius: 5px;
             margin-left: 10px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #555;
         }
 
         /* TABELA */
@@ -207,6 +254,72 @@ $cidades = $controller->index();
         }
 
     </style>
+
+    <!-- ESTILOS PARA OS TOGGLES -->
+    <style>
+        .toggle-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #5a88b9;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background-color: #4a7aa0;
+        }
+
+        .hidden-box {
+            display: flex;
+            margin-top: 10px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hidden-box.active {
+            display: flex;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .radio-item input[type="radio"] {
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .radio-item label {
+            cursor: pointer;
+            margin: 0;
+            font-weight: normal;
+            user-select: none;
+        }
+    </style>
+
+    <!-- SCRIPT PARA OS TOGGLES -->
+    <script>
+        /**
+         * Função genérica para alternar visibilidade de um box
+         * @param {string} boxId - ID do elemento a ser alternado
+         */
+        function toggleBox(boxId) {
+            const box = document.getElementById(boxId);
+            if (box) {
+                box.classList.toggle('active');
+            }
+        }
+    </script>
+
 </head>
 
 <body>
@@ -222,122 +335,201 @@ $cidades = $controller->index();
         <div class="form-container">
 
             <!-- ESQUERDA -->
+            
             <div class="form-left">
 
-                <input type="hidden" name="id"
-                    value="<?= $cidadeEdit['id'] ?? '' ?>">
+                <!-- ID OCULTO -->
+                <input type="hidden" name="id" value="<?= htmlspecialchars($cidadeEdit['id'] ?? '') ?>">
 
+                <!-- NOME DA CIDADE -->
                 <div class="form-group">
                     <label>Nome da Cidade</label>
-
                     <input
                         type="text"
                         name="nome"
-                        value="<?= $cidadeEdit['nome'] ?? '' ?>"
+                        value="<?= htmlspecialchars($cidadeEdit['nome'] ?? '') ?>"
                         required>
                 </div>
 
+               <!-- POPULAÇÃO -->
                 <div class="form-group">
-                    <label>População</label>
 
+                    <label>População</label>
                     <input
                         type="number"
                         name="populacao"
-                        value="<?= $cidadeEdit['populacao_quant'] ?? '' ?>">
-                </div>
-
+                        min="1000"
+                        max="5000000"
+                        placeholder="0000000"
+                        value="<?= htmlspecialchars($cidadeEdit['populacao_quant'] ?? '') ?>">
+                    </div>
+                
+                    <!-- PERFIL ETÁRIO -->
                 <div class="form-group">
                     <label>Perfil Etário</label>
-
-                    <input
-                        type="text"
-                        name="perfil_etario"
-                        value="<?= $cidadeEdit['perfil_etario'] ?? '' ?>">
+                    <select name="perfil_etario">
+                        <option value="">-- Selecione --</option>
+                        <option value="Crianças (0-12 anos)"
+                            <?= (($cidadeEdit['perfil_etario'] ?? '') == 'Crianças (0-12 anos)') ? 'selected' : '' ?>>
+                            Crianças (0-12 anos)
+                        </option>
+                        <option value="Jovens (13-29 anos)"
+                            <?= (($cidadeEdit['perfil_etario'] ?? '') == 'Jovens (13-29 anos)') ? 'selected' : '' ?>>
+                            Jovens (13-29 anos)
+                        </option>
+                        <option value="Adultos (30-59 anos)"
+                            <?= (($cidadeEdit['perfil_etario'] ?? '') == 'Adultos (30-59 anos)') ? 'selected' : '' ?>>
+                            Adultos (30-59 anos)
+                        </option>
+                        <option value="Idosos (60 anos ou mais)"
+                            <?= (($cidadeEdit['perfil_etario'] ?? '') == 'Idosos (60 anos ou mais)') ? 'selected' : '' ?>>
+                            Idosos (60 anos ou mais)
+                        </option>
+                    </select>
                 </div>
 
+                <!-- PERFIL ECONÔMICO -->
                 <div class="form-group">
                     <label>Perfil Econômico</label>
-
-                    <input
-                        type="text"
-                        name="perfil_economico"
-                        value="<?= $cidadeEdit['perfil_economico'] ?? '' ?>">
+                    <select name="perfil_economico">
+                        <option value="">-- Selecione --</option>
+                        <option value="Baixa Renda" <?= (($cidadeEdit['perfil_economico'] ?? '') == 'Baixa Renda') ? 'selected' : '' ?>>
+                            Baixa Renda
+                        </option>
+                        <option value="Média Renda" <?= (($cidadeEdit['perfil_economico'] ?? '') == 'Média Renda') ? 'selected' : '' ?>>
+                            Média Renda
+                        </option>
+                        <option value="Alta Renda" <?= (($cidadeEdit['perfil_economico'] ?? '') == 'Alta Renda') ? 'selected' : '' ?>>
+                            Alta Renda
+                        </option>
+                    </select>
                 </div>
+              
+         <h2>Avalie a Cidade com Chances de Negócio</h2>
 
+                <!-- ALIMENTAÇÃO -->
                 <div class="form-group">
-                    <label>Comércio Alimentação</label>
-
-                    <input
-                        type="number"
-                        name="alimentacao"
-                        value="<?= $cidadeEdit['comercio_alimentacao'] ?? '' ?>">
+                    <button type="button" class="toggle-btn" onclick="toggleBox('alimentacao-box')">
+                        Comércio Alimentação ▼
+                    </button>
+                    <div id="alimentacao-box" class="hidden-box">
+                        <?php for ($i = 0; $i <= 20; $i++): ?>
+                            <label class="radio-item">
+                                <input
+                                    type="radio"
+                                    name="alimentacao"
+                                    value="<?= $i ?>"
+                                    <?= (($cidadeEdit['comercio_alimentacao'] ?? 0) == $i) ? 'checked' : '' ?>>
+                                <?= $i ?>
+                            </label>
+                        <?php endfor; ?>
+                    </div>
                 </div>
 
+                <!-- MODA -->
                 <div class="form-group">
-                    <label>Comércio Moda</label>
-
-                    <input
-                        type="number"
-                        name="moda"
-                        value="<?= $cidadeEdit['comercio_moda'] ?? '' ?>">
+                    <button type="button" class="toggle-btn" onclick="toggleBox('moda-box')">
+                        Comércio Moda ▼
+                    </button>
+                    <div id="moda-box" class="hidden-box">
+                        <?php for ($i = 0; $i <= 20; $i++): ?>
+                            <label class="radio-item">
+                                <input
+                                    type="radio"
+                                    name="moda"
+                                    value="<?= $i ?>"
+                                    <?= (($cidadeEdit['comercio_moda'] ?? 0) == $i) ? 'checked' : '' ?>>
+                                <?= $i ?>
+                            </label>
+                        <?php endfor; ?>
+                    </div>
                 </div>
 
+                <!-- TECNOLOGIA -->
                 <div class="form-group">
-                    <label>Comércio Tecnologia</label>
-
-                    <input
-                        type="number"
-                        name="tecnologia"
-                        value="<?= $cidadeEdit['comercio_tecnologia'] ?? '' ?>">
+                    <button type="button" class="toggle-btn" onclick="toggleBox('tecnologia-box')">
+                        Comércio Tecnologia ▼
+                    </button>
+                    <div id="tecnologia-box" class="hidden-box">
+                        <?php for ($i = 0; $i <= 20; $i++): ?>
+                            <label class="radio-item">
+                                <input
+                                    type="radio"
+                                    name="tecnologia"
+                                    value="<?= $i ?>"
+                                    <?= (($cidadeEdit['comercio_tecnologia'] ?? 0) == $i) ? 'checked' : '' ?>>
+                                <?= $i ?>
+                            </label>
+                        <?php endfor; ?>
+                    </div>
                 </div>
 
+                <!-- VAREJO -->
                 <div class="form-group">
-                    <label>Comércio Varejo</label>
-
-                    <input
-                        type="number"
-                        name="varejo"
-                        value="<?= $cidadeEdit['comercio_varejo'] ?? '' ?>">
+                    <button type="button" class="toggle-btn" onclick="toggleBox('varejo-box')">
+                        Comércio Varejo ▼
+                    </button>
+                    <div id="varejo-box" class="hidden-box">
+                        <?php for ($i = 0; $i <= 20; $i++): ?>
+                            <label class="radio-item">
+                                <input
+                                    type="radio"
+                                    name="varejo"
+                                    value="<?= $i ?>"
+                                    <?= (($cidadeEdit['comercio_varejo'] ?? 0) == $i) ? 'checked' : '' ?>>
+                                <?= $i ?>
+                            </label>
+                        <?php endfor; ?>
+                    </div>
                 </div>
 
+                <!-- SERVIÇOS -->
                 <div class="form-group">
-                    <label>Comércio Serviços</label>
-
-                    <input
-                        type="number"
-                        name="servicos"
-                        value="<?= $cidadeEdit['comercio_servicos'] ?? '' ?>">
+                    <button type="button" class="toggle-btn" onclick="toggleBox('servicos-box')">
+                        Comércio Serviços ▼
+                    </button>
+                    <div id="servicos-box" class="hidden-box">
+                        <?php for ($i = 0; $i <= 20; $i++): ?>
+                            <label class="radio-item">
+                                <input
+                                    type="radio"
+                                    name="servicos"
+                                    value="<?= $i ?>"
+                                    <?= (($cidadeEdit['comercio_servicos'] ?? 0) == $i) ? 'checked' : '' ?>>
+                                <?= $i ?>
+                            </label>
+                        <?php endfor; ?>
+                    </div>
                 </div>
 
+                <!-- TURISMO -->
                 <div class="form-group">
-                    <label>Comércio Turismo</label>
-
-                    <input
-                        type="number"
-                        name="turismo"
-                        value="<?= $cidadeEdit['comercio_turismo'] ?? '' ?>">
+                    <button type="button" class="toggle-btn" onclick="toggleBox('turismo-box')">
+                        Comércio Turismo ▼
+                    </button>
+                    <div id="turismo-box" class="hidden-box">
+                        <?php for ($i = 0; $i <= 20; $i++): ?>
+                            <label class="radio-item">
+                                <input
+                                    type="radio"
+                                    name="turismo"
+                                    value="<?= $i ?>"
+                                    <?= (($cidadeEdit['comercio_turismo'] ?? 0) == $i) ? 'checked' : '' ?>>
+                                <?= $i ?>
+                            </label>
+                        <?php endfor; ?>
+                    </div>
                 </div>
 
-                <div>
-
+                <!-- BOTÕES DE AÇÃO -->
+                <div class="form-group">
                     <?php if (isset($cidadeEdit) && $cidadeEdit): ?>
-
-                        <button type="submit" name="update">
-                            Atualizar Cidade
-                        </button>
-
-                        <a href="index.php" class="btn-cancel">
-                            Cancelar
-                        </a>
-
+                        <button type="submit" name="update">Atualizar Cidade</button>
+                       <br>
+                        <button type="button" name="cancel" onclick="window.location.href='index.php'" >Cancelar</button>
                     <?php else: ?>
-
-                        <button type="submit" name="create">
-                            Criar Cidade
-                        </button>
-
+                        <button type="submit" name="create">Criar Cidade</button>
                     <?php endif; ?>
-
                 </div>
 
             </div>

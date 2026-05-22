@@ -189,13 +189,13 @@ private $pdo;
         $fatorComercio = $this->fatorTipoComercial($cidade_id, $empresa_id);
         
         if($fatorComercio >= 15 && $fatorComercio <= 20){
-            $fluxo = $cidade['populacao'] * 0.06; // 6% da população
+            $fluxo = $cidade['populacao_quant'] * 0.06; // 6% da população
         } elseif ($fatorComercio >= 10 && $fatorComercio < 15) {
-            $fluxo = $cidade['populacao'] * 0.04; // 4% da população
+            $fluxo = $cidade['populacao_quant'] * 0.04; // 4% da população
         } elseif ($fatorComercio >= 5 && $fatorComercio < 10) {
-            $fluxo = $cidade['populacao'] * 0.02; // 2% da população
+            $fluxo = $cidade['populacao_quant'] * 0.02; // 2% da população
         }elseif($fatorComercio >= 0 && $fatorComercio < 5){
-            $fluxo = $cidade['populacao'] * 0.009; // 0,9% da população
+            $fluxo = $cidade['populacao_quant'] * 0.009; // 0,9% da população
     };
         if($fluxo >= 10000){
             $fator4 = 20;
