@@ -48,214 +48,650 @@ $cidades = $controller->index();
 
     <!-- ESTILO PARA SITE -->
     <style>
+            /* =========================
+            RESET
+            ========================= */
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 30px;
-        }
+            /* =========================
+            BODY
+            ========================= */
 
-        h1 {
-            margin-bottom: 20px;
-            color: #333;
-        }
+            body{
 
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-            margin-top: 25px;
-        }
+                font-family:Arial, sans-serif;
 
-        h3 {
-            color: #333;
-        }
+                background:#f4f4f4;
 
-        form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+                padding:30px;
 
-        /* CONTAINER PRINCIPAL */
-        .form-container {
-            display: flex;
-            gap: 20px;
-        }
+                color:#333;
+            }
 
-        .form-left {
-            width: 50%;
-        }
+            /* =========================
+            TÍTULOS
+            ========================= */
 
-        .form-left h2 {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #e0e0e0;
-        }
+            h1{
 
-        /* LADO DIREITO */
-        .form-right {
-            width: 50%;
-            background: #f5f5f5;
-            border-radius: 10px;
-            padding: 20px;
-            min-height: 400px;
-            border: 2px dashed #ccc;
-        }
+                margin-bottom:20px;
 
-        /* GRUPOS */
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 18px;
-        }
+                color:#2c3e50;
+            }
 
-        /* LABEL */
-        .form-group label {
-            margin-bottom: 6px;
-            font-weight: bold;
-        }
+            h2{
 
-        /* INPUT */
-        .form-group input {
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%;
-            font-size: 15px;
-        }
+                margin-bottom:20px;
 
-        /* SELECT */
-        .form-group select {
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 100%;
-            font-size: 15px;
-            background-color: white;
-            cursor: pointer;
-        }
+                margin-top:25px;
 
-        /* BOTÕES */
-        button {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-            font-size: 15px;
-            transition: background-color 0.3s ease;
-        }
+                color:#2c3e50;
+            }
 
+            h3{
+                color:#333;
+            }
 
+            /* =========================
+            FORMULÁRIO
+            ========================= */
 
-        button[name="create"],
-        button[name="update"] {
-            background: #4CAF50;
-        }
-        button[name="cancel"] {
-            background: #c41717;
-        }
+            form{
 
-        button[name="create"]:hover,
-        button[name="update"]:hover {
-            background: #45a049;
-        }
-        button[name="cancel"]:hover {
-            background: #a51e1e;
-        }
+                background:white;
 
+                padding:25px;
 
+                border-radius:16px;
 
-        .btn-cancel {
-            padding: 12px 20px;
-            background: gray;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-left: 10px;
-            display: inline-block;
-            transition: background-color 0.3s ease;
-        }
+                margin-bottom:30px;
 
-        .btn-cancel:hover {
-            background: #555;
-        }
+                box-shadow:
+                    0 4px 15px rgba(0,0,0,0.08);
+            }
 
-        /* TABELA */
+            /* =========================
+            CONTAINER PRINCIPAL
+            ========================= */
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+            .form-container{
 
-        th {
-            background: #4CAF50;
-            color: white;
-        }
+                display:flex;
+              
 
-        th, td {
-            padding: 14px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
+                gap:25px;
+            }
 
-        tr:hover {
-            background: #f5f5f5;
-        }
+            /* =========================
+            LADO ESQUERDO
+            ========================= */
 
-        /* BOTÕES DA TABELA */
+            .form-left{
 
-        .btn-edit {
-            background: #2196F3;
-            color: white;
-            padding: 7px 12px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+                width:50%;
+            }
 
-        .btn-delete {
-            background: #f44336;
-            color: white;
-            padding: 7px 12px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+            .form-left h2{
 
-        /* INFO BOX */
+                margin-top:35px;
 
-        .info-box h3 {
-            margin-bottom: 15px;
-        }
+                padding-bottom:10px;
 
-        .info-box p {
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
+                border-bottom:3px solid #4CAF50;
+            }
 
-        .info-box ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
+            /* =========================
+            LADO DIREITO
+            ========================= */
 
-        .info-box li {
-            margin-bottom: 10px;
-        }
+            .form-right{
 
+                width:50%;
+
+                background:#fafafa;
+
+                border-radius:14px;
+
+                padding:20px;
+
+                min-height:400px;
+
+                border:2px dashed #ccc;
+            }
+
+            /* =========================
+            FORM GROUP
+            ========================= */
+
+            .form-group{
+
+                display:flex;
+
+                flex-direction:column;
+
+                margin-bottom:20px;
+            }
+
+            /* =========================
+            LABEL
+            ========================= */
+
+            .form-group label{
+
+                margin-bottom:8px;
+
+                font-weight:600;
+            }
+
+            /* =========================
+            INPUTS
+            ========================= */
+
+            .form-group input,
+            .form-group select{
+
+                padding:13px;
+
+                border-radius:8px;
+
+                border:1px solid #d5d5d5;
+
+                width:100%;
+
+                font-size:15px;
+
+                transition:0.2s ease;
+
+                background:white;
+            }
+
+            /* FOCUS */
+
+            .form-group input:focus,
+            .form-group select:focus{
+
+                outline:none;
+
+                border-color:#4CAF50;
+
+                box-shadow:
+                    0 0 0 4px rgba(76,175,80,0.15);
+            }
+
+            /* =========================
+            BOTÕES PRINCIPAIS
+            ========================= */
+
+            button{
+
+                padding:13px 20px;
+
+                border:none;
+
+                border-radius:10px;
+
+                cursor:pointer;
+
+                color:white;
+
+                font-size:15px;
+
+                font-weight:600;
+
+                transition:0.25s ease;
+            }
+
+            /* CRIAR / UPDATE */
+
+            button[name="create"],
+            button[name="update"]{
+
+                background:linear-gradient(
+                    135deg,
+                    #4CAF50,
+                    #43a047
+                );
+            }
+
+            button[name="create"]:hover,
+            button[name="update"]:hover{
+
+                transform:translateY(-2px);
+
+                box-shadow:
+                    0 6px 15px rgba(76,175,80,0.25);
+            }
+
+            /* CANCELAR */
+
+            button[name="cancel"]{
+
+                background:linear-gradient(
+                    135deg,
+                    #d32f2f,
+                    #b71c1c
+                );
+            }
+
+            button[name="cancel"]:hover{
+
+                transform:translateY(-2px);
+
+                box-shadow:
+                    0 6px 15px rgba(211,47,47,0.25);
+            }
+
+            /* =========================
+            BOTÃO CANCELAR LINK
+            ========================= */
+
+            .btn-cancel{
+
+                padding:13px 20px;
+
+                background:#757575;
+
+                color:white;
+
+                text-decoration:none;
+
+                border-radius:10px;
+
+                display:inline-block;
+
+                transition:0.25s ease;
+
+                font-weight:600;
+            }
+
+            .btn-cancel:hover{
+
+                background:#616161;
+
+                transform:translateY(-2px);
+            }
+
+            /* =========================
+            TABELA
+            ========================= */
+
+            table{
+
+                width:100%;
+
+                border-collapse:collapse;
+
+                background:white;
+
+                border-radius:14px;
+
+                overflow:hidden;
+
+                box-shadow:
+                    0 4px 15px rgba(0,0,0,0.08);
+            }
+
+            /* CABEÇALHO */
+
+            th{
+
+                background:#4CAF50;
+
+                color:white;
+            }
+
+            th,
+            td{
+
+                padding:15px;
+
+                border-bottom:1px solid #eaeaea;
+
+                text-align:left;
+            }
+
+            /* HOVER */
+
+            tr:hover{
+
+                background:#f8f8f8;
+            }
+
+            /* =========================
+            BOTÕES DA TABELA
+            ========================= */
+
+            .btn-edit{
+
+                background:#2196F3;
+
+                color:white;
+
+                padding:8px 13px;
+
+                text-decoration:none;
+
+                border-radius:8px;
+
+                transition:0.2s ease;
+            }
+
+            .btn-edit:hover{
+
+                background:#1976D2;
+            }
+
+            .btn-delete{
+
+                background:#f44336;
+
+                color:white;
+
+                padding:8px 13px;
+
+                text-decoration:none;
+
+                border-radius:8px;
+
+                transition:0.2s ease;
+            }
+
+            .btn-delete:hover{
+
+                background:#d32f2f;
+            }
+
+            /* =========================
+            INFO BOX
+            ========================= */
+
+            .info-box h3{
+
+                margin-bottom:15px;
+            }
+
+            .info-box p{
+
+                margin-bottom:10px;
+
+                line-height:1.6;
+            }
+
+            .info-box ul{
+
+                margin-left:20px;
+
+                margin-top:10px;
+            }
+
+            .info-box li{
+
+                margin-bottom:10px;
+            }
+
+            /* =========================
+            ÁREA DE NEGÓCIOS
+            ========================= */
+
+            .business-section{
+
+                margin-top:35px;
+            }
+
+            .business-section h2{
+
+                font-size:24px;
+
+                color:#2c3e50;
+
+                margin-bottom:25px;
+
+                padding-bottom:12px;
+
+                border-bottom:3px solid #4CAF50;
+            }
+
+            /* =========================
+            CARD
+            ========================= */
+
+            .score-card{
+
+                background:white;
+
+                border:1px solid #e5e5e5;
+
+                border-radius:16px;
+
+                overflow:hidden;
+
+                margin-bottom:20px;
+
+                transition:0.25s ease;
+
+                box-shadow:
+                    0 3px 10px rgba(0,0,0,0.05);
+            }
+
+            .score-card:hover{
+
+                transform:translateY(-2px);
+
+                box-shadow:
+                    0 8px 20px rgba(0,0,0,0.08);
+            }
+
+            /* =========================
+            TOGGLE BUTTON
+            ========================= */
+
+            .toggle-btn{
+
+                width:100%;
+
+                border:none;
+
+                background:linear-gradient(
+                    135deg,
+                    #4CAF50,
+                    #43a047
+                );
+
+                color:white;
+
+                padding:18px 22px;
+
+                cursor:pointer;
+
+                display:flex;
+
+                align-items:center;
+
+                justify-content:space-between;
+
+                text-align:left;
+            }
+
+            /* HOVER */
+
+            .toggle-btn:hover{
+
+                filter:brightness(1.05);
+            }
+
+            /* TEXTO */
+
+            .toggle-content{
+
+                display:flex;
+
+                flex-direction:column;
+            }
+
+            /* TÍTULO */
+
+            .toggle-title{
+
+                font-size:17px;
+
+                font-weight:700;
+
+                margin-bottom:4px;
+            }
+
+            /* SUBTÍTULO */
+
+            .toggle-subtitle{
+
+                font-size:13px;
+
+                color:rgba(255,255,255,0.85);
+
+                font-weight:400;
+            }
+
+            /* SETA */
+
+            .toggle-arrow{
+
+                font-size:18px;
+
+                transition:0.2s ease;
+            }
+
+            /* =========================
+            ÁREA DAS OPÇÕES
+            ========================= */
+
+            .hidden-box{
+
+                display:none;
+
+                padding:22px;
+
+                background:#fafafa;
+
+                border-top:1px solid #ececec;
+
+                gap:12px;
+
+                flex-wrap:wrap;
+            }
+
+            /* =========================
+            RADIO ITEM
+            ========================= */
+
+            .radio-item{
+
+                position:relative;
+            }
+
+            /* ESCONDE RADIO */
+
+            .radio-item input{
+
+                display:none;
+            }
+
+            /* NÚMERO */
+
+            .radio-item span{
+
+                width:45px;
+
+                height:45px;
+
+                border-radius:12px;
+
+                display:flex;
+
+                align-items:center;
+
+                justify-content:center;
+
+                background:#f1f1f1;
+
+                border:2px solid transparent;
+
+                font-weight:bold;
+
+                font-size:15px;
+
+                cursor:pointer;
+
+                transition:0.2s ease;
+
+                user-select:none;
+            }
+
+            /* HOVER */
+
+            .radio-item span:hover{
+
+                background:#e8f5e9;
+
+                border-color:#4CAF50;
+
+                transform:translateY(-2px);
+            }
+
+            /* SELECIONADO */
+
+            .radio-item input:checked + span{
+
+                background:#4CAF50;
+
+                color:white;
+
+                border-color:#43a047;
+
+                transform:scale(1.08);
+
+                box-shadow:
+                    0 5px 12px rgba(76,175,80,0.35);
+            }
+
+            /* =========================
+            RESPONSIVO
+            ========================= */
+
+            @media (max-width:768px){
+
+                .form-container{
+
+                    flex-direction:column;
+                }
+
+                .form-left,
+                .form-right{
+
+                    width:100%;
+                }
+
+                .hidden-box{
+
+                    justify-content:center;
+                }
+
+                .toggle-title{
+
+                    font-size:15px;
+                }
+
+                .toggle-subtitle{
+
+                    font-size:12px;
+                }
+            }
     </style>
-
-    <!-- ESTILOS PARA OS TOGGLES -->
+    
+<!-- ESTILOS PARA OS TOGGLES -->
     <style>
         .toggle-btn {
             width: 100%;
@@ -368,7 +804,7 @@ $cidades = $controller->index();
                    
                    
                    
-                <!-- PERFIL ETÁRIO -->
+                    <!-- PERFIL ETÁRIO -->
                 <div class="form-group">
                     <label>Perfil Etário</label>
                     <select name="perfil_etario">
@@ -409,125 +845,210 @@ $cidades = $controller->index();
                     </select>
                 </div>
               
+
+ <h2>Avalie a Cidade com Chances de Negócio</h2>
+<div name=" GERAL ">     
         
-        
-        
-        
-                <h2>Avalie a Cidade com Chances de Negócio</h2>
-
-                <!-- ALIMENTAÇÃO -->
-                <div class="form-group">
-                    <button type="button" class="toggle-btn" onclick="toggleBox('alimentacao-box')">
-                        Comércio Alimentação 
-                    </button>
-                    <div id="alimentacao-box" class="hidden-box">
-                        <?php for ($i = 0; $i <= 20; $i++): ?>
-                            <label class="radio-item">
-                                <input
-                                    type="radio"
-                                    name="alimentacao"
-                                    value="<?= $i ?>"
-                                    <?= (($cidadeEdit['comercio_alimentacao'] ?? 0) == $i) ? 'checked' : '' ?>>
-                                <?= $i ?>
-                            </label>
-                        <?php endfor; ?>
+    <div class="business-section">
+        <!-- CARD -->
+        <div class="score-card">
+            <button
+                type="button"
+                class="toggle-btn"
+                onclick="toggleBox('alimentacao-box')">
+                <div>
+                    Comércio Alimentação
+                    <div class="score-subtitle">
+                        Potencial do setor alimentício na cidade
                     </div>
                 </div>
+                <span>▼</span>
+            </button>
+            <div id="alimentacao-box" class="hidden-box">
 
-                <!-- MODA -->
-                <div class="form-group">
-                    <button type="button" class="toggle-btn" onclick="toggleBox('moda-box')">
-                        Comércio Moda 
-                    </button>
-                    <div id="moda-box" class="hidden-box">
-                        <?php for ($i = 0; $i <= 20; $i++): ?>
-                            <label class="radio-item">
-                                <input
-                                    type="radio"
-                                    name="moda"
-                                    value="<?= $i ?>"
-                                    <?= (($cidadeEdit['comercio_moda'] ?? 0) == $i) ? 'checked' : '' ?>>
-                                <?= $i ?>
-                            </label>
-                        <?php endfor; ?>
+                <?php for ($i = 0; $i <= 20; $i++): ?>
+
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="alimentacao"
+                            value="<?= $i ?>"
+                            <?= (($cidadeEdit['comercio_alimentacao'] ?? 0) == $i) ? 'checked' : '' ?>>
+                        <span><?= $i ?></span>
+                    </label>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="business-section">
+        <!-- CARD -->
+        <div class="score-card">
+            <button
+                type="button"
+                class="toggle-btn"
+                onclick="toggleBox('moda-box')">
+                <div>
+                    Comércio Moda
+                    <div class="score-subtitle">
+                        Potencial do setor de moda na cidade
                     </div>
                 </div>
+                <span>▼</span>
+            </button>
+            <div id="moda-box" class="hidden-box">
 
-                <!-- TECNOLOGIA -->
-                <div class="form-group">
-                    <button type="button" class="toggle-btn" onclick="toggleBox('tecnologia-box')">
-                        Comércio Tecnologia 
-                    </button>
-                    <div id="tecnologia-box" class="hidden-box">
-                        <?php for ($i = 0; $i <= 20; $i++): ?>
-                            <label class="radio-item">
-                                <input
-                                    type="radio"
-                                    name="tecnologia"
-                                    value="<?= $i ?>"
-                                    <?= (($cidadeEdit['comercio_tecnologia'] ?? 0) == $i) ? 'checked' : '' ?>>
-                                <?= $i ?>
-                            </label>
-                        <?php endfor; ?>
+                <?php for ($i = 0; $i <= 20; $i++): ?>
+
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="moda"
+                            value="<?= $i ?>"
+                            <?= (($cidadeEdit['comercio_moda'] ?? 0) == $i) ? 'checked' : '' ?>>
+                        <span><?= $i ?></span>
+                    </label>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="business-section">
+        <!-- CARD -->
+        <div class="score-card">
+            <button
+                type="button"
+                class="toggle-btn"
+                onclick="toggleBox('tecnologia-box')">
+                <div>
+                    Comércio Tecnologia
+                    <div class="score-subtitle">
+                        Potencial do setor de tecnologia na cidade
                     </div>
                 </div>
+                <span>▼</span>
+            </button>
+            <div id="tecnologia-box" class="hidden-box">
 
-                <!-- VAREJO -->
-                <div class="form-group">
-                    <button type="button" class="toggle-btn" onclick="toggleBox('varejo-box')">
-                        Comércio Varejo 
-                    </button>
-                    <div id="varejo-box" class="hidden-box">
-                        <?php for ($i = 0; $i <= 20; $i++): ?>
-                            <label class="radio-item">
-                                <input
-                                    type="radio"
-                                    name="varejo"
-                                    value="<?= $i ?>"
-                                    <?= (($cidadeEdit['comercio_varejo'] ?? 0) == $i) ? 'checked' : '' ?>>
-                                <?= $i ?>
-                            </label>
-                        <?php endfor; ?>
+                <?php for ($i = 0; $i <= 20; $i++): ?>
+
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="tecnologia"
+                            value="<?= $i ?>"
+                            <?= (($cidadeEdit['comercio_tecnologia'] ?? 0) == $i) ? 'checked' : '' ?>>
+                        <span><?= $i ?></span>
+                    </label>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="business-section">
+        <!-- CARD -->
+        <div class="score-card">
+            <button
+                type="button"
+                class="toggle-btn"
+                onclick="toggleBox('varejo-box')">
+                <div>
+                    Comércio Varejo
+                    <div class="score-subtitle">
+                        Potencial do setor de varejo na cidade
                     </div>
                 </div>
+                <span>▼</span>
+            </button>
+            <div id="varejo-box" class="hidden-box">
 
-                <!-- SERVIÇOS -->
-                <div class="form-group">
-                    <button type="button" class="toggle-btn" onclick="toggleBox('servicos-box')">
-                        Comércio Serviços 
-                    </button>
-                    <div id="servicos-box" class="hidden-box">
-                        <?php for ($i = 0; $i <= 20; $i++): ?>
-                            <label class="radio-item">
-                                <input
-                                    type="radio"
-                                    name="servicos"
-                                    value="<?= $i ?>"
-                                    <?= (($cidadeEdit['comercio_servicos'] ?? 0) == $i) ? 'checked' : '' ?>>
-                                <?= $i ?>
-                            </label>
-                        <?php endfor; ?>
+                <?php for ($i = 0; $i <= 20; $i++): ?>
+
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="varejo"
+                            value="<?= $i ?>"
+                            <?= (($cidadeEdit['comercio_varejo'] ?? 0) == $i) ? 'checked' : '' ?>>
+                        <span><?= $i ?></span>
+                    </label>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="business-section">
+        <!-- CARD -->
+        <div class="score-card">
+            <button
+                type="button"
+                class="toggle-btn"
+                onclick="toggleBox('servicos-box')">
+                <div>
+                    Comércio Serviços
+                    <div class="score-subtitle">
+                        Potencial do setor de Serviços na cidade
                     </div>
                 </div>
+                <span>▼</span>
+            </button>
+            <div id="servicos-box" class="hidden-box">
 
-                <!-- TURISMO -->
-                <div class="form-group">
-                    <button type="button" class="toggle-btn" onclick="toggleBox('turismo-box')">
-                        Comércio Turismo 
-                    </button>
-                    <div id="turismo-box" class="hidden-box">
-                        <?php for ($i = 0; $i <= 20; $i++): ?>
-                            <label class="radio-item">
-                                <input
-                                    type="radio"
-                                    name="turismo"
-                                    value="<?= $i ?>"
-                                    <?= (($cidadeEdit['comercio_turismo'] ?? 0) == $i) ? 'checked' : '' ?>>
-                                <?= $i ?>
-                            </label>
-                        <?php endfor; ?>
+                <?php for ($i = 0; $i <= 20; $i++): ?>
+
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="servicos"
+                            value="<?= $i ?>"
+                            <?= (($cidadeEdit['comercio_servicos'] ?? 0) == $i) ? 'checked' : '' ?>>
+                        <span><?= $i ?></span>
+                    </label>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="business-section">
+        <!-- CARD -->
+        <div class="score-card">
+            <button
+                type="button"
+                class="toggle-btn"
+                onclick="toggleBox('turismo-box')">
+                <div>
+                    Comércio Turismo
+                    <div class="score-subtitle">
+                        Potencial do setor de Turismo na cidade
                     </div>
                 </div>
+                <span>▼</span>
+            </button>
+            <div id="turismo-box" class="hidden-box">
+
+                <?php for ($i = 0; $i <= 20; $i++): ?>
+
+                    <label class="radio-item">
+                        <input
+                            type="radio"
+                            name="turismo"
+                            value="<?= $i ?>"
+                            <?= (($cidadeEdit['comercio_turismo'] ?? 0) == $i) ? 'checked' : '' ?>>
+                        <span><?= $i ?></span>
+                    </label>
+                <?php endfor; ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 
                 <!-- BOTÕES DE AÇÃO -->
                 <div class="form-group">

@@ -1,5 +1,6 @@
 <a href="Pages/adm/index.php">Admin Cidades</a>
-
+<br>
+<a href="Pages/Simulacao.php">Simulação</a>
 
 <!DOCTYPE html>
 <html lang="pt-br">

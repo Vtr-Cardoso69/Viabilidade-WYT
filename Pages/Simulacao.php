@@ -1,9 +1,17 @@
 <?php
 
-require_once '../DB/Database.php';
-require_once '../Controller/SimulacaoController.php';
+require_once '../BE/DB/Database.php';
+require_once '../BE/Controller/SimulacaoController.php';
+require_once '../BE/Controller/adm/cidadeC.php';
+
 
 $simulacaoController = new SimulacaoController($pdo);
+
+/* CONTROLADOR DAS CIDADES */
+$cidadeController = new CidadeController();
+
+/* BUSCAR TODAS AS CIDADES */
+$cidades = $cidadeController->index();
 
 ?>
 
@@ -23,18 +31,27 @@ session_start();
     
 
 <form method="POST">
+   <label>Cidade:</label>
+<select name="cidade_id" required>
+    <option value="">
+        -- Selecione --
+    </option>
+    <?php foreach ($cidades as $cidade): ?>
+        <option value="<?= $cidade['id'] ?>">
+            <?= htmlspecialchars($cidade['nome']) ?>
+        </option>
+    <?php endforeach; ?>
+</select>
 
-    <label for="cidade">Cidade: </label>
-    <select></select><br><br>
-   
+
     <label for="investimento">Investimento: </label>
-    <input type="number" name="investimento" id="investimento" min="0" step="0.01"><br><br>
+    <input type="number" name="investimento" id="investimento" min="0" step="0.01" required><br><br>
 
     <label for="ancoras">Quantidade de Ancoras: </label>
-    <input type="number" name="quant_ancoras" id="quant_ancoras" min="0"><br><br>
+    <input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
 
     <label for = "preco_medio"> Preço Médio dos Produtos: </label>
-    <input type="number" name="preco_medio" id="preco_medio" min="0" step="0.01"><br><br>
+    <input type="number" name="preco_medio" id="preco_medio" min="0" step="0.01" required><br><br>
 
     <input type="submit" value="Simular">
 
