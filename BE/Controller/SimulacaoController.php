@@ -1,20 +1,36 @@
 <?php
-require_once '../Model/SimulacaoModel.php';
-require_once '../DB/Database.php';
 
-class SimulacaoController{
-    private $simulacaoModel;
+require_once __DIR__ . '/../Model/SimulacaoModel.php';
+
+class SimulacaoController {
+
+    private $model;
 
     public function __construct($pdo) {
-        $this->simulacaoModel = new SimulacaoModel($pdo);
+        $this->model = new SimulacaoModel($pdo);
     }
 
-    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras) {
-        $probabilidade_sucesso = $this->simulacaoModel->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
-        return $probabilidade_sucesso;
+    public function listarCidades() {
+        return $this->model->listarCidades();
+    }
 
-}
+    public function listarEmpresas() {
+        return $this->model->listarEmpresas();
+    }
 
+    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $investimento = null, $quant_ancoras = null, $preco_medio = null) {
+        if (func_num_args() == 3) {
+            return $this->model->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $investimento);
+        }
+
+        return $this->model->simularViabilidade(
+            $cidade_id,
+            $empresa_id,
+            $investimento,
+            $quant_ancoras,
+            $preco_medio
+        );
+    }
 }
 
 ?>
