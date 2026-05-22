@@ -199,12 +199,16 @@ private $pdo;
     };
         if($fluxo >= 10000){
             $fator4 = 20;
-        } elseif ($fluxo >= 5000 && $fluxo < 10000) {
+        }elseif ($fluxo >= 5000 && $fluxo < 10000) {
             $fator4 = 15;
-        } elseif ($fluxo >= 1000 && $fluxo < 5000) {
+        }elseif ($fluxo >= 1000 && $fluxo < 5000) {
             $fator4 = 10;
-        } elseif ($fluxo >= 0 && $fluxo < 1000) {
+        }elseif ($fluxo >= 500 && $fluxo < 1000) {
             $fator4 = 5;
+        }elseif($fluxo >=100 && $fluxo < 500){
+            $fator4 = 3;
+        }elseif($fluxo < 100){
+            $fator4 = 0;
         }
 
         return $fator4;
