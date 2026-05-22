@@ -1,9 +1,13 @@
+<a href="Pages/adm/index.php">Admin Cidades</a>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INICIO</title>
+    <link rel="stylesheet" href="CSS/.css">
 </head>
 <body>
    <header>
@@ -30,7 +34,7 @@
     </section>
 
     <section>
-        <h2>Precisão, estratégia e confiança definem a WYT. Com 97,8% de precisão em nossas análises, ajudamos empresas a tomarem decisões seguras e alcançarem resultados consistentes.</h2>
+        <h2>Precisão, estratégia e confiança definem a WYT. Com 67,67% de precisão em nossas análises, ajudamos empresas a tomarem decisões seguras e alcançarem resultados consistentes.</h2>
     </section>
 
     <div>
