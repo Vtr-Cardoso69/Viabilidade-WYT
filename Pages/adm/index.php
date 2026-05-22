@@ -364,7 +364,11 @@ $cidades = $controller->index();
                         value="<?= htmlspecialchars($cidadeEdit['populacao_quant'] ?? '') ?>">
                     </div>
                 
-                    <!-- PERFIL ETÁRIO -->
+                   
+                   
+                   
+                   
+                <!-- PERFIL ETÁRIO -->
                 <div class="form-group">
                     <label>Perfil Etário</label>
                     <select name="perfil_etario">
@@ -405,12 +409,16 @@ $cidades = $controller->index();
                     </select>
                 </div>
               
-         <h2>Avalie a Cidade com Chances de Negócio</h2>
+        
+        
+        
+        
+                <h2>Avalie a Cidade com Chances de Negócio</h2>
 
                 <!-- ALIMENTAÇÃO -->
                 <div class="form-group">
                     <button type="button" class="toggle-btn" onclick="toggleBox('alimentacao-box')">
-                        Comércio Alimentação ▼
+                        Comércio Alimentação 
                     </button>
                     <div id="alimentacao-box" class="hidden-box">
                         <?php for ($i = 0; $i <= 20; $i++): ?>
@@ -429,7 +437,7 @@ $cidades = $controller->index();
                 <!-- MODA -->
                 <div class="form-group">
                     <button type="button" class="toggle-btn" onclick="toggleBox('moda-box')">
-                        Comércio Moda ▼
+                        Comércio Moda 
                     </button>
                     <div id="moda-box" class="hidden-box">
                         <?php for ($i = 0; $i <= 20; $i++): ?>
@@ -448,7 +456,7 @@ $cidades = $controller->index();
                 <!-- TECNOLOGIA -->
                 <div class="form-group">
                     <button type="button" class="toggle-btn" onclick="toggleBox('tecnologia-box')">
-                        Comércio Tecnologia ▼
+                        Comércio Tecnologia 
                     </button>
                     <div id="tecnologia-box" class="hidden-box">
                         <?php for ($i = 0; $i <= 20; $i++): ?>
@@ -467,7 +475,7 @@ $cidades = $controller->index();
                 <!-- VAREJO -->
                 <div class="form-group">
                     <button type="button" class="toggle-btn" onclick="toggleBox('varejo-box')">
-                        Comércio Varejo ▼
+                        Comércio Varejo 
                     </button>
                     <div id="varejo-box" class="hidden-box">
                         <?php for ($i = 0; $i <= 20; $i++): ?>
@@ -486,7 +494,7 @@ $cidades = $controller->index();
                 <!-- SERVIÇOS -->
                 <div class="form-group">
                     <button type="button" class="toggle-btn" onclick="toggleBox('servicos-box')">
-                        Comércio Serviços ▼
+                        Comércio Serviços 
                     </button>
                     <div id="servicos-box" class="hidden-box">
                         <?php for ($i = 0; $i <= 20; $i++): ?>
@@ -505,7 +513,7 @@ $cidades = $controller->index();
                 <!-- TURISMO -->
                 <div class="form-group">
                     <button type="button" class="toggle-btn" onclick="toggleBox('turismo-box')">
-                        Comércio Turismo ▼
+                        Comércio Turismo 
                     </button>
                     <div id="turismo-box" class="hidden-box">
                         <?php for ($i = 0; $i <= 20; $i++): ?>
