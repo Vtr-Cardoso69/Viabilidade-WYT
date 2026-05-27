@@ -3,25 +3,19 @@ declare(strict_types=1);
 
 session_start();
 
-require_once __DIR__ . '/../BE/DB/Database.php';
+require_once __DIR__ . '/../Controller/PerfilController.php';
 
-if (!isset($conn) || !($conn instanceof PDO)) {
-    http_response_code(500);
-    echo 'Erro: conexão com banco não inicializada.';
-    exit;
-}
-
-try {
-    $conn->exec("SET NAMES utf8mb4");
-} catch (Throwable $e) {
-    // se falhar, segue (não é crítico para funcionar)
-}
-
+/**
+ * Função para escapar HTML
+ */
 function h(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+/**
+ * Obter ID da empresa da sessão
+ */
 $empresaId =
     $_SESSION['empresa_id']
     ?? $_SESSION['id_empresa']
@@ -30,6 +24,9 @@ $empresaId =
 
 $empresaId = is_numeric($empresaId) ? (int)$empresaId : null;
 
+/**
+ * Se não houver ID, mostrar erro de autenticação
+ */
 if (!$empresaId) {
     http_response_code(401);
     ?>
@@ -61,38 +58,47 @@ if (!$empresaId) {
     exit;
 }
 
-$stmtEmpresa = $conn->prepare('SELECT id, nome, email, cnpj FROM empresas WHERE id = :id');
-$stmtEmpresa->execute([':id' => $empresaId]);
-$empresa = $stmtEmpresa->fetch(PDO::FETCH_ASSOC);
+/**
+ * Instanciar controller e obter dados do perfil com histórico
+ */
+$controller = new PerfilController();
+$dados = $controller->obterPerfilCompleto($empresaId);
 
-if (!$empresa) {
+/**
+ * Validar se os dados existem
+ */
+if (!$dados || !$dados['empresa']) {
     http_response_code(404);
-    echo 'Usuário não encontrado.';
+    ?>
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Perfil não encontrado</title>
+        <style>
+            body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b1220; color:#e6eefc; margin:0; }
+            .wrap{ max-width: 980px; margin: 0 auto; padding: 28px 16px; }
+            .card{ background: #121b2f; border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 18px; }
+            a.btn{ display:inline-block; padding:10px 14px; border-radius: 10px; background:#2a6cff; color:#fff; text-decoration:none; font-weight:600; }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="card">
+                <h1>Perfil não encontrado</h1>
+                <p>O perfil de usuário solicitado não existe.</p>
+                <a class="btn" href="../index.php">Ir para o início</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    <?php
     exit;
 }
 
-$stmtHistorico = $conn->prepare(
-    'SELECT
-        s.id,
-        s.probabilidade_sucesso,
-        s.renda_mensal,
-        s.break_even,
-        c.nome AS cidade_nome,
-        f.tipo_comercio,
-        f.valor_medio_produto,
-        f.publico_etario,
-        f.publico_economico,
-        f.quant_ancoras,
-        f.investimento
-     FROM simulacoes s
-     INNER JOIN cidades c ON c.id = s.cidade_id
-     INNER JOIN form_empresa f ON f.id = s.form_empresa_id
-     WHERE s.empresa_id = :empresa_id
-     ORDER BY s.id DESC
-     LIMIT 50'
-);
-$stmtHistorico->execute([':empresa_id' => $empresaId]);
-$historico = $stmtHistorico->fetchAll(PDO::FETCH_ASSOC);
+$empresa = $dados['empresa'];
+$historico = $dados['historico'] ?? [];
 ?>
 
 <!DOCTYPE html>
@@ -188,7 +194,7 @@ $historico = $stmtHistorico->fetchAll(PDO::FETCH_ASSOC);
             <main class="card">
                 <h2>Histórico de simulações</h2>
 
-                <?php if (!$historico): ?>
+                <?php if (empty($historico)): ?>
                     <div class="empty">
                         <strong>Nenhuma simulação encontrada.</strong>
                         <div class="muted">Quando você fizer uma análise, ela aparecerá aqui.</div>
