@@ -3,50 +3,40 @@ session_start();
 
 require_once __DIR__ . '/../BE/DB/Database.php';
 require_once __DIR__ . '/../BE/Controller/EmpresaController.php';
+require_once __DIR__ . '/../BE/Model/EmpresaModel.php';
 
 $errors = [];
 
 $nome = '';
 $email = '';
 $cnpj = '';
+$senha = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = trim((string)($_POST['nome'] ?? ''));
-    $email = trim((string)($_POST['email'] ?? ''));
-    $cnpj = trim((string)($_POST['cnpj'] ?? ''));
+    $pdo = $conn;
+
+    $empresaModel = new EmpresaModel($pdo);
+    $empresaController = new EmpresaController($pdo);
+
+    $nome = (string)($_POST['nome'] ?? '');
+    $email = (string)($_POST['email'] ?? '');
+    $cnpj = (string)($_POST['cnpj'] ?? '');
     $senha = (string)($_POST['senha'] ?? '');
-    $confirmarSenha = (string)($_POST['confirmar_senha'] ?? '');
 
     $cnpjNumeros = preg_replace('/\D+/', '', $cnpj);
 
-    if ($nome === '' || $email === '' || $cnpjNumeros === '' || $senha === '') {
-        $errors[] = 'Preencha todos os campos.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Informe um e-mail válido.';
-    } elseif (strlen($cnpjNumeros) !== 14) {
-        $errors[] = 'Informe um CNPJ válido (14 números).';
-    } elseif ($senha !== $confirmarSenha) {
-        $errors[] = 'As senhas não conferem.';
-    } else {
-        try {
-            $controller = new EmpresaController($conn);
-            $ok = $controller->cadastrarEmpresa($nome, $email, $cnpjNumeros, $senha);
+    try {
+        $cadastro = $empresaController->cadastrarEmpresa($nome, $email, $cnpjNumeros, $senha);
 
-            if (!$ok) {
-                $errors[] = 'Já existe uma empresa cadastrada com este e-mail.';
-            } else {
-                // Faz login logo após cadastrar para criar sessão
-                $empresa = $controller->loginEmpresa($email, $senha);
-                if ($empresa) {
-                    header('Location: usuario.php');
-                    exit;
-                }
-                header('Location: usuario.php');
-                exit;
-            }
-        } catch (Throwable $e) {
-            $errors[] = 'Erro ao cadastrar.';
+        if ($cadastro) {
+            $empresaController->loginEmpresa($email, $senha);
+            header('Location: ../index.php');
+            exit;
+        } else {
+            echo "<script>alert('Email já cadastrado!');</script>";
         }
+    } catch (Throwable $e) {
+        $errors[] = 'Erro ao cadastrar.';
     }
 }
 ?>
@@ -85,10 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <label for="senha">Senha</label><br />
         <input id="senha" name="senha" type="password" required />
-        <br /><br />
-
-        <label for="confirmar_senha">Confirmar senha</label><br />
-        <input id="confirmar_senha" name="confirmar_senha" type="password" required />
         <br /><br />
 
         <button type="submit">Cadastrar</button>
