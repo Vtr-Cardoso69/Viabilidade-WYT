@@ -184,18 +184,33 @@ private $pdo;
         $cidade = $stmtCidade->fetch(PDO::FETCH_ASSOC);
 
         $fator4 = 0;
+        $fluxo = 0;
 
         $fatorComercio = $this->fatorTipoComercial($cidade_id, $empresa_id);
         
         if($fatorComercio >= 15 && $fatorComercio <= 20){
-            $fator4 = $cidade['populacao_quant'] * 0.04; // 4% da população
+            $fluxo = $cidade['populacao_quant'] * 0.06; // 6% da população
         } elseif ($fatorComercio >= 10 && $fatorComercio < 15) {
-            $fator4 = $cidade['populacao_quant'] * 0.017; // 1,7% da população
+            $fluxo = $cidade['populacao_quant'] * 0.04; // 4% da população
         } elseif ($fatorComercio >= 5 && $fatorComercio < 10) {
-            $fator4 = $cidade['populacao_quant'] * 0.009; // 0,9% da população
+            $fluxo = $cidade['populacao_quant'] * 0.02; // 2% da população
         }elseif($fatorComercio >= 0 && $fatorComercio < 5){
-            $fator4 = $cidade['populacao_quant'] * 0.004; // 0,4% da população
+            $fluxo = $cidade['populacao_quant'] * 0.009; // 0,9% da população
     };
+        if($fluxo >= 10000){
+            $fator4 = 20;
+        }elseif ($fluxo >= 5000 && $fluxo < 10000) {
+            $fator4 = 15;
+        }elseif ($fluxo >= 1000 && $fluxo < 5000) {
+            $fator4 = 10;
+        }elseif ($fluxo >= 500 && $fluxo < 1000) {
+            $fator4 = 5;
+        }elseif($fluxo >=100 && $fluxo < 500){
+            $fator4 = 3;
+        }elseif($fluxo < 100){
+            $fator4 = 0;
+        }
+
         return $fator4;
     }
 
