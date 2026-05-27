@@ -29,8 +29,8 @@ session_start();
 ?>
 <body>
      <header>
-        <img src="bussola.php" alt="Bússola">
-        <img src="logo.php" alt="Logo">
+        <img src="img/bussola.png" alt="Bússola">
+        <img src="img/logo.png" alt="Logo">
          <a href="">INICIAR</a>
          <p>ou</p>
             <a href="">CADASTRAR</a>
