@@ -3,10 +3,11 @@
 require_once __DIR__ . '/../BE/DB/Database.php';
 
 class PerfilModel {
-    private $db;
+    private $pdo;
 
     public function __construct() {
-        $this->db = new Database();
+        global $pdo;
+        $this->pdo = $pdo;
     }
 
     /**
@@ -15,8 +16,9 @@ class PerfilModel {
     public function getEmpresaById($empresaId) {
         $sql = "SELECT id, nome, email, cnpj FROM empresas WHERE id = :id";
         try {
-            $resultado = $this->db->query($sql, [':id' => $empresaId]);
-            return $resultado ? $resultado[0] : null;
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':id' => $empresaId]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             error_log("Erro ao buscar empresa: " . $e->getMessage());
             return null;
@@ -47,7 +49,9 @@ class PerfilModel {
                 LIMIT :limit";
         
         try {
-            return $this->db->query($sql, [':empresa_id' => $empresaId, ':limit' => $limit]) ?? [];
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':empresa_id' => $empresaId, ':limit' => $limit]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             error_log("Erro ao buscar histórico: " . $e->getMessage());
             return [];
