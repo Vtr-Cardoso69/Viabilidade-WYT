@@ -4,9 +4,6 @@ require_once '../BE/DB/Database.php';
 require_once '../BE/Controller/SimulacaoController.php';
 require_once '../BE/Controller/adm/cidadeC.php';
 
-
-$simulacaoController = new SimulacaoController($pdo);
-
 /* CONTROLADOR DAS CIDADES */
 $cidadeController = new CidadeController();
 
@@ -25,6 +22,16 @@ $cidades = $cidadeController->index();
 <?php
 
 session_start();
+
+?>
+
+<?php
+
+if(!isset($_SESSION['empresa_id'])){
+    echo "<script>alert('Faça login para acessar a simulação!');</script>";
+    header('Location: ../index.php');
+    exit;
+}
 
 ?>
 <body>
@@ -111,8 +118,11 @@ session_start();
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $simulacaoController = new SimulacaoController($pdo);
+
+
     $cidade_id = $_POST['cidade_id'];
-    $empresa_id = $_SESSION['id'];
+    $empresa_id = $_SESSION['empresa_id'];
     $quant_ancoras = $_POST['quant_ancoras'];
 
     $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
