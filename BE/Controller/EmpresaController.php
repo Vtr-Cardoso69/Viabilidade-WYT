@@ -5,8 +5,13 @@ require_once __DIR__ . '/../Model/EmpresaModel.php';
 class EmpresaController{
     private $model;
 
-    public function __construct($pdo) {
-        $this->model = new EmpresaModel($pdo);
+    public function __construct($modelOrPdo) {
+        if ($modelOrPdo instanceof EmpresaModel) {
+            $this->model = $modelOrPdo;
+            return;
+        }
+
+        $this->model = new EmpresaModel($modelOrPdo);
     }
 
     public function cadastrarEmpresa($nome, $email, $cnpj, $senha) {
@@ -35,4 +40,3 @@ class EmpresaController{
 }
 
 ?>
-

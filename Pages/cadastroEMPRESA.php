@@ -1,42 +1,32 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../BE/DB/Database.php';
 require_once __DIR__ . '/../BE/Controller/EmpresaController.php';
 require_once __DIR__ . '/../BE/Model/EmpresaModel.php';
+require_once __DIR__ . '/../BE/DB/Database.php';
 
-$errors = [];
-
-$nome = '';
-$email = '';
-$cnpj = '';
-$senha = '';
+function getPDOConnection() {
+    global $conn;
+    return $conn;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pdo = $conn;
-
+    $pdo = getPDOConnection();
     $empresaModel = new EmpresaModel($pdo);
-    $empresaController = new EmpresaController($pdo);
+    $empresaController = new EmpresaController($empresaModel);
 
-    $nome = (string)($_POST['nome'] ?? '');
-    $email = (string)($_POST['email'] ?? '');
-    $cnpj = (string)($_POST['cnpj'] ?? '');
-    $senha = (string)($_POST['senha'] ?? '');
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $cnpj = $_POST['cnpj'];
+    $senha = $_POST['senha'];
 
-    $cnpjNumeros = preg_replace('/\D+/', '', $cnpj);
+    $cadastro = $empresaController->cadastrarEmpresa($nome,$email,$cnpj,$senha);
 
-    try {
-        $cadastro = $empresaController->cadastrarEmpresa($nome, $email, $cnpjNumeros, $senha);
-
-        if ($cadastro) {
-            $empresaController->loginEmpresa($email, $senha);
-            header('Location: ../index.php');
-            exit;
-        } else {
-            echo "<script>alert('Email já cadastrado!');</script>";
-        }
-    } catch (Throwable $e) {
-        $errors[] = 'Erro ao cadastrar.';
+    if($cadastro){
+        $empresaController->loginEmpresa($email,$senha);
+        header('Location: ../index.php');
+    }else{
+        echo "<script>alert('Email já cadastrado!');</script>";
     }
 }
 ?>
@@ -50,27 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <h1>cadastro EMPRESA</h1>
 
-    <?php if ($errors): ?>
-        <p><strong>Confira:</strong></p>
-        <ul>
-            <?php foreach ($errors as $err): ?>
-                <li><?= htmlspecialchars((string)$err, ENT_QUOTES, 'UTF-8') ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
-
     <form method="post" action="">
         <label for="nome">Nome</label><br />
-        <input id="nome" name="nome" type="text" required value="<?= htmlspecialchars($nome, ENT_QUOTES, 'UTF-8') ?>" />
+        <input id="nome" name="nome" type="text" required />
         <br /><br />
 
         <label for="email">E-mail</label><br />
-        <input id="email" name="email" type="email" required value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>" />
+        <input id="email" name="email" type="email" required />
         <br /><br />
 
         <label for="cnpj">CNPJ</label><br />
-        <input id="cnpj" name="cnpj" type="text" required placeholder="00.000.000/0000-00" value="<?= htmlspecialchars($cnpj, ENT_QUOTES, 'UTF-8') ?>" />
-        <br /><small>Somente números são salvos.</small>
+        <input id="cnpj" name="cnpj" type="text" required placeholder="00.000.000/0000-00" />
         <br /><br />
 
         <label for="senha">Senha</label><br />
