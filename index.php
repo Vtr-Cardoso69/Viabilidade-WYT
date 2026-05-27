@@ -10,13 +10,20 @@
     <title>INICIO</title>
     <link rel="stylesheet" href="CSS/.css">
 </head>
+<?php
+session_start();
+?>
 <body>
    <header>
         <img src="img/bussola.png" alt="Bússola">
         <img src="img/logo.png" alt="Logo">
-         <a href="">INICIAR</a>
-         <p>ou</p>
-            <a href="">CADASTRAR</a>
+        <?php
+    if (isset($_SESSION['empresa_id'])) {
+        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
+    } elseif(!isset($_SESSION['empresa_id'])){
+        echo "<p><a href='Pages/cadastroEmpresa.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/loginEmpresa.php'>Faça login</a></p>";
+    }
+    ?>
     </header>
     
 

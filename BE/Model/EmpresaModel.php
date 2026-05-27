@@ -20,8 +20,6 @@ class EmpresaModel {
             return false; // Já existe o email
         }
 
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
         $sql = "INSERT INTO empresas (nome, email, cnpj, senha) 
                 VALUES (:nome, :email, :cnpj, :senha)";
         $stmt = $this->pdo->prepare($sql);
@@ -29,21 +27,22 @@ class EmpresaModel {
             ':nome' => $nome,
             ':email' => $email,
             ':cnpj' => $cnpj,
-            ':senha' => $senhaHash
+            ':senha' => $senha
         ]);
         return true;
         
     }
 
     public function loginEmpresa($email, $senha) {
-        $sql = "SELECT * FROM empresas WHERE email = :email";
+        $sql = "SELECT * FROM empresas WHERE email = :email AND senha = :senha";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $senha);
         $stmt->execute();
 
         $empresa = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($empresa && password_verify($senha, $empresa['senha'])) {
+        if ($empresa) {
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
@@ -61,13 +60,11 @@ class EmpresaModel {
     }
 
     public function editarEmpresa($nome, $email, $cnpj, $senha, $id) {
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
         $sql = "UPDATE empresas 
                 SET nome = ?, email = ?, cnpj = ?, senha = ? 
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([$nome, $email, $cnpj, $senhaHash, $id]);
+        return $stmt->execute([$nome, $email, $cnpj, $senha, $id]);
     }
 
     public function deletarEmpresa($id) {
@@ -94,4 +91,3 @@ class EmpresaModel {
 }
 
 ?>
-

@@ -5,15 +5,8 @@ require_once __DIR__ . '/../BE/Controller/EmpresaController.php';
 require_once __DIR__ . '/../BE/Model/EmpresaModel.php';
 require_once __DIR__ . '/../BE/DB/Database.php';
 
-function getPDOConnection() {
-    global $conn;
-    return $conn;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pdo = getPDOConnection();
-    $empresaModel = new EmpresaModel($pdo);
-    $empresaController = new EmpresaController($empresaModel);
+    $empresaController = new EmpresaController($pdo);
 
     $nome = $_POST['nome'];
     $email = $_POST['email'];
