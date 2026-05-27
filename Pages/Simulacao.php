@@ -28,7 +28,23 @@ session_start();
 
 ?>
 <body>
+     <header>
+        <img src="bussola.php" alt="Bússola">
+        <img src="logo.php" alt="Logo">
+         <a href="">INICIAR</a>
+         <p>ou</p>
+            <a href="">CADASTRAR</a>
+    </header>
     
+
+    <nav>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+             <a href="#"></a>
+            <a href="#"></a>
+    </nav>
 
 <form method="POST">
    <label>Cidade:</label>
@@ -57,6 +73,36 @@ session_start();
 
 </form>
 
+    <footer >
+
+     <div>
+      <h3>Suporte</h3>
+      <ul>
+        <li><a href="#">Central de Ajuda</a></li>
+        <li><a href="#">Política de Privacidade</a></li>
+        <li><a href="#">Termos de Uso</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Contato</h3>
+      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
+      <p>(11) 99845-3598</p>
+      <p> wyt@gmail.com.br</p>
+    </div>
+
+ <div>
+      <h3>Social</h3>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Tiktok</a></li>
+      </ul>
+    </div>
+
+    <p>&copy; 2026 WYT - Todos os direitos reservados</p>
+</footer>
 
 </body>
 </html>
