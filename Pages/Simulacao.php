@@ -38,6 +38,12 @@ if(!isset($_SESSION['empresa_id'])){
      <header>
         <img src="img/bussola.png" alt="Bússola">
         <img src="img/logo.png" alt="Logo">
+        <?php if (isset($_SESSION['empresa_id'])) {
+        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
+    } elseif(!isset($_SESSION['empresa_id'])){
+        echo "<p><a href='Pages/cadastroEmpresa.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/loginEmpresa.php'>Faça login</a></p>";
+    }
+    ?>
          <a href="">INICIAR</a>
          <p>ou</p>
             <a href="">CADASTRAR</a>
@@ -70,7 +76,7 @@ if(!isset($_SESSION['empresa_id'])){
     <label for="investimento">Investimento: </label>
     <input type="number" name="investimento" id="investimento" min="0" step="0.01" required><br><br>
 
-    <label for="ancoras">Quantidade de Ancoras: </label>
+    <label for="quant_ancoras">Quantidade de Ancoras: </label>
     <input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
 
     <label for = "preco_medio"> Preço Médio dos Produtos: </label>
@@ -120,13 +126,14 @@ if(!isset($_SESSION['empresa_id'])){
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $simulacaoController = new SimulacaoController($pdo);
 
-
+    
     $cidade_id = $_POST['cidade_id'];
     $empresa_id = $_SESSION['empresa_id'];
     $quant_ancoras = $_POST['quant_ancoras'];
     $preco_produto = $_POST['preco_medio'];
     $investimento = $_POST['investimento'];
-    $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $investimento, $quant_ancoras);
+    $preco_produto = $_POST['preco_medio'];
+    $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
 
     $renda_mensal = $simulacaoController->calcularRendaMensal($cidade_id, $empresa_id, $preco_produto);
 
@@ -137,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
     echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
-    echo "Você atingirá o break even em: " . round($break_even,0) . " meses.<br>";
+    echo "Você atingirá o break even em: " . round($break_even,0) . " " . (round($break_even,0) == 1 ? "mês" : "meses") . ".<br>";
 }
 
 ?>
