@@ -1,8 +1,8 @@
 <?php
 
-require_once '../BE/DB/Database.php';
-require_once '../BE/Controller/SimulacaoController.php';
-require_once '../BE/Controller/adm/cidadeC.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/DB/Database.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/SimulacaoController.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/adm/cidadeC.php';
 
 /* CONTROLADOR DAS CIDADES */
 $cidadeController = new CidadeController();
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
     echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
-    echo "Você atingirá o break even em: " . $break_even . " meses.<br>";
+    echo "Você atingirá o break even em: " . round($break_even,0) . " meses.<br>";
 }
 
 ?>
