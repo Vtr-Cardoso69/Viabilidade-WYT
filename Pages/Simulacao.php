@@ -1,8 +1,8 @@
 <?php
 
-require_once '../BE/DB/Database.php';
-require_once '../BE/Controller/SimulacaoController.php';
-require_once '../BE/Controller/adm/cidadeC.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/DB/Database.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/SimulacaoController.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/adm/cidadeC.php';
 
 /* CONTROLADOR DAS CIDADES */
 $cidadeController = new CidadeController();
