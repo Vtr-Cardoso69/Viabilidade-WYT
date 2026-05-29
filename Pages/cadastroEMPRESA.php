@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $perfil_economico = $_POST['perfil_economico'];
     $perfil_etario = $_POST['perfil_etario'];
     $senha = $_POST['senha'];
+    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
     $cadastro = $empresaController->cadastroEmpresa(
         $nome,
@@ -23,11 +24,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tipo_comercio,
         $perfil_economico,
         $perfil_etario,
-        $senha
+        $senhaHash
     );
 
     if ($cadastro) {
-        $empresaController->loginEmpresa($email, $senha);
+        // Configurar sessão após cadastro bem-sucedido
+        require_once __DIR__ . '/../BE/DB/Database.php';
+        
+        $stmt = $pdo->prepare("SELECT * FROM empresas WHERE email = ?");
+        $stmt->execute([$email]);
+        $empresa = $stmt->fetch();
+        
+        if ($empresa) {
+            $_SESSION['empresa_id'] = $empresa['id'];
+            $_SESSION['nome'] = $empresa['nome'];
+            $_SESSION['email'] = $empresa['email'];
+        }
+        
         header('Location: ../index.php');
         exit;
     } else {
@@ -55,7 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br /><br />
 
         <label for="cnpj">CNPJ</label><br />
-        <input id="cnpj" name="cnpj" type="text" required placeholder="00.000.000/0000-00" />
+        <input id="cnpj" name="cnpj" type="text" maxlength="18" required placeholder="00.000.000/0000-00" />
+        
         <br /><br />
 
         <label for="tipoComercio">Tipo de Comércio</label><br />
@@ -96,6 +110,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Cadastrar</button>
         <a href="../index.php">Voltar</a>
     </form>
+
+<script>
+ // Máscara CNPJ
+        document.getElementById('cnpj').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, '');
+            if (value.length > 14) value = value.substring(0, 14);
+            
+            let formatted = '';
+            if (value.length > 0) formatted = value.substring(0, 2) + '.';
+            if (value.length > 2) formatted += value.substring(2, 5) + '.';
+            if (value.length > 5) formatted += value.substring(5, 8) + '/';
+            if (value.length > 8) formatted += value.substring(8, 12) + '-';
+            if (value.length > 12) formatted += value.substring(12, 14);
+            
+            e.target.value = formatted;
+       
+       });
+</script>
+
 </body>
 </html>
-

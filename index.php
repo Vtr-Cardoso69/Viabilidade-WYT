@@ -1,6 +1,6 @@
-<a href="Pages/adm/index.php">Admin Cidades</a>
-<br>
-<a href="Pages/Simulacao.php">Simulação</a>
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,9 +10,6 @@
     <title>INICIO</title>
     <link rel="stylesheet" href="CSS/.css">
 </head>
-<?php
-session_start();
-?>
 <body>
    <header>
         <img src="img/bussola.png" alt="Bússola">
@@ -21,7 +18,7 @@ session_start();
     if (isset($_SESSION['empresa_id'])) {
         echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
     } elseif(!isset($_SESSION['empresa_id'])){
-        echo "<p><a href='Pages/cadastroEmpresa.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/loginEmpresa.php'>Faça login</a></p>";
+        echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
     }
     ?>
     </header>
@@ -35,6 +32,14 @@ session_start();
              <a href="#"></a>
             <a href="#"></a>
     </nav>
+
+    <?php
+    if (isset($_SESSION['empresa_id'])) {
+        echo "<p><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
+        echo "<p><a href='Pages/Simulacao.php'>Simulação</a></p>";
+        echo "<p><a href='Pages/logout.php'>Sair da Conta</a></p>";
+    }
+    ?>
 
     <section>
             <h1>Bem-vindo ao WYT!</h1>
