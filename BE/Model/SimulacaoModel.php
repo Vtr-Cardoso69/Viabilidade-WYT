@@ -239,8 +239,37 @@ private $pdo;
        return $probabilidade_sucesso;
     }
 
+    public function calcularRendaMensal($cidade_id, $empresa_id, $preco_produto){
+        // Buscar cidade
+        $stmtCidade = $this->pdo->prepare("SELECT * FROM cidades WHERE id = ?");
+        $stmtCidade->execute([$cidade_id]);
+        $cidade = $stmtCidade->fetch(PDO::FETCH_ASSOC);
+        $fluxo = 0;
+
+        $fatorComercio = $this->fatorTipoComercial($cidade_id, $empresa_id);
+        
+        if($fatorComercio >= 15 && $fatorComercio <= 20){
+            $fluxo = $cidade['populacao_quant'] * 0.06; // 6% da população
+        } elseif ($fatorComercio >= 10 && $fatorComercio < 15) {
+            $fluxo = $cidade['populacao_quant'] * 0.04; // 4% da população
+        } elseif ($fatorComercio >= 5 && $fatorComercio < 10) {
+            $fluxo = $cidade['populacao_quant'] * 0.02; // 2% da população
+        }elseif($fatorComercio >= 0 && $fatorComercio < 5){
+            $fluxo = $cidade['populacao_quant'] * 0.009; // 0,9% da população
+    };
+
+        $renda_mensal = $fluxo * $preco_produto;
+        return $renda_mensal;
+    }
+
+    public function calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto){
+        $renda_mensal = $this->calcularRendaMensal($cidade_id, $empresa_id, $preco_produto);
+        $break_even = $investimento / $renda_mensal;
+        return $break_even;
+    }
+
     public function fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even){
-        $sql= "INSERT INTO simulacoes (cidade_id, empresa_id, quant_ancoras, preco_produto, investimento, probabilidade_sucesso, renda_mensal, break_even) VALUES (:cidade_id, :empresa_id, :quant_ancoras, :preco_produto, :investimento, :probabilidade_sucesso, :renda_mensal, :break_even)";
+        $sql= "INSERT INTO simulacoes (cidade_id, empresa_id, quant_ancoras, preco_produto, investimento, probabilidade_sucesso, renda_mensal, break_even) VALUES (:cidade_id, :empresa_id, :quant_ancoras, :preco_produto, :investimento, :probabilidade_sucesso, :renda_mensal, :break_even)";    
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':cidade_id' => $cidade_id,
@@ -255,6 +284,5 @@ private $pdo;
     }
 
 }
-
 
 ?>
