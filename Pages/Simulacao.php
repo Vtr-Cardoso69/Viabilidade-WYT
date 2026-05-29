@@ -128,13 +128,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $investimento = $_POST['investimento'];
     $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $investimento, $quant_ancoras);
 
+    $renda_mensal = $simulacaoController->calcularRendaMensal($cidade_id, $empresa_id, $preco_produto);
+
+    $break_even = $simulacaoController->calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto);
+
     $simulacaoController->fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even);
 
-    
-
-
-
+    echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
+    echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
+    echo "Você atingirá o break even em: " . $break_even . " meses.<br>";
 }
 
 ?>
