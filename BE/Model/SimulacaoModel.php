@@ -239,6 +239,21 @@ private $pdo;
        return $probabilidade_sucesso;
     }
 
+    public function fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even){
+        $sql= "INSERT INTO simulacoes (cidade_id, empresa_id, quant_ancoras, preco_produto, investimento, probabilidade_sucesso, renda_mensal, break_even) VALUES (:cidade_id, :empresa_id, :quant_ancoras, :preco_produto, :investimento, :probabilidade_sucesso, :renda_mensal, :break_even)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':cidade_id' => $cidade_id,
+            ':empresa_id' => $empresa_id,
+            ':quant_ancoras' => $quant_ancoras,
+            ':preco_produto' => $preco_produto,
+            ':investimento' => $investimento,
+            ':probabilidade_sucesso' => $probabilidade_sucesso,
+            ':renda_mensal' => $renda_mensal,
+            ':break_even' => $break_even
+        ]);
+    }
+
 }
 
 

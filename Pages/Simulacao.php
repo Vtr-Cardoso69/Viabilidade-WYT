@@ -124,10 +124,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cidade_id = $_POST['cidade_id'];
     $empresa_id = $_SESSION['empresa_id'];
     $quant_ancoras = $_POST['quant_ancoras'];
+    $preco_produto = $_POST['preco_medio'];
+    $investimento = $_POST['investimento'];
+    $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $investimento, $quant_ancoras);
 
-    $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
+    $simulacaoController->fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even);
 
-    echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%";
+    
+
+
 
     echo "Caso seu negócio tenha sucesso: <br>";
 }
