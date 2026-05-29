@@ -239,65 +239,19 @@ private $pdo;
        return $probabilidade_sucesso;
     }
 
-    public function listarCidades(){
-        $stmt = $this->pdo->query("SELECT id, nome FROM cidades ORDER BY nome");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function listarEmpresas(){
-        $stmt = $this->pdo->query("SELECT id, nome, tipo_comercio FROM empresas ORDER BY nome");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function buscarMediasSetor($empresa_id){
-        $sql = "SELECT ms.*
-                FROM empresas e
-                INNER JOIN medias_setor ms ON LOWER(ms.tipo_comercio) = LOWER(e.tipo_comercio)
-                WHERE e.id = ?";
-
+    public function fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even){
+        $sql= "INSERT INTO simulacoes (cidade_id, empresa_id, quant_ancoras, preco_produto, investimento, probabilidade_sucesso, renda_mensal, break_even) VALUES (:cidade_id, :empresa_id, :quant_ancoras, :preco_produto, :investimento, :probabilidade_sucesso, :renda_mensal, :break_even)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$empresa_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function buscarPopulacaoCidade($cidade_id){
-        $stmt = $this->pdo->prepare("SELECT populacao_quant FROM cidades WHERE id = ?");
-        $stmt->execute([$cidade_id]);
-        $cidade = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if(!$cidade){
-            return 0;
-        }
-
-        return $cidade['populacao_quant'];
-    }
-
-    public function simularViabilidade($cidade_id, $empresa_id, $investimento, $quant_ancoras, $preco_medio){
-        $mediasSetor = $this->buscarMediasSetor($empresa_id);
-
-        if(!$mediasSetor){
-            throw new Exception("Nao existem medias cadastradas para esse tipo de comercio.");
-        }
-
-        $populacao = $this->buscarPopulacaoCidade($cidade_id);
-        $investimentoInicial = $investimento !== '' ? $investimento : $mediasSetor['investimento_inicial'];
-        $ticketMedio = $preco_medio !== '' ? $preco_medio : $mediasSetor['ticket_medio'];
-        $taxaClientes = $mediasSetor['taxa_clientes'] / 100;
-        $margemLucro = $mediasSetor['margem_lucro'] / 100;
-
-        $clientesMensais = $populacao * $taxaClientes;
-        $faturamentoMensal = $clientesMensais * $ticketMedio;
-        $lucroMensal = $faturamentoMensal * $margemLucro;
-        $breakEven = $lucroMensal > 0 ? $investimentoInicial / $lucroMensal : 0;
-        $probabilidadeSucesso = $this->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
-
-        return [
-            'clientes_mensais' => $clientesMensais,
-            'faturamento_mensal' => $faturamentoMensal,
-            'lucro_mensal' => $lucroMensal,
-            'break_even' => $breakEven,
-            'probabilidade_sucesso' => $probabilidadeSucesso
-        ];
+        $stmt->execute([
+            ':cidade_id' => $cidade_id,
+            ':empresa_id' => $empresa_id,
+            ':quant_ancoras' => $quant_ancoras,
+            ':preco_produto' => $preco_produto,
+            ':investimento' => $investimento,
+            ':probabilidade_sucesso' => $probabilidade_sucesso,
+            ':renda_mensal' => $renda_mensal,
+            ':break_even' => $break_even
+        ]);
     }
 
 }
