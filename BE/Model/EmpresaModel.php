@@ -16,13 +16,13 @@ class EmpresaModel {
     }
 
     // Salva os dados principais da empresa
-    public function cadastrarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha) {
+    public function cadastrarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha, $cargo) {
         if ($this->verificarEmailExistente($email)) {
             return false; // Já existe o email
         }
 
-        $sql = "INSERT INTO empresas (nome, email, cnpj, tipo_comercio, perfil_economico, perfil_etario, senha)
-                VALUES (:nome, :email, :cnpj, :tipo_comercio, :perfil_economico, :perfil_etario, :senha)";
+        $sql = "INSERT INTO empresas (nome, email, cnpj, tipo_comercio, perfil_economico, perfil_etario, senha, cargo)
+                VALUES (:nome, :email, :cnpj, :tipo_comercio, :perfil_economico, :perfil_etario, :senha, :cargo)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':nome' => $nome,
@@ -32,6 +32,7 @@ class EmpresaModel {
             ':perfil_economico' => $perfil_economico,
             ':perfil_etario' => $perfil_etario,
             ':senha' => $senha,
+            ':cargo' => $cargo,
         ]);
         return true;
     }

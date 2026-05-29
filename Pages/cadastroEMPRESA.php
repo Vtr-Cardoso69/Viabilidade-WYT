@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $perfil_etario = $_POST['perfil_etario'];
     $senha = $_POST['senha'];
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
+    $cargo = $_POST['cargo'] ?? 'EMPRESA'; // Define cargo como 'EMPRESA' por padrão
     $cadastro = $empresaController->cadastroEmpresa(
         $nome,
         $email,
@@ -24,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tipo_comercio,
         $perfil_economico,
         $perfil_etario,
-        $senhaHash
+        $senhaHash,
+        $cargo
     );
 
     if ($cadastro) {
@@ -39,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['empresa_id'] = $empresa['id'];
             $_SESSION['nome'] = $empresa['nome'];
             $_SESSION['email'] = $empresa['email'];
+            $_SESSION['cargo'] = $empresa['cargo']; // Armazena o cargo na sessão
         }
         
         header('Location: ../index.php');

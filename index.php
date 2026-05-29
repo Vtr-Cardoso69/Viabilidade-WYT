@@ -23,7 +23,6 @@ session_start();
     ?>
     </header>
     
-
     <nav>
             <a href="#"></a>
             <a href="#"></a>
@@ -34,12 +33,16 @@ session_start();
     </nav>
 
     <?php
-    if (isset($_SESSION['empresa_id'])) {
+if (isset($_SESSION['empresa_id'])) {
+
+    if ($_SESSION['cargo'] === 'ADM') {
         echo "<p><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
-        echo "<p><a href='Pages/Simulacao.php'>Simulação</a></p>";
-        echo "<p><a href='Pages/logout.php'>Sair da Conta</a></p>";
     }
-    ?>
+
+    echo "<p><a href='Pages/Simulacao.php'>Simulação</a></p>";
+    echo "<p><a href='Pages/logout.php'>Sair da Conta</a></p>";
+}
+?>
 
     <section>
             <h1>Bem-vindo ao WYT!</h1>
