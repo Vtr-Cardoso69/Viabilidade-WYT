@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
     echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
-    echo "Você atingirá o break even em: " . $break_even . " meses.<br>";
+    echo "Você atingirá o break even em: " . round($break_even,0) . " meses.<br>";
 }
 
 ?>
