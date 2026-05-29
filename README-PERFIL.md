@@ -56,11 +56,11 @@ http://localhost/Viabilidade-WYT/teste-perfil.php
 ### Em Produção
 Certifique-se que o usuário está autenticado e sua session tem:
 ```php
-$_SESSION['empresa_id'] = ID_DA_EMPRESA;
+$_SESSION['empresa_id'] = ID_DA_Empresa;
 // ou
-$_SESSION['id_empresa'] = ID_DA_EMPRESA;
+$_SESSION['id_empresa'] = ID_DA_Empresa;
 // ou
-$_SESSION['user_id'] = ID_DA_EMPRESA;
+$_SESSION['user_id'] = ID_DA_Empresa;
 ```
 
 Depois acesse:

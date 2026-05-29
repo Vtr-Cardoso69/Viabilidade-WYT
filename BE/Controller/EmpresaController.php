@@ -14,8 +14,12 @@ class EmpresaController{
         $this->model = new EmpresaModel($modelOrPdo);
     }
 
-    public function cadastrarEmpresa($nome, $email, $cnpj, $senha) {
-        return $this->model->cadastrarEmpresa($nome, $email, $cnpj, $senha);
+    public function cadastrarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha) {
+        return $this->model->cadastrarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha);
+    }
+
+    public function cadastroEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha) {
+        return $this->cadastrarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha);
     }
 
     public function loginEmpresa($email, $senha) {
@@ -40,3 +44,4 @@ class EmpresaController{
 }
 
 ?>
+

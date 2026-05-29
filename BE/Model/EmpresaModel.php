@@ -15,22 +15,25 @@ class EmpresaModel {
         return $stmt->fetchColumn() > 0;
     }
 
-    public function cadastrarEmpresa($nome, $email, $cnpj, $senha) {
+    // Salva os dados principais da empresa
+    public function cadastrarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha) {
         if ($this->verificarEmailExistente($email)) {
             return false; // Já existe o email
         }
 
-        $sql = "INSERT INTO empresas (nome, email, cnpj, senha) 
-                VALUES (:nome, :email, :cnpj, :senha)";
+        $sql = "INSERT INTO empresas (nome, email, cnpj, tipo_comercio, perfil_economico, perfil_etario, senha)
+                VALUES (:nome, :email, :cnpj, :tipo_comercio, :perfil_economico, :perfil_etario, :senha)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':nome' => $nome,
             ':email' => $email,
             ':cnpj' => $cnpj,
-            ':senha' => $senha
+            ':tipo_comercio' => $tipo_comercio,
+            ':perfil_economico' => $perfil_economico,
+            ':perfil_etario' => $perfil_etario,
+            ':senha' => $senha,
         ]);
         return true;
-        
     }
 
     public function loginEmpresa($email, $senha) {
@@ -60,8 +63,8 @@ class EmpresaModel {
     }
 
     public function editarEmpresa($nome, $email, $cnpj, $senha, $id) {
-        $sql = "UPDATE empresas 
-                SET nome = ?, email = ?, cnpj = ?, senha = ? 
+        $sql = "UPDATE empresas
+                SET nome = ?, email = ?, cnpj = ?, senha = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$nome, $email, $cnpj, $senha, $id]);
@@ -77,7 +80,6 @@ class EmpresaModel {
         $sql = "DELETE FROM empresas WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
-
     }
 
     public function listarInformacoesEmpresa($id) {
@@ -87,7 +89,6 @@ class EmpresaModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
 }
 
 ?>
