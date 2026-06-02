@@ -5,6 +5,23 @@ require_once __DIR__ . '/../BE/Controller/EmpresaController.php';
 require_once __DIR__ . '/../BE/Model/EmpresaModel.php';
 require_once __DIR__ . '/../BE/DB/Database.php';
 
+
+
+// para verificar se o cadastro recebera cargo de ADM 
+$createCargo = 'EMPRESA';
+$fromAdminCreate = false;
+if (isset($_GET['cargo']) && $_GET['cargo'] === 'ADM') {
+    if (!isset($_SESSION['cargo']) || $_SESSION['cargo'] !== 'ADM') {
+        header('Location: ../index.php');
+        exit;
+    }
+    $createCargo = 'ADM';
+    $fromAdminCreate = true;
+}
+
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $empresaController = new EmpresaController($pdo);
 
@@ -16,7 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $perfil_etario = $_POST['perfil_etario'];
     $senha = $_POST['senha'];
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-    $cargo = $_POST['cargo'] ?? 'EMPRESA'; // Define cargo como 'EMPRESA' por padrão
+
+    $cargo = $createCargo;
+
     $cadastro = $empresaController->cadastroEmpresa(
         $nome,
         $email,
@@ -29,9 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
 
     if ($cadastro) {
-        // Configurar sessão após cadastro bem-sucedido
-        require_once __DIR__ . '/../BE/DB/Database.php';
-        
+        // Se o cadastro foi iniciado pelo ADM (criando outra conta ADM), não trocar a sessão atual
+        if ($fromAdminCreate) {
+            header('Location: adm/index.php');
+            exit;
+        }
+
+        // Configurar sessão após cadastro público bem-sucedido
         $stmt = $pdo->prepare("SELECT * FROM empresas WHERE email = ?");
         $stmt->execute([$email]);
         $empresa = $stmt->fetch();
