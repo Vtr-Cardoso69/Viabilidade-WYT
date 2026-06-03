@@ -156,6 +156,50 @@ function h(string $value): string
                     <?php endif; ?>
                 </section>
 
+                <!-- Simulação mais recente da Empresa -->
+                <section>
+                    <h3 style="margin:0 0 10px; font-size:16px;">Simulação mais recente da Empresa</h3>
+                    <?php if (empty($ultimaSimulacaoEmpresa)): ?>
+                        <div class="empty">
+                            <strong>Nenhuma simulação recente encontrada.</strong>
+                            <div class="muted">Faça uma nova análise para que ela apareça aqui.</div>
+                        </div>
+                    <?php else: ?>
+                        <table aria-label="Simulação mais recente da empresa">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cidade</th>
+                                    <th>Comércio</th>
+                                    <th>Detalhes</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?= h((string)$ultimaSimulacaoEmpresa['id']) ?></td>
+                                    <td>
+                                        <div><strong><?= h((string)($ultimaSimulacaoEmpresa['cidade_nome'] ?? '')) ?></strong></div>
+                                    </td>
+                                    <td>
+                                        <div><strong><?= h((string)($ultimaSimulacaoEmpresa['tipo_comercio'] ?? '')) ?></strong></div>
+                                        <div class="muted">Valor médio: <?= h((string)($ultimaSimulacaoEmpresa['valor_medio_produto'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div>Âncoras: <?= h((string)($ultimaSimulacaoEmpresa['quant_ancoras'] ?? '')) ?></div>
+                                        <div>Preço produto: <?= h((string)($ultimaSimulacaoEmpresa['preco_produto'] ?? '')) ?></div>
+                                        <div>Investimento: <?= h((string)($ultimaSimulacaoEmpresa['investimento'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div>Probabilidade: <strong><?= h((string)($ultimaSimulacaoEmpresa['probabilidade_sucesso'] ?? '')) ?></strong></div>
+                                        <div>Renda mensal: <strong><?= h((string)($ultimaSimulacaoEmpresa['renda_mensal'] ?? '')) ?></strong></div>
+                                        <div>Break-even: <strong><?= h((string)($ultimaSimulacaoEmpresa['break_even'] ?? '')) ?></strong></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </section>
             </main>
         </div>
     </div>

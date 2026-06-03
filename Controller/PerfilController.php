@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../BE/Model/adm/PerfilModel.php';
+require_once __DIR__ . '/../BE/Model/PerfilModel.php';
 
 class PerfilController {
     private $modelo;
@@ -32,6 +32,14 @@ class PerfilController {
         }
 
         return $this->modelo->getHistoricoSimulacoes((int)$empresaId, $limit);
+    }
+
+    public function obterUltimaSimulacaoEmpresa($empresaId) {
+        if (!is_numeric($empresaId) || $empresaId <= 0) {
+            return null;
+        }
+
+        return $this->modelo->getUltimaSimulacaoEmpresa((int)$empresaId);
     }
 }
 ?>
