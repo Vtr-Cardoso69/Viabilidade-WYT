@@ -16,7 +16,7 @@ session_start();
         <img width="100" height="100" src="img/logo.png" alt="Logo">
         <?php
     if (isset($_SESSION['empresa_id'])) {
-        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a/e), " . $_SESSION['nome'] . "!</a></p>";
+        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
     } elseif(!isset($_SESSION['empresa_id'])){
         echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
     }
