@@ -28,7 +28,11 @@ class PerfilModel {
     /**
      * Obter histórico de simulações da empresa
      */
-    public function getHistoricoSimulacoes($empresaId, $limit = 50) {
+    public function getHistoricoSimulacoes($empresaId, $limit = null) {
+        if (!is_numeric($empresaId) || $empresaId <= 0) {
+            return [];
+        }
+
         $sql = "SELECT
                     s.id,
                     s.probabilidade_sucesso,
@@ -45,12 +49,19 @@ class PerfilModel {
                 INNER JOIN cidades c ON c.id = s.cidade_id
                 INNER JOIN form_empresa f ON f.id = s.form_empresa_id
                 WHERE s.empresa_id = :empresa_id
-                ORDER BY s.id DESC
-                LIMIT :limit";
-        
+                ORDER BY s.id DESC";
+
+        if ($limit !== null) {
+            $limit = (int)$limit;
+            if ($limit > 0) {
+                $sql .= " LIMIT $limit";
+            }
+        }
+
         try {
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([':empresa_id' => $empresaId, ':limit' => $limit]);
+            $stmt->bindValue(':empresa_id', (int)$empresaId, PDO::PARAM_INT);
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             error_log("Erro ao buscar histórico: " . $e->getMessage());

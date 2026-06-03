@@ -22,5 +22,16 @@ class PerfilController {
         // Chamar model para obter dados
         return $this->modelo->getPerfilCompleto((int)$empresaId);
     }
+
+    /**
+     * Obter apenas o histórico de simulações da empresa
+     */
+    public function obterHistoricoEmpresa($empresaId, $limit = null) {
+        if (!is_numeric($empresaId) || $empresaId <= 0) {
+            return [];
+        }
+
+        return $this->modelo->getHistoricoSimulacoes((int)$empresaId, $limit);
+    }
 }
 ?>
