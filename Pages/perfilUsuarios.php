@@ -4,23 +4,20 @@ declare(strict_types=1);
 session_start();
 
 require_once __DIR__ . '/../Controller/PerfilController.php';
-require_once __DIR__ . '/../View/PerfilView.php';
 
 /**
- * Obter ID da empresa da sessão
+ * Obter IDs da sessão
  */
-$empresaId =
-    $_SESSION['empresa_id']
-    ?? $_SESSION['id_empresa']
-    ?? $_SESSION['user_id']
-    ?? null;
+$empresaId = $_SESSION['empresa_id'] ?? $_SESSION['id_empresa'] ?? null;
+$usuarioId = $_SESSION['user_id'] ?? null;
 
 $empresaId = is_numeric($empresaId) ? (int)$empresaId : null;
+$usuarioId = is_numeric($usuarioId) ? (int)$usuarioId : null;
 
 /**
  * Se não houver ID, mostrar erro de autenticação
  */
-if (!$empresaId) {
+if (!$empresaId && !$usuarioId) {
     http_response_code(401);
     ?>
     <!DOCTYPE html>
@@ -55,12 +52,22 @@ if (!$empresaId) {
  * Instanciar controller e obter dados do perfil com histórico
  */
 $controller = new PerfilController();
-$dados = $controller->obterPerfilCompleto($empresaId);
+
+$perfilEmpresa = null;
+$perfilUsuario = null;
+
+if ($empresaId) {
+    $perfilEmpresa = $controller->obterPerfilCompleto($empresaId);
+}
+
+if ($usuarioId && $usuarioId !== $empresaId) {
+    $perfilUsuario = $controller->obterPerfilCompleto($usuarioId);
+}
 
 /**
- * Validar se os dados existem
+ * Validar se há pelo menos um perfil encontrado
  */
-if (!$dados || !$dados['empresa']) {
+if ((!$perfilEmpresa || !$perfilEmpresa['empresa']) && (!$perfilUsuario || !$perfilUsuario['empresa'])) {
     http_response_code(404);
     ?>
     <!DOCTYPE html>
@@ -93,10 +100,40 @@ if (!$dados || !$dados['empresa']) {
 /**
  * Extrair dados para a View
  */
-$empresa = $dados['empresa'];
-$historico = $dados['historico'] ?? [];
+$empresa = $perfilEmpresa['empresa'] ?? null;
+$historicoEmpresa = $perfilEmpresa['historico'] ?? [];
+$usuario = $perfilUsuario['empresa'] ?? null;
+$historicoUsuario = $perfilUsuario['historico'] ?? [];
+
+if (!$empresa && $usuario) {
+    $empresa = $usuario;
+}
 
 /**
  * Incluir a View para renderizar os dados
  */
+// Combinar históricos da empresa e do usuário (evitar duplicados)
+$historico = [];
+if (!empty($historicoEmpresa) && !empty($historicoUsuario)) {
+    $map = [];
+    foreach ($historicoEmpresa as $row) {
+        if (isset($row['id'])) {
+            $map[(int)$row['id']] = $row;
+        }
+    }
+    foreach ($historicoUsuario as $row) {
+        if (isset($row['id'])) {
+            $map[(int)$row['id']] = $row;
+        }
+    }
+    $historico = array_values($map);
+    usort($historico, function($a, $b) {
+        return ((int)$b['id']) <=> ((int)$a['id']);
+    });
+} elseif (!empty($historicoEmpresa)) {
+    $historico = $historicoEmpresa;
+} elseif (!empty($historicoUsuario)) {
+    $historico = $historicoUsuario;
+}
+
 include __DIR__ . '/../View/PerfilView.php';

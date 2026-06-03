@@ -1,5 +1,14 @@
 <?php
 
+session_start();
+
+if (
+    !isset($_SESSION['empresa_id']) ||
+    $_SESSION['cargo'] !== 'ADM'
+) {
+    die('Acesso negado');
+}
+
 require_once __DIR__ . '/../../BE/Controller/adm/cidadeC.php';
 
 $controller = new CidadeController();
@@ -761,6 +770,8 @@ $cidades = $controller->index();
 <body>
 
     <h1>Painel Administrativo</h1>
+
+    <p><a href="../cadastroEMPRESA.php?cargo=ADM">Cadastrar novo ADM</a></p>
 
     <h2>
         <?= isset($cidadeEdit) && $cidadeEdit ? 'Editar Cidade' : 'Criar Nova Cidade' ?>

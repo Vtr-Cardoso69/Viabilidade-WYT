@@ -2,9 +2,11 @@
 /**
  * PerfilView.php - View para exibir perfil do usuário e histórico
  * 
- * Variáveis esperadas do Controller:
- * - $empresa (array): Dados da empresa (id, nome, email, cnpj)
- * - $historico (array): Histórico de simulações
+ * Variáveis esperadas do Controller/Página:
+ * - $empresa (array|null): Dados da empresa (id, nome, email, cnpj)
+ * - $usuario (array|null): Dados do usuário quando houver (opcional)
+ * - $historicoEmpresa (array): Histórico de simulações da empresa
+ * - $historicoUsuario (array): Histórico de simulações do usuário
  */
 
 function h(string $value): string
@@ -83,16 +85,16 @@ function h(string $value): string
         <div class="grid print-area">
             <aside class="card">
                 <h2>Informações do usuário</h2>
-                <div class="pill">ID: <?= h((string)$empresa['id']) ?></div>
+                <div class="pill">ID: <?= h((string)($empresa['id'] ?? ($usuario['id'] ?? ''))) ?></div>
                 <div style="height:10px"></div>
                 <div class="kv">
                     <div class="row">
                         <div class="k">Nome</div>
-                        <div class="v"><?= h((string)($empresa['nome'] ?? '')) ?></div>
+                        <div class="v"><?= h((string)($empresa['nome'] ?? ($usuario['nome'] ?? ''))) ?></div>
                     </div>
                     <div class="row">
                         <div class="k">Email</div>
-                        <div class="v"><?= h((string)($empresa['email'] ?? '')) ?></div>
+                        <div class="v"><?= h((string)($empresa['email'] ?? ($usuario['email'] ?? ''))) ?></div>
                     </div>
                     <div class="row">
                         <div class="k">CNPJ</div>
@@ -100,55 +102,106 @@ function h(string $value): string
                     </div>
                 </div>
                 <p class="muted" style="margin:12px 0 0;">
-                    O histórico abaixo mostra as últimas 50 simulações desta conta.
+                    O histórico abaixo mostra as simulações da conta (empresa) e do usuário, se houver.
                 </p>
             </aside>
 
             <main class="card">
                 <h2>Histórico de simulações</h2>
 
-                <?php if (empty($historico)): ?>
-                    <div class="empty">
-                        <strong>Nenhuma simulação encontrada.</strong>
-                        <div class="muted">Quando você fizer uma análise, ela aparecerá aqui.</div>
-                    </div>
-                <?php else: ?>
-                    <table aria-label="Histórico de simulações">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Cidade</th>
-                                <th>Comércio</th>
-                                <th>Indicadores</th>
-                                <th>Resultado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($historico as $row): ?>
-                            <tr>
-                                <td><?= h((string)$row['id']) ?></td>
-                                <td>
-                                    <div><strong><?= h((string)($row['cidade_nome'] ?? '')) ?></strong></div>
-                                    <div class="muted">Âncoras: <?= h((string)($row['quant_ancoras'] ?? '')) ?></div>
-                                </td>
-                                <td>
-                                    <div><strong><?= h((string)($row['tipo_comercio'] ?? '')) ?></strong></div>
-                                    <div class="muted">Invest.: <?= h((string)($row['investimento'] ?? '')) ?></div>
-                                </td>
-                                <td>
-                                    <div>Valor médio: <?= h((string)($row['valor_medio_produto'] ?? '')) ?></div>
-                                    <div>Público: <?= h((string)($row['publico_etario'] ?? '')) ?> / <?= h((string)($row['publico_economico'] ?? '')) ?></div>
-                                </td>
-                                <td>
-                                    <div>Prob.: <strong><?= h((string)($row['probabilidade_sucesso'] ?? '')) ?></strong></div>
-                                    <div>Renda mensal: <strong><?= h((string)($row['renda_mensal'] ?? '')) ?></strong></div>
-                                    <div>Break-even: <strong><?= h((string)($row['break_even'] ?? '')) ?></strong></div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
+                <!-- Histórico da Empresa -->
+                <section style="margin-bottom:18px;">
+                    <h3 style="margin:0 0 10px; font-size:16px;">Histórico da Empresa</h3>
+                    <?php if (empty($historicoEmpresa)): ?>
+                        <div class="empty">
+                            <strong>Nenhuma simulação da empresa encontrada.</strong>
+                            <div class="muted">Quando você fizer uma análise para a empresa, ela aparecerá aqui.</div>
+                        </div>
+                    <?php else: ?>
+                        <table aria-label="Histórico de simulações da empresa">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cidade</th>
+                                    <th>Comércio</th>
+                                    <th>Indicadores</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($historicoEmpresa as $row): ?>
+                                <tr>
+                                    <td><?= h((string)$row['id']) ?></td>
+                                    <td>
+                                        <div><strong><?= h((string)($row['cidade_nome'] ?? '')) ?></strong></div>
+                                        <div class="muted">Âncoras: <?= h((string)($row['quant_ancoras'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div><strong><?= h((string)($row['tipo_comercio'] ?? '')) ?></strong></div>
+                                        <div class="muted">Invest.: <?= h((string)($row['investimento'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div>Valor médio: <?= h((string)($row['valor_medio_produto'] ?? '')) ?></div>
+                                        <div>Público: <?= h((string)($row['publico_etario'] ?? '')) ?> / <?= h((string)($row['publico_economico'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div>Prob.: <strong><?= h((string)($row['probabilidade_sucesso'] ?? '')) ?></strong></div>
+                                        <div>Renda mensal: <strong><?= h((string)($row['renda_mensal'] ?? '')) ?></strong></div>
+                                        <div>Break-even: <strong><?= h((string)($row['break_even'] ?? '')) ?></strong></div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </section>
+
+                <!-- Histórico do Usuário (se diferente) -->
+                <section>
+                    <h3 style="margin:0 0 10px; font-size:16px;">Histórico do Usuário</h3>
+                    <?php if (empty($historicoUsuario)): ?>
+                        <div class="empty">
+                            <strong>Nenhuma simulação do usuário encontrada.</strong>
+                            <div class="muted">Quando você fizer análises como usuário, elas aparecerão aqui.</div>
+                        </div>
+                    <?php else: ?>
+                        <table aria-label="Histórico de simulações do usuário">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cidade</th>
+                                    <th>Comércio</th>
+                                    <th>Indicadores</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($historicoUsuario as $row): ?>
+                                <tr>
+                                    <td><?= h((string)$row['id']) ?></td>
+                                    <td>
+                                        <div><strong><?= h((string)($row['cidade_nome'] ?? '')) ?></strong></div>
+                                        <div class="muted">Âncoras: <?= h((string)($row['quant_ancoras'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div><strong><?= h((string)($row['tipo_comercio'] ?? '')) ?></strong></div>
+                                        <div class="muted">Invest.: <?= h((string)($row['investimento'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div>Valor médio: <?= h((string)($row['valor_medio_produto'] ?? '')) ?></div>
+                                        <div>Público: <?= h((string)($row['publico_etario'] ?? '')) ?> / <?= h((string)($row['publico_economico'] ?? '')) ?></div>
+                                    </td>
+                                    <td>
+                                        <div>Prob.: <strong><?= h((string)($row['probabilidade_sucesso'] ?? '')) ?></strong></div>
+                                        <div>Renda mensal: <strong><?= h((string)($row['renda_mensal'] ?? '')) ?></strong></div>
+                                        <div>Break-even: <strong><?= h((string)($row['break_even'] ?? '')) ?></strong></div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </section>
             </main>
         </div>
     </div>

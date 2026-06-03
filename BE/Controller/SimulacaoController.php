@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../Model/SimulacaoModel.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Model/SimulacaoModel.php';
 
 class SimulacaoController {
 
@@ -10,27 +10,24 @@ class SimulacaoController {
         $this->model = new SimulacaoModel($pdo);
     }
 
-    public function listarCidades() {
-        return $this->model->listarCidades();
+    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras){
+        return $this->model->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
     }
 
-    public function listarEmpresas() {
-        return $this->model->listarEmpresas();
+    public function calcularRendaMensal($cidade_id, $empresa_id, $preco_produto){
+        return $this->model->calcularRendaMensal($cidade_id, $empresa_id, $preco_produto);
     }
 
-    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $investimento = null, $quant_ancoras = null, $preco_medio = null) {
-        if (func_num_args() == 3) {
-            return $this->model->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $investimento);
-        }
-
-        return $this->model->simularViabilidade(
-            $cidade_id,
-            $empresa_id,
-            $investimento,
-            $quant_ancoras,
-            $preco_medio
-        );
+    public function calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto){
+        return $this->model->calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto);
     }
+
+    public function fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even){
+        return $this->model->fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even);
+    }
+
 }
+
+
 
 ?>

@@ -1,11 +1,8 @@
 <?php
 
-require_once '../BE/DB/Database.php';
-require_once '../BE/Controller/SimulacaoController.php';
-require_once '../BE/Controller/adm/cidadeC.php';
-
-
-$simulacaoController = new SimulacaoController($pdo);
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/DB/Database.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/SimulacaoController.php';
+require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/adm/cidadeC.php';
 
 /* CONTROLADOR DAS CIDADES */
 $cidadeController = new CidadeController();
@@ -27,10 +24,26 @@ $cidades = $cidadeController->index();
 session_start();
 
 ?>
+
+<?php
+
+if(!isset($_SESSION['empresa_id'])){
+    echo "<script>alert('Faça login para acessar a simulação!');</script>";
+    header('Location: ../index.php');
+    exit;
+}
+
+?>
 <body>
      <header>
         <img src="img/bussola.png" alt="Bússola">
         <img src="img/logo.png" alt="Logo">
+        <?php if (isset($_SESSION['empresa_id'])) {
+        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
+    } elseif(!isset($_SESSION['empresa_id'])){
+        echo "<p><a href='Pages/cadastroEmpresa.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/loginEmpresa.php'>Faça login</a></p>";
+    }
+    ?>
          <a href="">INICIAR</a>
          <p>ou</p>
             <a href="">CADASTRAR</a>
@@ -63,7 +76,7 @@ session_start();
     <label for="investimento">Investimento: </label>
     <input type="number" name="investimento" id="investimento" min="0" step="0.01" required><br><br>
 
-    <label for="ancoras">Quantidade de Ancoras: </label>
+    <label for="quant_ancoras">Quantidade de Ancoras: </label>
     <input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
 
     <label for = "preco_medio"> Preço Médio dos Produtos: </label>
@@ -111,15 +124,27 @@ session_start();
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cidade_id = $_POST['cidade_id'];
-    $empresa_id = $_SESSION['id'];
-    $quant_ancoras = $_POST['quant_ancoras'];
+    $simulacaoController = new SimulacaoController($pdo);
 
+    
+    $cidade_id = $_POST['cidade_id'];
+    $empresa_id = $_SESSION['empresa_id'];
+    $quant_ancoras = $_POST['quant_ancoras'];
+    $preco_produto = $_POST['preco_medio'];
+    $investimento = $_POST['investimento'];
+    $preco_produto = $_POST['preco_medio'];
     $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
 
-    echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%";
+    $renda_mensal = $simulacaoController->calcularRendaMensal($cidade_id, $empresa_id, $preco_produto);
 
+    $break_even = $simulacaoController->calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto);
+
+    $simulacaoController->fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even);
+
+    echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
+    echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
+    echo "Você atingirá o break even em: " . round($break_even,0) . " " . (round($break_even,0) == 1 ? "mês" : "meses") . ".<br>";
 }
 
 ?>
