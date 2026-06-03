@@ -6,9 +6,9 @@ session_start();
 require_once __DIR__ . '/../Controller/PerfilController.php';
 
 /**
- * Obter ID da empresa da sessão
+ * Obter ID da empresa da sessão ou via query string
  */
-$empresaId = $_SESSION['empresa_id'] ?? $_SESSION['id_empresa'] ?? null;
+$empresaId = $_SESSION['empresa_id'] ?? $_SESSION['id_empresa'] ?? $_GET['id'] ?? null;
 $empresaId = is_numeric($empresaId) ? (int)$empresaId : null;
 
 /**
