@@ -36,8 +36,8 @@ if(!isset($_SESSION['empresa_id'])){
 ?>
 <body>
      <header>
-        <img src="img/bussola.png" alt="Bússola">
-        <img src="img/logo.png" alt="Logo">
+        <img src="../img/bussola.png" alt="Bússola">
+        <img src="../img/logo.png" alt="Logo">
         <?php if (isset($_SESSION['empresa_id'])) {
         echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
     } elseif(!isset($_SESSION['empresa_id'])){
@@ -78,6 +78,7 @@ if(!isset($_SESSION['empresa_id'])){
     cursor: pointer;
     color: blue;
     text-decoration: underline;
+    
 }
 
 .tooltip .tooltiptext {
@@ -93,7 +94,7 @@ if(!isset($_SESSION['empresa_id'])){
     z-index: 1;
     top: 125%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-20%);
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
