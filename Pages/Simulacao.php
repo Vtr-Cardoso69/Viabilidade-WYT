@@ -13,7 +13,7 @@ $cidades = $cidadeController->index();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,19 +71,61 @@ if(!isset($_SESSION['empresa_id'])){
         </option>
     <?php endforeach; ?>
 </select>
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
 
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 280px;
+    background-color: #f8f8f8;
+    color: #333;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
 
-    <label for="investimento">Investimento: </label>
-    <input type="number" name="investimento" id="investimento" min="1" step="0.01" required><br><br>
+.tooltip.active .tooltiptext {
+    visibility: visible;
+}
+</style>
+<label for="investimento">Investimento: </label>
+<input type="number" name="investimento" id="investimento" min="0.01" step="0.01" required><br><br>
 
-    <label for="quant_ancoras">Quantidade de Ancoras: </label>
-    <input type="number" name="quant_ancoras" id="quant_ancoras" min="1" required><br><br>
+<label for="quant_ancoras">
+    Quantidade de
+    <span class="tooltip" onclick="toggleTooltip(this)">
+        Âncoras
+        <span class="tooltiptext">
+            Âncoras: pontos próximos que garantem a sustentação, atração e rentabilidade do negócio (escolas, empresas, comércios, etc.).
+        </span>
+    </span>:
+</label>
 
-    <label for = "preco_medio"> Preço Médio dos Produtos: </label>
-    <input type="number" name="preco_medio" id="preco_medio" min="1" step="0.01" required><br><br>
+<input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
 
-    <input type="submit" value="Simular">
+<label for="preco_medio">Preço Médio dos Produtos:</label>
+<input type="number" name="preco_medio" id="preco_medio" min="0.01" step="0.01" required><br><br>
 
+<input type="submit" value="Simular">
+
+<script>
+function toggleTooltip(element) {
+    element.classList.toggle("active");
+}
+</script>
 </form>
 
     <footer >

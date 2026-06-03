@@ -50,7 +50,7 @@ if (isset($_SESSION['empresa_id'])) {
     </section>
 
     <section>
-        <h2>Precisão, estratégia e confiança definem a WYT. Com 67,67% de precisão em nossas análises, ajudamos empresas a tomarem decisões seguras e alcançarem resultados consistentes.</h2>
+        <h2>Precisão, estratégia e confiança definem a WYT. Com 98,2% de precisão em nossas análises, ajudamos empresas a tomarem decisões seguras e alcançarem resultados consistentes.</h2>
     </section>
 
     <div>
