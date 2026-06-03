@@ -771,6 +771,8 @@ $cidades = $controller->index();
 
     <h1>Painel Administrativo</h1>
 
+    <p><a href="../cadastroEMPRESA.php?cargo=ADM">Cadastrar novo ADM</a></p>
+
     <h2>
         <?= isset($cidadeEdit) && $cidadeEdit ? 'Editar Cidade' : 'Criar Nova Cidade' ?>
     </h2>

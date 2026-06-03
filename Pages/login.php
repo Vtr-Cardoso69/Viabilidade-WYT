@@ -2,6 +2,8 @@
 
 session_start();
 
+
+
 require_once __DIR__ . '/../BE/DB/Database.php';
 
 $erro = '';
@@ -28,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['empresa_id'] = $empresas['id'];
         $_SESSION['nome'] = $empresas['nome'];
         $_SESSION['email'] = $empresas['email'];
+        $_SESSION['cargo'] = $empresas['cargo'];
 
         header("Location: ../index.php");
         exit;

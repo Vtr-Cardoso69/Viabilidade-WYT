@@ -44,9 +44,11 @@ CREATE TABLE `cidades` (
 --
 -- Despejando dados para a tabela `cidades`
 --
-
 INSERT INTO `cidades` (`id`, `nome`, `populacao_quant`, `perfil_etario`, `perfil_economico`, `comercio_alimentacao`, `comercio_moda`, `comercio_tecnologia`, `comercio_varejo`, `comercio_servicos`, `comercio_turismo`) VALUES
-(4, 'eee', 333333, 'Jovens (13-29 anos)', 'Baixa Renda', 1, 1, 1, 1, 1, 2);
+(1, 'São Paulo', 12300000, 'Adultos (30-59 anos)', 'Alta Renda', 5000, 3000, 2000, 4000, 6000, 3500),
+(2, 'Rio de Janeiro', 6748000, 'Adultos (30-59 anos)', 'Média Renda', 4000, 2500, 1500, 3500, 5000, 3000),
+(3, 'Belo Horizonte', 2520000, 'Adultos (30-59 anos)', 'Média Renda', 2000, 1500, 1000, 2500, 3000, 1500),
+(4, 'Curitiba', 1960000, 'Adultos (30-59 anos)', 'Média Renda', 1500, 1200, 800, 2000, 2500, 1200);
 
 -- --------------------------------------------------------
 
@@ -71,11 +73,7 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id`, `nome`, `email`, `senha`, `cnpj`, `tipo_comercio`, `perfil_economico`, `perfil_etario`, `cargo`) VALUES
-(5, 'bb', 'bb@bb', '$2y$10$0/lFL83qmizmr3XFvPFn4OSX5cEJqk8QZ/GUvriBw.zW8Wmu2UjqS', '22222222222222', 'Alimentacao', 'Baixa Renda', 'Criancas (0-12 anos)', ''),
-(6, 'aa', 'aa@aa', '$2y$10$QA8RxfVnlR1DW2eI6Z7mW.0A8j/AI.UI0sxwLXneYabxpU88wNzUi', '11111111111111', 'Alimentacao', 'Baixa Renda', 'Criancas (0-12 anos)', ''),
-(7, 'ee', 'ee@ee', '$2y$10$pTgA59d2dSy1wqxt0WEVNuLf1IZGMXuObPQ1iHm/Hx6MXQ5xl9UOO', '33333333333333', 'Alimentacao', 'Baixa Renda', 'Criancas (0-12 anos)', ''),
-(10, 'tt', 'tt@tt', '$2y$10$pHDs7gM12I38hiBzXm6n.uEVY1RimPPXFDpnX4W8aUad.eEcoYGGK', '44444444444444', 'Alimentacao', 'Baixa Renda', 'Criancas (0-12 anos)', ''),
-(11, 'hh', 'hh@hh', '$2y$10$LoxbYuUWPP3sfqxzOuk2dO3A/EPQqg0sMnc1dy2I4hF4mJ2GrXQkG', '55555555555555', 'Alimentacao', 'Baixa Renda', 'Criancas (0-12 anos)', '');
+(1, 'wyt', 'wyt@g', '$2y$10$OIonUIqDqmtWAqGHrCk.ieCYNdnknM.BO1AlE1SwXmpyhjUxUaT8u', '67676767676767', 'Servicos', 'Alta Renda', 'Adultos (30-59 anos)', 'ADM');
 
 -- --------------------------------------------------------
 
@@ -133,7 +131,7 @@ ALTER TABLE `cidades`
 -- AUTO_INCREMENT de tabela `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `simulacoes`
