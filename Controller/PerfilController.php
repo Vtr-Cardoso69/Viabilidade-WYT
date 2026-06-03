@@ -33,17 +33,5 @@ class PerfilController {
 
         return $this->modelo->getHistoricoSimulacoes((int)$empresaId, $limit);
     }
-
-    /**
-     * Obter eventos inscritos por participante
-     */
-    public function obterEventosPorParticipante($id_participante) {
-        if (!is_numeric($id_participante) || $id_participante <= 0) {
-            return [];
-        }
-
-        return $this->modelo->listarEventosPorParticipante((int)$id_participante);
-    }
 }
 ?>
-
