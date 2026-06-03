@@ -70,6 +70,32 @@ class PerfilModel {
     }
 
     /**
+     * Listar eventos inscritos por participante
+     * Retorna array associativo ou array vazio em caso de erro
+     */
+    public function listarEventosPorParticipante($id_participante) {
+        if (!is_numeric($id_participante) || $id_participante <= 0) {
+            return [];
+        }
+
+        $sql = "SELECT e.id, e.titulo, e.descricao, e.data, e.local
+                FROM eventos e
+                INNER JOIN inscricoes i ON e.id = i.id_evento
+                WHERE i.id_participante = :id_participante
+                ORDER BY e.data DESC";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':id_participante', (int)$id_participante, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log('Erro ao listar eventos por participante: ' . $e->getMessage());
+            return [];
+        }
+    }
+
+    /**
      * Obter perfil completo (empresa + histórico de simulações)
      */
     public function getPerfilCompleto($empresaId) {
