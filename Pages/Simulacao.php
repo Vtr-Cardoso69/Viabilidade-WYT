@@ -13,7 +13,7 @@ $cidades = $cidadeController->index();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,8 +36,8 @@ if(!isset($_SESSION['empresa_id'])){
 ?>
 <body>
      <header>
-        <img src="img/bussola.png" alt="Bússola">
-        <img src="img/logo.png" alt="Logo">
+        <img src="../img/bussola.png" alt="Bússola">
+        <img src="../img/logo.png" alt="Logo">
         <?php if (isset($_SESSION['empresa_id'])) {
         echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
     } elseif(!isset($_SESSION['empresa_id'])){
@@ -71,19 +71,62 @@ if(!isset($_SESSION['empresa_id'])){
         </option>
     <?php endforeach; ?>
 </select>
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+    
+}
 
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 280px;
+    background-color: #f8f8f8;
+    color: #333;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    left: 50%;
+    transform: translateX(-20%);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
 
-    <label for="investimento">Investimento: </label>
-    <input type="number" name="investimento" id="investimento" min="0" step="0.01" required><br><br>
+.tooltip.active .tooltiptext {
+    visibility: visible;
+}
+</style>
+<label for="investimento">Investimento: </label>
+<input type="number" name="investimento" id="investimento" min="0.01" step="0.01" required><br><br>
 
-    <label for="quant_ancoras">Quantidade de Ancoras: </label>
-    <input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
+<label for="quant_ancoras">
+    Quantidade de
+    <span class="tooltip" onclick="toggleTooltip(this)">
+        Âncoras
+        <span class="tooltiptext">
+            Âncoras: pontos próximos que garantem a sustentação, atração e rentabilidade do negócio (escolas, empresas, comércios, etc.).
+        </span>
+    </span>:
+</label>
 
-    <label for = "preco_medio"> Preço Médio dos Produtos: </label>
-    <input type="number" name="preco_medio" id="preco_medio" min="0" step="0.01" required><br><br>
+<input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
 
-    <input type="submit" value="Simular">
+<label for="preco_medio">Preço Médio dos Produtos:</label>
+<input type="number" name="preco_medio" id="preco_medio" min="0.01" step="0.01" required><br><br>
 
+<input type="submit" value="Simular">
+
+<script>
+function toggleTooltip(element) {
+    element.classList.toggle("active");
+}
+</script>
 </form>
 
     <footer >
@@ -140,11 +183,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $break_even = $simulacaoController->calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto);
 
     $simulacaoController->fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even);
-
+    
     echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
     echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
+    if($break_even < 1){
+        echo "Você atingirá o break even em menos de 1 mês.<br>";
+    }elseif($break_even == 1 || $break_even > 1){
     echo "Você atingirá o break even em: " . round($break_even,0) . " " . (round($break_even,0) == 1 ? "mês" : "meses") . ".<br>";
+    }
 }
 
 ?>
