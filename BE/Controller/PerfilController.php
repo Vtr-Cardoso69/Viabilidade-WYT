@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../BE/Model/adm/PerfilModel.php';
+require_once __DIR__ . '/../Model/adm/PerfilModel.php';
 
 class PerfilController {
     private $modelo;
@@ -45,5 +45,7 @@ class PerfilController {
         return $this->modelo->listarEventosPorParticipante((int)$id_participante);
     }
 }
+
+
 ?>
 
