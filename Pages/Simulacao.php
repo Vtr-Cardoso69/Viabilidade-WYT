@@ -13,7 +13,7 @@ $cidades = $cidadeController->index();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,18 +72,31 @@ if(!isset($_SESSION['empresa_id'])){
     <?php endforeach; ?>
 </select>
 
+<label for="investimento">Investimento: </label>
+<input type="number" name="investimento" id="investimento" min="0" step="0.01" required><br><br>
 
-    <label for="investimento">Investimento: </label>
-    <input type="number" name="investimento" id="investimento" min="0" step="0.01" required><br><br>
+<label for="quant_ancoras">
+    Quantidade de
+    <span class="tooltip" onclick="toggleTooltip(this)">
+        Âncoras
+        <span class="tooltiptext">
+            Âncoras: pontos próximos que garantem a sustentação, atração e rentabilidade do negócio (escolas, empresas, comércios, etc.).
+        </span>
+    </span>:
+</label>
 
-    <label for="quant_ancoras">Quantidade de Ancoras: </label>
-    <input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
+<input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
 
-    <label for = "preco_medio"> Preço Médio dos Produtos: </label>
-    <input type="number" name="preco_medio" id="preco_medio" min="0" step="0.01" required><br><br>
+<label for="preco_medio">Preço Médio dos Produtos:</label>
+<input type="number" name="preco_medio" id="preco_medio" min="0" step="0.01" required><br><br>
 
-    <input type="submit" value="Simular">
+<input type="submit" value="Simular">
 
+<script>
+function toggleTooltip(element) {
+    element.classList.toggle("active");
+}
+</script>
 </form>
 
     <footer >
