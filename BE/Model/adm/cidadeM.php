@@ -77,8 +77,15 @@ class CidadeModel {
         ]);
     }
 
-    public function delete($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM cidades WHERE id = ?");
+     public function delete($id) {
+        // Exclui dados dependentes (FK SimulacaoEmpresa)
+        $sql = "DELETE FROM simulacoes WHERE cidade_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+
+        // Exclui a empresa da tabela empresas
+        $sql = "DELETE FROM cidades WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
 }
