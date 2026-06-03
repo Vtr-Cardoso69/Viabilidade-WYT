@@ -156,7 +156,8 @@ function h(string $value): string
                     <?php endif; ?>
                 </section>
 
-                <!-- Histórico do Usuário (se diferente) -->
+                <!-- Histórico do Usuário (se houver dados de usuário) -->
+                <?php if ($usuario || !empty($historicoUsuario)): ?>
                 <section>
                     <h3 style="margin:0 0 10px; font-size:16px;">Histórico do Usuário</h3>
                     <?php if (empty($historicoUsuario)): ?>
@@ -202,6 +203,7 @@ function h(string $value): string
                         </table>
                     <?php endif; ?>
                 </section>
+                <?php endif; ?>
             </main>
         </div>
     </div>
