@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: ../index.php');
         exit;
     } else {
-        echo "<script>alert('Email já cadastrado!');</script>";
+        echo "<script>alert('Email ou CNPJ já cadastrado!');</script>";
     }
 }
 ?>

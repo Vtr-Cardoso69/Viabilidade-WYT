@@ -15,10 +15,21 @@ class EmpresaModel {
         return $stmt->fetchColumn() > 0;
     }
 
+        public function verificarCnpjExistente($cnpj) {
+        $sql = "SELECT COUNT(*) FROM empresas WHERE cnpj = :cnpj";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':cnpj', $cnpj);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
     // Salva os dados principais da empresa
     public function cadastrarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha, $cargo) {
         if ($this->verificarEmailExistente($email)) {
             return false; // Já existe o email
+        }
+        if ($this->verificarCnpjExistente($cnpj)) {
+            return false; // Já existe o cnpj
         }
 
         $sql = "INSERT INTO empresas (nome, email, cnpj, tipo_comercio, perfil_economico, perfil_etario, senha, cargo)
