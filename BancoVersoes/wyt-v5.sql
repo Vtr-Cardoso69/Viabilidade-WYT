@@ -44,12 +44,6 @@ CREATE TABLE `cidades` (
 --
 -- Despejando dados para a tabela `cidades`
 --
-INSERT INTO `cidades` (`id`, `nome`, `populacao_quant`, `perfil_etario`, `perfil_economico`, `comercio_alimentacao`, `comercio_moda`, `comercio_tecnologia`, `comercio_varejo`, `comercio_servicos`, `comercio_turismo`) VALUES
-(1, 'São Paulo', 12300000, 'Adultos (30-59 anos)', 'Alta Renda', 5000, 3000, 2000, 4000, 6000, 3500),
-(2, 'Rio de Janeiro', 6748000, 'Adultos (30-59 anos)', 'Média Renda', 4000, 2500, 1500, 3500, 5000, 3000),
-(3, 'Belo Horizonte', 2520000, 'Adultos (30-59 anos)', 'Média Renda', 2000, 1500, 1000, 2500, 3000, 1500),
-(4, 'Curitiba', 1960000, 'Adultos (30-59 anos)', 'Média Renda', 1500, 1200, 800, 2000, 2500, 1200);
-
 -- --------------------------------------------------------
 
 --
@@ -73,7 +67,7 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id`, `nome`, `email`, `senha`, `cnpj`, `tipo_comercio`, `perfil_economico`, `perfil_etario`, `cargo`) VALUES
-(1, 'wyt', 'wyt@g', '$2y$10$OIonUIqDqmtWAqGHrCk.ieCYNdnknM.BO1AlE1SwXmpyhjUxUaT8u', '67676767676767', 'Servicos', 'Alta Renda', 'Adultos (30-59 anos)', 'ADM');
+(1, 'WYT', 'adm@wyt.com', '$2y$10$OIonUIqDqmtWAqGHrCk.ieCYNdnknM.BO1AlE1SwXmpyhjUxUaT8u', '67676767676767', 'Servicos', 'Alta Renda', 'Adultos (30-59 anos)', 'ADM');
 
 -- --------------------------------------------------------
 
@@ -125,7 +119,7 @@ ALTER TABLE `simulacoes`
 -- AUTO_INCREMENT de tabela `cidades`
 --
 ALTER TABLE `cidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de tabela `empresas`

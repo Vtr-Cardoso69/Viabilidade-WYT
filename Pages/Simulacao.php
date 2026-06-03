@@ -103,7 +103,7 @@ if(!isset($_SESSION['empresa_id'])){
 }
 </style>
 <label for="investimento">Investimento: </label>
-<input type="number" name="investimento" id="investimento" min="0" step="0.01" required><br><br>
+<input type="number" name="investimento" id="investimento" min="0.01" step="0.01" required><br><br>
 
 <label for="quant_ancoras">
     Quantidade de
@@ -118,7 +118,7 @@ if(!isset($_SESSION['empresa_id'])){
 <input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
 
 <label for="preco_medio">Preço Médio dos Produtos:</label>
-<input type="number" name="preco_medio" id="preco_medio" min="0" step="0.01" required><br><br>
+<input type="number" name="preco_medio" id="preco_medio" min="0.01" step="0.01" required><br><br>
 
 <input type="submit" value="Simular">
 
@@ -183,11 +183,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $break_even = $simulacaoController->calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto);
 
     $simulacaoController->fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even);
-
+    
     echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
     echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
+    if($break_even < 1){
+        echo "Você atingirá o break even em menos de 1 mês.<br>";
+    }elseif($break_even == 1 || $break_even > 1){
     echo "Você atingirá o break even em: " . round($break_even,0) . " " . (round($break_even,0) == 1 ? "mês" : "meses") . ".<br>";
+    }
 }
 
 ?>
