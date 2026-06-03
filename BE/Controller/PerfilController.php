@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../Model/adm/PerfilModel.php';
+require_once __DIR__ . '/../Model/PerfilModel.php';
 
 class PerfilController {
     private $modelo;
@@ -34,6 +34,14 @@ class PerfilController {
         return $this->modelo->getHistoricoSimulacoes((int)$empresaId, $limit);
     }
 
+    public function obterUltimaSimulacaoEmpresa($empresaId) {
+        if (!is_numeric($empresaId) || $empresaId <= 0) {
+            return null;
+        }
+
+        return $this->modelo->getUltimaSimulacaoEmpresa((int)$empresaId);
+    }
+
     /**
      * Obter eventos inscritos por participante
      */
@@ -45,7 +53,6 @@ class PerfilController {
         return $this->modelo->listarEventosPorParticipante((int)$id_participante);
     }
 }
-
 
 ?>
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../DB/Database.php';
+require_once __DIR__ . '/../DB/Database.php';
 
 class PerfilModel {
     private $pdo;
@@ -70,6 +70,45 @@ class PerfilModel {
     }
 
     /**
+     * Obter a última simulação da empresa
+     */
+    public function getUltimaSimulacaoEmpresa($empresaId) {
+        if (!is_numeric($empresaId) || $empresaId <= 0) {
+            return null;
+        }
+
+        $sql = "SELECT
+                    s.id,
+                    s.probabilidade_sucesso,
+                    s.renda_mensal,
+                    s.break_even,
+                    s.quant_ancoras,
+                    s.preco_produto,
+                    s.investimento,
+                    c.nome AS cidade_nome,
+                    f.tipo_comercio,
+                    f.valor_medio_produto,
+                    f.publico_etario,
+                    f.publico_economico
+                FROM simulacoes s
+                INNER JOIN cidades c ON c.id = s.cidade_id
+                INNER JOIN form_empresa f ON f.id = s.form_empresa_id
+                WHERE s.empresa_id = :empresa_id
+                ORDER BY s.id DESC
+                LIMIT 1";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':empresa_id', (int)$empresaId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log("Erro ao buscar última simulação: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Listar eventos inscritos por participante
      * Retorna array associativo ou array vazio em caso de erro
      */
@@ -106,11 +145,14 @@ class PerfilModel {
         }
 
         $historico = $this->getHistoricoSimulacoes($empresaId);
+        $ultimaSimulacao = $this->getUltimaSimulacaoEmpresa($empresaId);
         
         return [
             'empresa' => $empresa,
-            'historico' => $historico
+            'historico' => $historico,
+            'ultima_simulacao' => $ultimaSimulacao
         ];
     }
 }
 ?>
+

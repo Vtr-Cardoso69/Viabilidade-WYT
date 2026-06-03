@@ -89,6 +89,7 @@ if (!$perfilEmpresa || !$perfilEmpresa['empresa']) {
  */
 $empresa = $perfilEmpresa['empresa'];
 $historicoEmpresa = $perfilEmpresa['historico'] ?? [];
+$ultimaSimulacaoEmpresa = $perfilEmpresa['ultima_simulacao'] ?? null;
 $usuario = null;
 $historicoUsuario = [];
 
