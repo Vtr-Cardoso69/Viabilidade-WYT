@@ -18,16 +18,7 @@ if (!isset($_SESSION['empresa_id'])) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<?php
-session_start();
-?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -58,7 +49,7 @@ session_start();
             <a href="#"></a>
              <a href="#"></a>
             <a href="#"></a>
-          echo "<p><a href='Pages/Simulacao.php'>Simulação</a></p>";
+          <p><a href='Pages/Simulacao.php'>Simulação</a></p>
     </nav>
   <?php
 if (isset($_SESSION['empresa_id'])) {
