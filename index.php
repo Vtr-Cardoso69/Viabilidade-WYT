@@ -29,9 +29,8 @@ session_start();
             <a href="#"></a>
             <a href="#"></a>
             <a href="#"></a>
-             <a href="#"></a>
             <a href="#"></a>
-          echo "<p><a href='Pages/Simulacao.php'>Simulação</a></p>";
+            <a href='Pages/Simulacao.php'>Simulação</a></p>
     </nav>
 
     <?php
