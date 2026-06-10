@@ -22,8 +22,8 @@ if (!$empresaId) {
         <div class="wrap">
             <div class="card">
                 <h1>Perfil da Empresa</h1>
-                <p class="muted">Voce precisa estar logado para ver o perfil e historico.</p>
-                <a class="btn" href="../index.php">Ir para o inicio</a>
+                <p class="muted">Você precisa estar logado para ver o perfil e histórico.</p>
+                <a class="btn" href="../index.php">Ir para o início</a>
             </div>
         </div>
     </body>
@@ -43,15 +43,15 @@ if (!$empresa) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Perfil nao encontrado</title>
+        <title>Perfil não encontrado</title>
        
     </head>
     <body>
         <div class="wrap">
             <div class="card">
-                <h1>Perfil nao encontrado</h1>
-                <p>O perfil solicitado nao existe.</p>
-                <a class="btn" href="../index.php">Ir para o inicio</a>
+                <h1>Perfil não encontrado</h1>
+                <p>O perfil solicitado não existe.</p>
+                <a class="btn" href="../index.php">Ir para o início</a>
             </div>
         </div>
     </body>
@@ -74,6 +74,7 @@ function h(string $value): string
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/perfil.css">
     <title>Perfil da Empresa</title>
     <style>
         :root{
@@ -130,14 +131,14 @@ function h(string $value): string
                 <strong>Perfil da Empresa</strong>
             </div>
             <div class="actions">
-                <a class="btn secondary" href="../index.php">Inicio</a>
-                <button class="btn" type="button" onclick="window.print()">Imprimir historico</button>
+                <a class="btn secondary" href="../index.php">Início</a>
+                <button class="btn" type="button" onclick="window.print()">Imprimir histórico</button>
             </div>
         </header>
 
         <div class="grid print-area">
             <aside class="card">
-                <h2>Informacoes da empresa</h2>
+                <h2>Informações da empresa</h2>
                 
 
                 <div class="kv">
@@ -154,7 +155,7 @@ function h(string $value): string
                         <div class="v"><?= h((string)($empresa['cnpj'] ?? '')) ?></div>
                     </div>
                     <div class="row">
-                        <div class="k">Tipo de Comercio</div>
+                        <div class="k">Tipo de Comércio</div>
                         <div class="v"><?= h((string)($empresa['tipo_comercio'] ?? '')) ?></div>
                     </div>
                 </div>
@@ -165,21 +166,21 @@ function h(string $value): string
             <br>
             
             <main class="card">
-                <h2>Historico de simulacoes</h2>
+                <h2>Histórico de simulações</h2>
 
                 <?php if (empty($simulacoes)): ?>
                     <div class="empty">
-                        <strong>Nenhuma simulacao encontrada.</strong>
-                        <div class="muted">Quando voce fizer uma analise, ela aparecera aqui.</div>
+                        <strong>Nenhuma simulação encontrada.</strong>
+                        <div class="muted">Quando você fizer uma análise, ela aparecerá aqui.</div>
                     </div>
                 <?php else: ?>
                     <div style="overflow-x: auto;">
-                        <table aria-label="Historico de simulacoes" style="font-size: 12px;">
+                        <table aria-label="Histórico de simulações" style="font-size: 12px;">
                             <thead>
                                 <tr>
-                                     <th>Data Simulacao</th>
-                                    <th>Quant. Ancoras</th>
-                                    <th>Preco Produto</th>
+                                     <th>Data Simulação</th>
+                                    <th>Quant. Âncoras</th>
+                                    <th>Preço Produto</th>
                                     <th>Investimento</th>
                                     <th>Prob. Sucesso (%)</th>
                                     <th>Renda Mensal</th>
