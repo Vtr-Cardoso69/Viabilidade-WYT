@@ -1,6 +1,6 @@
 <?php
 
-require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Model/SimulacaoModel.php';
+require_once __DIR__ . '/../Model/SimulacaoModel.php';
 
 class SimulacaoController {
 

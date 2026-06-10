@@ -1,14 +1,20 @@
 <?php
+session_start();
 
-require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/DB/Database.php';
-require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/SimulacaoController.php';
-require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/adm/cidadeC.php';
+require_once __DIR__ . '/../BE/DB/Database.php';
+require_once __DIR__ . '/../BE/Controller/SimulacaoController.php';
+require_once __DIR__ . '/../BE/Controller/adm/cidadeC.php';
 
 /* CONTROLADOR DAS CIDADES */
 $cidadeController = new CidadeController();
 
 /* BUSCAR TODAS AS CIDADES */
 $cidades = $cidadeController->index();
+
+if (!isset($_SESSION['empresa_id'])) {
+    echo "<script>alert('Faça login para acessar a simulação!'); window.location.href='../index.php';</script>";
+    exit;
+}
 
 ?>
 
@@ -19,34 +25,15 @@ $cidades = $cidadeController->index();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<?php
-
-session_start();
-
-?>
-
-<?php
-
-if(!isset($_SESSION['empresa_id'])){
-    echo "<script>alert('Faça login para acessar a simulação!');</script>";
-    header('Location: ../index.php');
-    exit;
-}
-
-?>
 <body>
      <header>
         <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
         <img width="100" height="100" src="../img/logo.png" alt="Logo">
         <?php if (isset($_SESSION['empresa_id'])) {
-        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
-    } elseif(!isset($_SESSION['empresa_id'])){
-        echo "<p><a href='Pages/cadastroEmpresa.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/loginEmpresa.php'>Faça login</a></p>";
-    }
+        echo "<p><a href='perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
+        }
     ?>
-         <a href="">INICIAR</a>
-         <p>ou</p>
-            <a href="">CADASTRAR</a>
+        
     </header>
     
 

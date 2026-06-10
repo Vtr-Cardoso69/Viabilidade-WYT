@@ -101,6 +101,38 @@ class EmpresaModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+
+
+
+    
+    /**
+     * Obter historico de simulacoes da empresa (todos os campos da tabela simulacoes)
+     */
+    public function obterHistoricoSimulacoes($empresaId, $limit = null) {
+        if (!is_numeric($empresaId) || $empresaId <= 0) {
+            return [];
+        }
+
+        $sql = "SELECT * FROM simulacoes WHERE empresa_id = :empresa_id ORDER BY id DESC";
+
+        if ($limit !== null) {
+            $limit = (int)$limit;
+            if ($limit > 0) {
+                $sql .= " LIMIT $limit";
+            }
+        }
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':empresa_id', (int)$empresaId, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log("Erro ao buscar historico: " . $e->getMessage());
+            return [];
+        }
+    }
 }
 
 ?>
