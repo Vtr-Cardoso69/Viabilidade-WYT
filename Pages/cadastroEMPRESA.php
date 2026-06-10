@@ -85,11 +85,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-    <header>
-        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="../img/logo.png" alt="Logo">
+       <nav class="nav1">
 
+   <header>
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola" class="bussola" id="bussola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
     </header>
+    
+   
+          
+    </nav>
 
     <h1>CADASTRO DE EMPRESA</h1>
 
@@ -160,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </form>
     
-<footer>
+        <footer>
             <p>&copy; 2026 WYT - Todos os direitos reservados</p>
         </footer>
 

@@ -82,11 +82,61 @@ a {
 }
 
 footer{
-    background-color: #162d66;
+    background-color: #0d1b2a;
     color: #ffffff;
     text-align: center;
     padding: 10px;
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.nav1{
+    height: 100px;
+   
+    background: #0d1b2a;
+
+    align-items: center;
+
+    padding: 0 40px;
+
+    border: #f0b429 1px solid;
+
+    color: white;
+}
+    
+ .nav1 p a{
+    text-decoration: none;
+    color: white;
+    background-color: #f0b429;
+    border: #f0b429 5px solid;
+    margin: 5px ;
+    border-radius: 15px;
+   
+      transition: all 0.3s ease;
+    }
+
+.nav1 p:hover a:hover {
+
+ background-color: #e29e00;
+ border: #e29e00 5px solid;
+    margin: 5px ;
+    border-radius: 15px;
+  }
+
+
+.logo{
+    width: 220px;
+    height: 100px;
+    align-items: center;
+    margin-right: 45%;
+    margin-left: auto;
+    
 }
