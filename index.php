@@ -103,16 +103,9 @@ if (isset($_SESSION['empresa_id'])) {
 
 </body>
  <footer >
-      
-    <div>
-      <h3>Contato</h3>
-      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
-      <p>(11) 99845-3598</p>
-      <p> wyt@gmail.com.br</p>
-    </div>
-
-
 
     <p>&copy; 2026 WYT - Todos os direitos reservados</p>
+
 </footer> 
+
 </html>
