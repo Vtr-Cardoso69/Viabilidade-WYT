@@ -40,9 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+    </head>
 <body>
-
-<h1>Login Empresa</h1>
+<p><a href="../index.php">Voltar</a></p>
+<h1>LOGIN</h1>
 
 <?php if ($erro): ?>
     <p style="color: red;"><?php echo htmlspecialchars($erro); ?></p>
@@ -50,21 +55,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <form method="POST">
 
+    <div class="campo">
     <label>Email:</label>
     <input type="email" name="email" required>
     <br><br>
+    </div>
 
+    <div class="campo">
     <label>Senha:</label>
     <input type="password" name="senha" required>
     <br><br>
+    </div>
 
     <button type="submit">
-        Entrar
+        entrar
     </button>
 
 </form>
 
-<p><a href="../index.php">Voltar</a></p>
+
 
 </body>
 </html>
