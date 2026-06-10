@@ -18,16 +18,7 @@ if (!isset($_SESSION['empresa_id'])) {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<?php
-session_start();
-?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -58,7 +49,7 @@ session_start();
             <a href="#"></a>
              <a href="#"></a>
             <a href="#"></a>
-          echo "<p><a href='Pages/Simulacao.php'>Simulação</a></p>";
+          <p><a href='Pages/Simulacao.php'>Simulação</a></p>
     </nav>
   <?php
 if (isset($_SESSION['empresa_id'])) {
@@ -81,37 +72,39 @@ if (isset($_SESSION['empresa_id'])) {
         </option>
     <?php endforeach; ?>
 </select>
+
 <style>
-.tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
-    
-}
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        color: blue;
+        text-decoration: underline;
+        
+    }
 
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 280px;
-    background-color: #f8f8f8;
-    color: #333;
-    text-align: left;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 10px;
-    position: absolute;
-    z-index: 1;
-    top: 125%;
-    left: 50%;
-    transform: translateX(-20%);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 280px;
+        background-color: #f8f8f8;
+        color: #333;
+        text-align: left;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 10px;
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-20%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
 
-.tooltip.active .tooltiptext {
-    visibility: visible;
-}
+    .tooltip.active .tooltiptext {
+        visibility: visible;
+    }
 </style>
+
 <label for="investimento">Investimento: </label>
 <input type="number" name="investimento" id="investimento" min="0.01" step="0.01" required><br><br>
 
