@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </head>
 <body>
  <header>
-        <img width="100" height="100" src="img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="img/logo.png" alt="Logo">
-       
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo">
+       <p><a href="../index.php">Voltar</a></p>
 </header>
-<h1>Login Empresa</h1>
+<h1>LOGIN</h1>
 
 <?php if ($erro): ?>
     <p style="color: red;"><?php echo htmlspecialchars($erro); ?></p>
@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="POST">
 
     <div class="campo">
-    <label>Email:</label>
+    <label>email:</label>
     <input type="email" name="email" required>
     <br><br>
     </div>
 
     <div class="campo">
-    <label>Senha:</label>
+    <label>senha:</label>
     <input type="password" name="senha" required>
     <br><br>
     </div>
@@ -77,37 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </form>
 
-<p><a href="../index.php">Voltar</a></p>
-
-    <footer >
-
-     <div>
-      <h3>Suporte</h3>
-      <ul>
-        <li><a href="#">Central de Ajuda</a></li>
-        <li><a href="#">Política de Privacidade</a></li>
-        <li><a href="#">Termos de Uso</a></li>
-        <li><a href="#">FAQ</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <h3>Contato</h3>
-      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
-      <p>(11) 99845-3598</p>
-      <p> wyt@gmail.com.br</p>
-    </div>
-
- <div>
-      <h3>Social</h3>
-      <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Tiktok</a></li>
-      </ul>
-    </div>
-
+ <footer >
     <p>&copy; 2026 WYT - Todos os direitos reservados</p>
 </footer>
+
+   
 </body>
 </html>
