@@ -33,6 +33,11 @@ session_start();
     
     <nav class="nav2" id="menu">
 
+    <div>
+        <h3>NOSSA HISTORIA</h3>
+        <a href="sobre.php">Sobre Nós</a>
+    </div>
+
      <div>
       <h3>SUPORTE</h3>
       <ul>

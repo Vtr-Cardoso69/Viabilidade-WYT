@@ -46,11 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../CSS/login.css">
     </head>
 <body>
+
+           <nav class="nav1">
  <header>
-        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="../img/logo.png" alt="Logo">
-       <p><a href="../index.php">Voltar</a></p>
-</header>
+   
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola" class="bussola" id="bussola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
+    <p><a href="../index.php">Voltar</a></p>
+    
+   
+</header>          
+    </nav>
+       
+
 <h1>LOGIN</h1>
 
 <?php if ($erro): ?>
