@@ -1,14 +1,20 @@
 <?php
+session_start();
 
-require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/DB/Database.php';
-require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/SimulacaoController.php';
-require_once 'C:/Turma2/xampp/htdocs/Viabilidade-WYT/BE/Controller/adm/cidadeC.php';
+require_once __DIR__ . '/../BE/DB/Database.php';
+require_once __DIR__ . '/../BE/Controller/SimulacaoController.php';
+require_once __DIR__ . '/../BE/Controller/adm/cidadeC.php';
 
 /* CONTROLADOR DAS CIDADES */
 $cidadeController = new CidadeController();
 
 /* BUSCAR TODAS AS CIDADES */
 $cidades = $cidadeController->index();
+
+if (!isset($_SESSION['empresa_id'])) {
+    echo "<script>alert('Faça login para acessar a simulação!'); window.location.href='../index.php';</script>";
+    exit;
+}
 
 ?>
 
