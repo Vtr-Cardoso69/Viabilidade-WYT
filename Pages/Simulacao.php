@@ -137,10 +137,10 @@ function toggleTooltip(element) {
      <div>
       <h3>Suporte</h3>
       <ul>
-        <li><a href="#">Central de Ajuda</a></li>
-        <li><a href="#">Política de Privacidade</a></li>
-        <li><a href="#">Termos de Uso</a></li>
-        <li><a href="#">FAQ</a></li>
+         <li><a href="central.php">Central de Ajuda</a></li>
+        <li><a href="politica.php">Política de Privacidade</a></li>
+        <li><a href="termos.php">Termos de Uso</a></li>
+        <li><a href="faq.php">FAQ</a></li>
       </ul>
     </div>
 

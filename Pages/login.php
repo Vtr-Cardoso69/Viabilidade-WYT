@@ -77,9 +77,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </form>
 
- <footer >
+    <footer >
+
+     <div>
+      <h3>Suporte</h3>
+      <ul>
+        <li><a href="central.php">Central de Ajuda</a></li>
+        <li><a href="politica.php">Política de Privacidade</a></li>
+        <li><a href="termos.php">Termos de Uso</a></li>
+        <li><a href="faq.php">FAQ</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Contato</h3>
+      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
+      <p>(11) 99845-3598</p>
+      <p> wyt@gmail.com.br</p>
+    </div>
+
+ <div>
+      <h3>Social</h3>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Tiktok</a></li>
+      </ul>
+    </div>
+
     <p>&copy; 2026 WYT - Todos os direitos reservados</p>
 </footer>
+
 
    
 </body>
