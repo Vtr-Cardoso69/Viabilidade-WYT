@@ -75,7 +75,7 @@ $cidades = $controller->index();
 
                 font-family:Arial, sans-serif;
 
-                background:#f4f4f4;
+                background:#0d2340;
 
                 padding:30px;
 
@@ -90,7 +90,7 @@ $cidades = $controller->index();
 
                 margin-bottom:20px;
 
-                color:#2c3e50;
+                color:white;
             }
 
             h2{
@@ -99,11 +99,11 @@ $cidades = $controller->index();
 
                 margin-top:25px;
 
-                color:#2c3e50;
+                color:white;
             }
 
             h3{
-                color:#333;
+                color:white;
             }
 
             /* =========================
@@ -112,7 +112,7 @@ $cidades = $controller->index();
 
             form{
 
-                background:white;
+                background:#162d66;
 
                 padding:25px;
 
@@ -151,7 +151,7 @@ $cidades = $controller->index();
 
                 padding-bottom:10px;
 
-                border-bottom:3px solid #4CAF50;
+                border-bottom:3px solid #f0b429;
             }
 
             /* =========================
@@ -162,7 +162,7 @@ $cidades = $controller->index();
 
                 width:50%;
 
-                background:#fafafa;
+                background:#0d2340;
 
                 border-radius:14px;
 
@@ -170,7 +170,9 @@ $cidades = $controller->index();
 
                 min-height:400px;
 
-                border:2px dashed #ccc;
+                border:2px dashed #f0b429;
+
+                color: white;
             }
 
             /* =========================
@@ -195,6 +197,8 @@ $cidades = $controller->index();
                 margin-bottom:8px;
 
                 font-weight:600;
+                
+                color: white;
             }
 
             /* =========================
@@ -262,8 +266,8 @@ $cidades = $controller->index();
 
                 background:linear-gradient(
                     135deg,
-                    #4CAF50,
-                    #43a047
+                    #f0b429,
+                    #f0b429
                 );
             }
 
@@ -702,6 +706,18 @@ $cidades = $controller->index();
     
 <!-- ESTILOS PARA OS TOGGLES -->
     <style>
+
+        a{
+              text-decoration: none;
+    color: white;
+    background-color: #f0b429;
+    border: #f0b429 5px solid;
+    margin: 5px ;
+    border-radius: 15px;
+   
+      transition: all 0.3s ease;
+        }
+
         .toggle-btn {
             width: 100%;
             padding: 12px;
