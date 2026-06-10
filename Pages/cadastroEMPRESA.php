@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        
 </header>
 
-    <h1>cadastro Empresa</h1>
+    <h1>CADASTRO DE EMPRESA</h1>
 
     <form method="post" action="">
         <div class="campo">

@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img width="100" height="100" src="../img/logo.png" alt="Logo">
        <p><a href="../index.php">Voltar</a></p>
 </header>
-<h1>Login Empresa</h1>
+<h1>LOGIN</h1>
 
 <?php if ($erro): ?>
     <p style="color: red;"><?php echo htmlspecialchars($erro); ?></p>
@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="POST">
 
     <div class="campo">
-    <label>Email:</label>
+    <label>email:</label>
     <input type="email" name="email" required>
     <br><br>
     </div>
 
     <div class="campo">
-    <label>Senha:</label>
+    <label>senha:</label>
     <input type="password" name="senha" required>
     <br><br>
     </div>
@@ -77,10 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </form>
 
-
-
-    <footer >
+ <footer >
     <p>&copy; 2026 WYT - Todos os direitos reservados</p>
 </footer>
+
+   
 </body>
 </html>
