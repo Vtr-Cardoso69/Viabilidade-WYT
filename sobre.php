@@ -72,10 +72,10 @@ Na WYT, acreditamos que grandes negócios começam com decisões inteligentes. P
      <div>
       <h3>Suporte</h3>
       <ul>
-        <li><a href="#">Central de Ajuda</a></li>
-        <li><a href="#">Política de Privacidade</a></li>
-        <li><a href="#">Termos de Uso</a></li>
-        <li><a href="#">FAQ</a></li>
+       <li><a href="rodape/central.php">Central de Ajuda</a></li>
+        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
+        <li><a href="rodape/termos.php">Termos de Uso</a></li>
+        <li><a href="rodape/faq.php">FAQ</a></li>
       </ul>
     </div>
 

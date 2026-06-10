@@ -33,13 +33,18 @@ session_start();
     
     <nav class="nav2" id="menu">
 
+    <div>
+        <h3>NOSSA HISTORIA</h3>
+        <a href="sobre.php">Sobre Nós</a>
+    </div>
+
      <div>
       <h3>SUPORTE</h3>
       <ul>
-        <li><a href="#">Central de Ajuda</a></li>
-        <li><a href="#">Política de Privacidade</a></li>
-        <li><a href="#">Termos de Uso</a></li>
-        <li><a href="#">FAQ</a></li>
+        <li><a href="rodape/central.php">Central de Ajuda</a></li>
+        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
+        <li><a href="rodape/termos.php">Termos de Uso</a></li>
+        <li><a href="rodape/faq.php">FAQ</a></li>
       </ul>
     </div>
     
@@ -103,16 +108,9 @@ if (isset($_SESSION['empresa_id'])) {
 
 </body>
  <footer >
-      
-    <div>
-      <h3>Contato</h3>
-      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
-      <p>(11) 99845-3598</p>
-      <p> wyt@gmail.com.br</p>
-    </div>
-
-
 
     <p>&copy; 2026 WYT - Todos os direitos reservados</p>
+
 </footer> 
+
 </html>
