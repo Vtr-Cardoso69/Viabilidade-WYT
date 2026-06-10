@@ -40,6 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+    </head>
 <body>
  <header>
         <img width="100" height="100" src="img/bussola.png" alt="Bússola">
@@ -54,16 +59,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <form method="POST">
 
+    <div class="campo">
     <label>Email:</label>
     <input type="email" name="email" required>
     <br><br>
+    </div>
 
+    <div class="campo">
     <label>Senha:</label>
     <input type="password" name="senha" required>
     <br><br>
+    </div>
 
     <button type="submit">
-        Entrar
+        entrar
     </button>
 
 </form>
