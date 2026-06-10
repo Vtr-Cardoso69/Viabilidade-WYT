@@ -84,8 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
  <header>
-        <img width="100" height="100" src="img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="img/logo.png" alt="Logo">
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo">
        
 </header>
 
