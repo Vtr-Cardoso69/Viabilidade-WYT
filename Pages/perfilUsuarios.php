@@ -167,7 +167,7 @@ function h(string $value): string
             </div>
             <div class="actions">
                 <a class="btn secondary" href="../index.php">Início</a>
-                <button class="btn" type="button" onclick="window.print()">Imprimir histórico</button>
+                <a class="btn" href="logout.php">Sair</a>
             </div>
         </header>
 
@@ -213,14 +213,8 @@ function h(string $value): string
                         <table aria-label="Histórico de simulações" style="font-size: 12px;">
                             <thead>
                                 <tr>
-<<<<<<< HEAD
-                                    <th>Quant. Ancoras</th>
-                                    <th>Preco Produto</th>
-=======
-                                     <th>Data Simulação</th>
                                     <th>Quant. Âncoras</th>
                                     <th>Preço Produto</th>
->>>>>>> 6e1d00408531f9813e54c62a32b934a06f397111
                                     <th>Investimento</th>
                                     <th>Prob. Sucesso (%)</th>
                                     <th>Renda Mensal</th>
