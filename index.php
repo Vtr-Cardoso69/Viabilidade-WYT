@@ -23,6 +23,7 @@ session_start();
     } elseif(!isset($_SESSION['empresa_id'])){
         echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
     }
+
     ?>
     </header>
     
@@ -60,9 +61,6 @@ if (isset($_SESSION['empresa_id'])) {
     if ($_SESSION['cargo'] === 'ADM') {
         echo "<p><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
     }
-
-    echo "<p><a href='Pages/Simulacao.php'>Simulação</a></p>";
-    echo "<p><a href='Pages/logout.php'>Sair da Conta</a></p>";
 }
 ?>
 

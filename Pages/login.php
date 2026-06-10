@@ -40,9 +40,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+    </head>
 <body>
-
-<h1>Login Empresa</h1>
+ <header>
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo">
+       <p><a href="../index.php">Voltar</a></p>
+</header>
+<h1>LOGIN</h1>
 
 <?php if ($erro): ?>
     <p style="color: red;"><?php echo htmlspecialchars($erro); ?></p>
@@ -50,21 +59,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <form method="POST">
 
-    <label>Email:</label>
+    <div class="campo">
+    <label>email:</label>
     <input type="email" name="email" required>
     <br><br>
+    </div>
 
-    <label>Senha:</label>
+    <div class="campo">
+    <label>senha:</label>
     <input type="password" name="senha" required>
     <br><br>
+    </div>
 
     <button type="submit">
-        Entrar
+        entrar
     </button>
 
 </form>
 
-<p><a href="../index.php">Voltar</a></p>
+ <footer >
+    <p>&copy; 2026 WYT - Todos os direitos reservados</p>
+</footer>
 
+   
 </body>
 </html>

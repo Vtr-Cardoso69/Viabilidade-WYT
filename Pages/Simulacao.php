@@ -18,25 +18,30 @@ if (!isset($_SESSION['empresa_id'])) {
 
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SIMULAÇÃO</title>
+    <link rel="stylesheet" href="CSS/.css">
 </head>
 <body>
-     <header>
-        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="../img/logo.png" alt="Logo">
-        <?php if (isset($_SESSION['empresa_id'])) {
-        echo "<p><a href='perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
-        }
+   <header>
+        <img width="100" height="100" src="img/bussola.png" alt="Bússola">
+        <img width="100" height="100" src="img/logo.png" alt="Logo">
+        <?php
+    if (isset($_SESSION['empresa_id'])) {
+        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
+    } elseif(!isset($_SESSION['empresa_id'])){
+        echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
+    }
+
     ?>
-        
     </header>
     
-
     <nav>
             <a href="#"></a>
             <a href="#"></a>
@@ -44,7 +49,16 @@ if (!isset($_SESSION['empresa_id'])) {
             <a href="#"></a>
              <a href="#"></a>
             <a href="#"></a>
+          <p><a href='Pages/Simulacao.php'>Simulação</a></p>
     </nav>
+  <?php
+if (isset($_SESSION['empresa_id'])) {
+
+    if ($_SESSION['cargo'] === 'ADM') {
+        echo "<p><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
+    }
+}
+?>
 
 <form method="POST">
    <label>Cidade:</label>
@@ -58,37 +72,39 @@ if (!isset($_SESSION['empresa_id'])) {
         </option>
     <?php endforeach; ?>
 </select>
+
 <style>
-.tooltip {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
-    
-}
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        color: blue;
+        text-decoration: underline;
+        
+    }
 
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 280px;
-    background-color: #f8f8f8;
-    color: #333;
-    text-align: left;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 10px;
-    position: absolute;
-    z-index: 1;
-    top: 125%;
-    left: 50%;
-    transform: translateX(-20%);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 280px;
+        background-color: #f8f8f8;
+        color: #333;
+        text-align: left;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 10px;
+        position: absolute;
+        z-index: 1;
+        top: 125%;
+        left: 50%;
+        transform: translateX(-20%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
 
-.tooltip.active .tooltiptext {
-    visibility: visible;
-}
+    .tooltip.active .tooltiptext {
+        visibility: visible;
+    }
 </style>
+
 <label for="investimento">Investimento: </label>
 <input type="number" name="investimento" id="investimento" min="0.01" step="0.01" required><br><br>
 
