@@ -44,6 +44,12 @@ CREATE TABLE `cidades` (
 --
 -- Despejando dados para a tabela `cidades`
 --
+INSERT INTO `cidades` (`id`, `nome`, `populacao_quant`, `perfil_etario`, `perfil_economico`, `comercio_alimentacao`, `comercio_moda`, `comercio_tecnologia`, `comercio_varejo`, `comercio_servicos`, `comercio_turismo`) VALUES
+(1, 'Assis', 104900, 'Adultos (30-59 anos)', 'Média Renda', 13, 15, 15, 17, 15, 12),
+(2, 'Paraguaçu Paulista', 49100, 'Adultos (30-59 anos)', 'Média Renda', 15, 9, 15, 19, 13, 10),
+(3, 'Maracai', 12900, 'Idosos (60 anos ou mais)', 'Baixa Renda', 17, 9, 12, 16, 12, 8),
+(4, 'Itaberá', 18300, 'Adultos (30-59 anos)', 'Baixa Renda', 15, 10, 13, 15, 12, 8),
+(5, 'Tomé', 714, 'Idosos (60 anos ou mais)', 'Baixa Renda', 10, 10, 7, 7, 8, 5);
 -- --------------------------------------------------------
 
 --
@@ -119,7 +125,7 @@ ALTER TABLE `simulacoes`
 -- AUTO_INCREMENT de tabela `cidades`
 --
 ALTER TABLE `cidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `empresas`

@@ -177,7 +177,6 @@ function h(string $value): string
                         <table aria-label="Historico de simulacoes" style="font-size: 12px;">
                             <thead>
                                 <tr>
-                                     <th>Data Simulacao</th>
                                     <th>Quant. Ancoras</th>
                                     <th>Preco Produto</th>
                                     <th>Investimento</th>
@@ -188,15 +187,14 @@ function h(string $value): string
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($simulacoes as $row): ?>
+                            <?php foreach ($simulacoes as $simulacao): ?>
                                 <tr>
-                                   <td><?= h((string)($row['data_simulacao'] ?? 'N/A')) ?></td>
-                                    <td><?= h((string)($row['quant_ancoras'] ?? '')) ?></td>
-                                    <td>R$ <?= h((string)($row['preco_produto'] ?? '0')) ?></td>
-                                    <td>R$ <?= h((string)($row['investimento'] ?? '0')) ?></td>
-                                    <td><?= h((string)($row['probabilidade_sucesso'] ?? '0')) ?>%</td>
-                                    <td>R$ <?= h((string)($row['renda_mensal'] ?? '0')) ?></td>
-                                    <td><?= h((string)($row['break_even'] ?? 'N/A')) ?></td>
+                                    <td><?= h((string)($simulacao['quant_ancoras'] ?? '')) ?></td>
+                                    <td>R$ <?= h((string)($simulacao['preco_produto'] ?? '0')) ?></td>
+                                    <td>R$ <?= h((string)($simulacao['investimento'] ?? '0')) ?></td>
+                                    <td><?= h((string)($simulacao['probabilidade_sucesso'] ?? '0')) ?>%</td>
+                                    <td>R$ <?= h((string)($simulacao['renda_mensal'] ?? '0')) ?></td>
+                                    <td><?= h((string)(round($simulacao['break_even'], 0) ?? 'N/A')) ?></td>
                                     
                                 </tr>
                             <?php endforeach; ?>
