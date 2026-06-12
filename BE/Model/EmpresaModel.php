@@ -74,12 +74,12 @@ class EmpresaModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function editarEmpresa($nome, $email, $cnpj, $senha, $id) {
+    public function editarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha, $id) {
         $sql = "UPDATE empresas
-                SET nome = ?, email = ?, cnpj = ?, senha = ?
+                SET nome = ?, email = ?, cnpj = ?, tipo_comercio = ?, perfil_economico = ?, perfil_etario = ?, senha = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([$nome, $email, $cnpj, $senha, $id]);
+        return $stmt->execute([$nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha, $id]);
     }
 
     public function deletarEmpresa($id) {

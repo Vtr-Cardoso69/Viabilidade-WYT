@@ -34,67 +34,6 @@ if (!$empresaId) {
 
 $empresaModel = new EmpresaModel($pdo);
 $empresa = $empresaModel->listarInformacoesEmpresa($empresaId);
-
-if (!$empresa) {
-    http_response_code(404);
-    ?>
-    <!DOCTYPE html>
-    <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Perfil não encontrado</title>
-       
-    </head>
-    <body>
-         <header>
-        <img width="100" height="100" src="img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="img/logo.png" alt="Logo">
-       
-</header>
-        <div class="wrap">
-            <div class="card">
-                <h1>Perfil não encontrado</h1>
-                <p>O perfil solicitado não existe.</p>
-                <a class="btn" href="../index.php">Ir para o início</a>
-            </div>
-        </div>
-            <footer >
-
-     <div>
-      <h3>Suporte</h3>
-      <ul>
-     <li><a href="rodape/central.php">Central de Ajuda</a></li>
-        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
-        <li><a href="rodape/termos.php">Termos de Uso</a></li>
-        <li><a href="rodape/faq.php">FAQ</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <h3>Contato</h3>
-      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
-      <p>(11) 99845-3598</p>
-      <p> wyt@gmail.com.br</p>
-    </div>
-
- <div>
-      <h3>Social</h3>
-      <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Tiktok</a></li>
-      </ul>
-    </div>
-
-    <p>&copy; 2026 WYT - Todos os direitos reservados</p>
-</footer>
-    </body>
-    </html>
-    <?php
-    exit;
-}
-
 $simulacoes = $empresaModel->obterHistoricoSimulacoes($empresaId);
 
 function h(string $value): string
@@ -109,7 +48,9 @@ function h(string $value): string
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/perfil.css">
+    <link rel="stylesheet" href="../CSS/index.css">
+
+
     <title>Perfil da Empresa</title>
     <style>
         :root{
@@ -159,14 +100,53 @@ function h(string $value): string
     </style>
 </head>
 <body>
+ 
+ <nav class="nav1">
+
+   <header>
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola" class="bussola" id="bussola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
+    </header>
+          
+    </nav>
+    
+    <nav class="nav2" id="menu">
+
+
+      <a href="http://localhost/viabilidade-wyt">Início</a>
+    
+
+    <div>
+        <h3>NOSSA HISTORIA</h3>
+        <a href="sobre.php">Sobre Nós</a>
+    </div>
+
+     <div>
+      <h3>SUPORTE</h3>
+      <ul>
+        <li><a href="rodape/central.php">Central de Ajuda</a></li>
+        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
+        <li><a href="rodape/termos.php">Termos de Uso</a></li>
+        <li><a href="rodape/faq.php">FAQ</a></li>
+      </ul>
+    </div>
+    
+    <div>
+      <h3>SOCIAL</h3>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Tiktok</a></li>
+      </ul>
+    </div>
+
+   </nav>
+
+
     <div class="wrap">
         <header class="no-print">
-            <div class="brand">
-                <img src="../img/logo.png" alt="WYT">
-                <strong>Perfil da Empresa</strong>
-            </div>
             <div class="actions">
-                <a class="btn secondary" href="../index.php">Início</a>
+                <a class="btn" href="cadastroEMPRESA.php?editar=1">Editar Perfil</a>
                 <a class="btn" href="logout.php">Sair</a>
             </div>
         </header>
@@ -243,3 +223,12 @@ function h(string $value): string
     </div>
 </body>
 </html>
+<script>
+    const bussola = document.getElementById("bussola");
+    const menu = document.getElementById("menu");
+
+    bussola.addEventListener("click", () => {
+        bussola.classList.toggle("girada");
+        menu.classList.toggle("abrir");
+    });
+</script>

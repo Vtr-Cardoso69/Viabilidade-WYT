@@ -33,6 +33,10 @@ session_start();
     
     <nav class="nav2" id="menu">
 
+    
+<a href="http://localhost/viabilidade-wyt">Início</a>
+    
+
     <div>
         <h3>NOSSA HISTORIA</h3>
         <a href="sobre.php">Sobre Nós</a>
