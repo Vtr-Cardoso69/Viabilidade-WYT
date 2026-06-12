@@ -19,7 +19,7 @@
     if (isset($_SESSION['empresa_id'])) {
         echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
     } elseif(!isset($_SESSION['empresa_id'])){
-        echo "<p><a href='Pages/cadastroEMPRESA.php'><strong>Cadastre-se</strong></a></p> <p>ou</p> <p><a href='Pages/login.php'><strong>Faça login</strong></a></p>";
+        echo "<p><a href='../Pages/cadastroEMPRESA.php'><strong>Cadastre-se</strong></a></p> <p>ou</p> <p><a href='../Pages/login.php'><strong>Faça login</strong></a></p>";
     }
     
     ?>

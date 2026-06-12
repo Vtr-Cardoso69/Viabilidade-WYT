@@ -45,7 +45,7 @@ session_start();
             <h3>SUPORTE</h3>
             <ul>
                 <li><a href="rodape/central.php">Central de Ajuda</a></li>
-                <li><a href="../rodape/sobre.php">Sobre nós</a></li>
+                <li><a href="sobre.php">Sobre nós</a></li>
                 <li><a href="rodape/termos.php">Termos de Uso</a></li>
    
             </ul>
