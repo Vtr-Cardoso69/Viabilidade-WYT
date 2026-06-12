@@ -353,7 +353,7 @@ $cidades = $controller->index();
 
             th{
 
-                background:#4CAF50;
+                background:#f0b429;
 
                 color:white;
             }
@@ -392,6 +392,8 @@ $cidades = $controller->index();
                 border-radius:8px;
 
                 transition:0.2s ease;
+
+                border: #f44336;
             }
 
             .btn-edit:hover{
@@ -412,6 +414,8 @@ $cidades = $controller->index();
                 border-radius:8px;
 
                 transition:0.2s ease;
+
+                border: #f44336;
             }
 
             .btn-delete:hover{
@@ -649,7 +653,7 @@ $cidades = $controller->index();
 
                 background:#e8f5e9;
 
-                border-color:#4CAF50;
+                border-color:#f0b429;
 
                 transform:translateY(-2px);
             }
@@ -658,11 +662,11 @@ $cidades = $controller->index();
 
             .radio-item input:checked + span{
 
-                background:#4CAF50;
+                background:#f0b429;
 
                 color:white;
 
-                border-color:#43a047;
+                border-color:#f0b429;
 
                 transform:scale(1.08);
 
