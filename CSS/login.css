@@ -96,21 +96,20 @@ header{
  .nav1 p a{
     text-decoration: none;
     color: white;
-    background-color: #f0b429;
-    border: #f0b429 10px solid;
-    margin: 5px ;
-    border-radius: 15px;
    
-      transition: all 0.3s ease;
+    margin: 5px ;
+   
+    transition: all 0.3s ease;
+     
+     
     }
 
-.nav1 p:hover a:hover {
+.nav1 p:hover a:hover{
+    color: rgb(255, 255, 255);
+      border-bottom: 2px solid #f0b429;
 
- background-color: #e29e00;
- border: #e29e00 5px solid;
-    margin: 5px ;
-    border-radius: 15px;
-  }
+    transition: 0.3s;
+}
 
 
 .logo{

@@ -21,7 +21,7 @@ session_start();
     if (isset($_SESSION['empresa_id'])) {
         echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " .$_SESSION['nome'] . "!</a></p>";
     } elseif(!isset($_SESSION['empresa_id'])){
-        echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
+        echo "<p><a href='Pages/cadastroEMPRESA.php'><strong>Cadastre-se</strong></a></p> <p>ou</p> <p><a href='Pages/login.php'><strong>Faça login</strong></a></p>";
     }
 
     ?>
@@ -37,10 +37,7 @@ session_start();
 <a href="http://localhost/viabilidade-wyt">Início</a>
     
 
-    <div>
-        <h3>NOSSA HISTORIA</h3>
-        <a href="sobre.php">Sobre Nós</a>
-    </div>
+    
 
      <div>
       <h3>SUPORTE</h3>
@@ -59,6 +56,11 @@ session_start();
         <li><a href="#">Facebook</a></li>
         <li><a href="#">Tiktok</a></li>
       </ul>
+    </div>
+    
+    <div>
+        <h3>NOSSA HISTORIA</h3>
+        <a href="sobre.php">Sobre Nós</a>
     </div>
 
 
@@ -82,12 +84,18 @@ if (isset($_SESSION['empresa_id'])) {
 
 
     <section class="segundo">
-        <h2>Precisão, estratégia e confiança definem a WYT. Com 98,2% de precisão em nossas análises, ajudamos empresas a tomarem decisões seguras e alcançarem resultados consistentes.</h2>
+        <h2>Precisão, estratégia e confiança definem a WYT. Mais de 80000 clientes, com 98,2% de precisão em nossas análises, ajudamos empresas a tomarem decisões seguras e alcançarem resultados consistentes.</h2>
     </section>
 
 
     <div class="terceiro">
-        <img src="#" alt="">
+        <img src="img/predio.png" alt="" class="slide ativo">
+        <img src="img/recepcao.png" alt="" class="slide">
+        <img src="img/sala.png" alt="" class="slide">
+
+         <button hidden class="anterior">&#10094;</button>
+         <button hidden class="proximo">&#10095;</button>
+
     </div>
 
 
@@ -108,6 +116,31 @@ if (isset($_SESSION['empresa_id'])) {
         bussola.classList.toggle("girada");
         menu.classList.toggle("abrir");
     });
+</script>
+
+<script>
+const slides = document.querySelectorAll(".slide");
+let atual = 0;
+
+function mostrarSlide(indice){
+    slides.forEach(slide => slide.classList.remove("ativo"));
+    slides[indice].classList.add("ativo");
+}
+
+document.querySelector(".proximo").addEventListener("click", () => {
+    atual = (atual + 1) % slides.length;
+    mostrarSlide(atual);
+});
+
+document.querySelector(".anterior").addEventListener("click", () => {
+    atual = (atual - 1 + slides.length) % slides.length;
+    mostrarSlide(atual);
+});
+
+setInterval(() => {
+    atual = (atual + 1) % slides.length;
+    mostrarSlide(atual);
+}, 3000);
 </script>
 
 </body>
