@@ -1,0 +1,114 @@
+  @font-face {
+    font-family: "Neogen";
+    src: url("font/Neogen-Black.ttf");
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.nav1{
+    
+    height: 100px;
+
+    background: #0d1b2a;
+
+    align-items: center;
+
+    padding: 0 40px;
+
+    border: #f0b429 1px solid;
+
+    color: white;
+}
+    
+ .nav1 p a{
+    text-decoration: none;
+    color: white;
+   
+    margin: 5px ;
+   
+   
+      transition: all 0.3s ease;
+    }
+
+.nav1 p:hover a:hover {
+
+  color: rgb(255, 255, 255);
+      border-bottom: 2px solid #f0b429;
+
+    transition: 0.3s;
+  }
+
+
+.logo{
+    width: 220px;
+    height: 100px;
+    align-items: center;
+    margin-right: 45%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.bussola{
+    width: 70px;
+      height: 70px;
+    cursor: pointer;
+    transition: transform 0.6s ease;
+}
+
+
+
+
+.bloco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    margin-bottom: 100px;
+}
+
+
+.bloco p {
+    max-width: 400px;
+}
+
+.bloco p {
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #001f4d;
+}
+
+
+.bloco img {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+
+    border-radius: 35px;
+    border: 3px solid #d6922d;
+
+    background: #001f4d;
+}
+
+
+
+footer{
+    background-color: #0d1b2a;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
