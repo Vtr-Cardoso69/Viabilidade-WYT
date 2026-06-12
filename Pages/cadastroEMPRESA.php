@@ -5,7 +5,18 @@ require_once __DIR__ . '/../BE/Controller/EmpresaController.php';
 require_once __DIR__ . '/../BE/Model/EmpresaModel.php';
 require_once __DIR__ . '/../BE/DB/Database.php';
 
+$edicao = isset($_GET['editar']) && isset($_SESSION['empresa_id']);
 
+$empresa = null;
+
+if ($edicao) {
+
+    $empresaController = new EmpresaController($pdo);
+
+    $empresa = $empresaController->listarInformacoesEmpresa(
+        $_SESSION['empresa_id']
+    );
+}
 
 // para verificar se o cadastro recebera cargo de ADM 
 $createCargo = 'EMPRESA';
@@ -21,8 +32,8 @@ if (isset($_GET['cargo']) && $_GET['cargo'] === 'ADM') {
 
 
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $empresaController = new EmpresaController($pdo);
 
     $nome = $_POST['nome'];
@@ -32,47 +43,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $perfil_economico = $_POST['perfil_economico'];
     $perfil_etario = $_POST['perfil_etario'];
     $senha = $_POST['senha'];
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+    
+    // Se estiver em edição e senha estiver vazia, mantém a senha atual
+    if ($edicao && empty($senha)) {
+        $senhaHash = $empresa['senha'];
+    } else {
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+    }
 
     $cargo = $createCargo;
 
-    $cadastro = $empresaController->cadastroEmpresa(
-        $nome,
-        $email,
-        $cnpj,
-        $tipo_comercio,
-        $perfil_economico,
-        $perfil_etario,
-        $senhaHash,
-        $cargo
-    );
+    if ($edicao) {
 
-    if ($cadastro) {
-        // Se o cadastro foi iniciado pelo ADM (criando outra conta ADM), não trocar a sessão atual
-        if ($fromAdminCreate) {
-            header('Location: adm/index.php');
+        $resultado = $empresaController->editarEmpresa(
+            $nome,
+            $email,
+            $cnpj,
+            $tipo_comercio,
+            $perfil_economico,
+            $perfil_etario,
+            $senhaHash,
+            $_SESSION['empresa_id']
+        );
+
+        if ($resultado) {
+
+            $_SESSION['nome'] = $nome;
+            $_SESSION['email'] = $email;
+
+            header('Location: perfilUsuarios.php');
             exit;
+        } else {
+            echo "<script>alert('Erro ao atualizar informações!');</script>";
         }
 
-        // Configurar sessão após cadastro público bem-sucedido
-        $stmt = $pdo->prepare("SELECT * FROM empresas WHERE email = ?");
-        $stmt->execute([$email]);
-        $empresa = $stmt->fetch();
-
-        if ($empresa) {
-            $_SESSION['empresa_id'] = $empresa['id'];
-            $_SESSION['nome'] = $empresa['nome'];
-            $_SESSION['email'] = $empresa['email'];
-            $_SESSION['cargo'] = $empresa['cargo']; // Armazena o cargo na sessão
-        }
-
-        header('Location: ../index.php');
-        exit;
     } else {
-        echo "<script>alert('Email ou CNPJ já cadastrado!');</script>";
+
+        $resultado = $empresaController->cadastroEmpresa(
+            $nome,
+            $email,
+            $cnpj,
+            $tipo_comercio,
+            $perfil_economico,
+            $perfil_etario,
+            $senhaHash,
+            $cargo
+        );
+
+        if ($resultado) {
+
+            if ($fromAdminCreate) {
+                header('Location: adm/index.php');
+                exit;
+            }
+
+            $stmt = $pdo->prepare("SELECT * FROM empresas WHERE email = ?");
+            $stmt->execute([$email]);
+            $empresa = $stmt->fetch();
+
+            if ($empresa) {
+                $_SESSION['empresa_id'] = $empresa['id'];
+                $_SESSION['nome'] = $empresa['nome'];
+                $_SESSION['email'] = $empresa['email'];
+                $_SESSION['cargo'] = $empresa['cargo'];
+            }
+
+            header('Location: ../index.php');
+            exit;
+        } else {
+            echo "<script>alert('Email ou CNPJ já cadastrado!');</script>";
+        }
+
     }
 }
 ?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -80,48 +125,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../CSS/cadastro.css" />
-    <title>Cadastro de Empresa</title>
+    <link rel="stylesheet" href="../CSS/index.css" />
+    <title><?= $edicao ? 'Editar Empresa' : 'Cadastro de Empresa' ?></title>
 </head>
-
 <body>
 
-    <header>
-        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="../img/logo.png" alt="Logo">
+      <nav class="nav1">
 
+   <header>
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola" class="bussola" id="bussola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
     </header>
+          
+    </nav>
+    
+    <nav class="nav2" id="menu">
 
-    <h1>CADASTRO DE EMPRESA</h1>
+
+      <a href="http://localhost/viabilidade-wyt">Início</a>
+    
+
+    <div>
+        <h3>NOSSA HISTORIA</h3>
+        <a href="sobre.php">Sobre Nós</a>
+    </div>
+
+     <div>
+      <h3>SUPORTE</h3>
+      <ul>
+        <li><a href="rodape/central.php">Central de Ajuda</a></li>
+        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
+        <li><a href="rodape/termos.php">Termos de Uso</a></li>
+        <li><a href="rodape/faq.php">FAQ</a></li>
+      </ul>
+    </div>
+    
+    <div>
+      <h3>SOCIAL</h3>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Tiktok</a></li>
+      </ul>
+    </div>
+
+   </nav>
+
+    <h1><?= $edicao ? 'EDIÇÃO DE EMPRESA' : 'CADASTRO DE EMPRESA' ?></h1>
 
     <form method="post" action="">
-        <div class="campo">
+    <div class="campo">
             <label for="nome">Nome</label><br />
-            <input id="nome" name="nome" type="text" required />
-            <br /><br />
-        </div>
+            <input
+            id="nome"
+            name="nome"
+            type="text"
+            required
+            value="<?= $empresa['nome'] ?? '' ?>"
+        />
+    </div>
 
-        <div class="campo">
+    <br /><br />
+
+    <div class="campo">
             <label for="email">E-mail</label><br />
-            <input id="email" name="email" type="email" required />
-            <br /><br />
-        </div>
+            <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value="<?= $empresa['email'] ?? '' ?>"
+        />
+    </div>
+      
+    <br /><br />
 
-        <div class="campo">
+    <div class="campo">
             <label for="cnpj">CNPJ</label><br />
-            <input id="cnpj" name="cnpj" type="text" maxlength="18" required placeholder="00.000.000/0000-00" />
-</div>
-            <br /><br />
+            <input
+            id="cnpj"
+            name="cnpj"
+            type="text"
+            maxlength="18"
+            required
+            placeholder="00.000.000/0000-00"
+            value="<?= $empresa['cnpj'] ?? '' ?>"
+        />
+    </div>
+    
+    <br /><br />
 
-            <div class="campo">
+    
+    <div class="campo">
                 <label for="tipoComercio">Tipo de Comércio</label><br />
                 <select id="tipoComercio" name="tipoComercio" required>
                     <option value="">Selecione</option>
-                    <option value="Alimentacao">Alimentação</option>
-                    <option value="Moda">Moda</option>
-                    <option value="Tecnologia">Tecnologia</option>
-                    <option value="Varejo">Varejo</option>
-                    <option value="Servicos">Serviços</option>
-                    <option value="Turismo">Turismo</option>
+                    <option value="Alimentacao"<?= (($empresa['tipo_comercio'] ?? '') == 'Alimentacao') ? 'selected' : '' ?>>Alimentação</option>
+                    <option value="Moda"<?= (($empresa['tipo_comercio'] ?? '') == 'Moda') ? 'selected' : '' ?>>Moda</option>
+                    <option value="Tecnologia"<?= (($empresa['tipo_comercio'] ?? '') == 'Tecnologia') ? 'selected' : '' ?>>Tecnologia</option>
+                    <option value="Varejo"<?= (($empresa['tipo_comercio'] ?? '') == 'Varejo') ? 'selected' : '' ?>>Varejo</option>
+                    <option value="Servicos"<?= (($empresa['tipo_comercio'] ?? '') == 'Servicos') ? 'selected' : '' ?>>Serviços</option>
+                    <option value="Turismo"<?= (($empresa['tipo_comercio'] ?? '') == 'Turismo') ? 'selected' : '' ?>>Turismo</option>
                 </select>
                 <br /><br />
             </div>
@@ -131,9 +235,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="perfil_economico">Perfil Econômico</label><br />
                 <select id="perfil_economico" name="perfil_economico" required>
                     <option value="">Selecione</option>
-                    <option value="Baixa Renda">Baixa Renda</option>
-                    <option value="Media Renda">Média Renda</option>
-                    <option value="Alta Renda">Alta Renda</option>
+                    <option value="Baixa Renda"<?= (($empresa['perfil_economico'] ?? '') == 'Baixa Renda') ? 'selected' : '' ?>>Baixa Renda</option>
+                    <option value="Media Renda"<?= (($empresa['perfil_economico'] ?? '') == 'Media Renda') ? 'selected' : '' ?>>Média Renda</option>
+                    <option value="Alta Renda"<?= (($empresa['perfil_economico'] ?? '') == 'Alta Renda') ? 'selected' : '' ?>>Alta Renda</option>
                 </select>
                 <br /><br />
             </div>
@@ -142,27 +246,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="perfil_etario">Perfil Etário</label><br />
                 <select id="perfil_etario" name="perfil_etario" required>
                     <option value="">Selecione</option>
-                    <option value="Criancas (0-12 anos)">Crianças (0-12 anos)</option>
-                    <option value="Jovens (13-29 anos)">Jovens (13-29 anos)</option>
-                    <option value="Adultos (30-59 anos)">Adultos (30-59 anos)</option>
-                    <option value="Idosos (60 anos ou mais)">Idosos (60 anos ou mais)</option>
+                    <option value="Criancas (0-12 anos)"<?= (($empresa['perfil_etario'] ?? '') == 'Criancas (0-12 anos)') ? 'selected' : '' ?>>Crianças (0-12 anos)</option>
+                    <option value="Jovens (13-29 anos)"<?= (($empresa['perfil_etario'] ?? '') == 'Jovens (13-29 anos)') ? 'selected' : '' ?>>Jovens (13-29 anos)</option>
+                    <option value="Adultos (30-59 anos)"<?= (($empresa['perfil_etario'] ?? '') == 'Adultos (30-59 anos)') ? 'selected' : '' ?>>Adultos (30-59 anos)</option>
+                    <option value="Idosos (60 anos ou mais)"<?= (($empresa['perfil_etario'] ?? '') == 'Idosos (60 anos ou mais)') ? 'selected' : '' ?>>Idosos (60 anos ou mais)</option>
                 </select>
                 <br /><br />
             </div>
 
             <div class="campo">
                 <label for="senha">Senha</label><br />
-                <input id="senha" name="senha" type="password" required />
+                <input id="senha" name="senha" type="password" <?= $edicao ? '' : 'required' ?> placeholder="<?= $edicao ? 'Novo senha (opcional)' : '' ?>" />
                 <br /><br />
             </div>
 
-            <button type="submit">Cadastrar</button>
+            <button type="submit"><?= $edicao ? 'Salvar Alterações' : 'Cadastrar' ?></button>
 
-    </form>
+                                        </form>
     
+        
 <footer>
-            <p>&copy; 2026 WYT - Todos os direitos reservados</p>
-        </footer>
+         <p>&copy; 2026 WYT - Todos os direitos reservados</p>
+</footer>
 
 </body>
         
@@ -182,6 +287,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         e.target.value = formatted;
 
     });
+
+    // script do nav 
+    
+    const bussola = document.getElementById("bussola");
+    const menu = document.getElementById("menu");
+
+    bussola.addEventListener("click", () => {
+        bussola.classList.toggle("girada");
+        menu.classList.toggle("abrir");
+    });
+
 </script>
 
 </html>

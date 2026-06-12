@@ -126,6 +126,7 @@ header{
     transition: 0.3s;
 }
 
+
 /* BÚSSOLA */
 .bussola{
     width: 70px;
@@ -178,6 +179,27 @@ header{
     border-radius: 30px;
 
 }
+
+.adm a{
+      text-decoration: none;
+    color: white;
+    background-color: #f0b429;
+    border: #f0b429 1px solid;
+    margin: 5px ;
+    margin-top: 2px;
+    border-radius: 5px;
+   
+      transition: all 0.3s ease;
+
+}
+
+.adm a:hover{
+    
+ background-color: #e29e00;
+ border: #e29e00 5px solid;
+    margin: 5px ;
+    border-radius: 15px;
+} 
 
 footer{
     background-color: #10243b;;
