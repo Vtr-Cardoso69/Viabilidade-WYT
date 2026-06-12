@@ -64,6 +64,7 @@ class EmpresaModel {
             $_SESSION['empresa_id'] = $empresa['id'];
             $_SESSION['nome'] = $empresa['nome'];
             $_SESSION['email'] = $empresa['email'];
+            $_SESSION['cargo'] = $empresa['cargo'];
             return $empresa;
         }
         return null;

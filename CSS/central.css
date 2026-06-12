@@ -1,8 +1,4 @@
-  @font-face {
-    font-family: "Neogen";
-    src: url("font/Neogen-Black.ttf");
-  }
-  
+ 
   *{
     margin: 0;
     padding: 0;
@@ -11,7 +7,7 @@
 
 body{
     font-family: Arial, Helvetica, sans-serif;
-   
+    color: #10243b;
 }
 
 header{
@@ -90,9 +86,9 @@ header{
 }
 
 .nav2.abrir{
-    max-height: 100%;
+    max-height: 10000px;
     padding: 20px;
-    height: 100%;
+    height: 122%;
     position: absolute;
 }
 
@@ -140,103 +136,52 @@ header{
 }
 
 .conteudo{
-      display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    max-width: 1000px;
+     max-width: 1100px;
     margin: 50px auto;
-    
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
 }
 
-.primeiro,
-.segundo,
-.terceiro,
-.quarto{
-   color: #0d2340;
-}
+.conteudo h2{
+    grid-column: 1 / -1;
 
-.primeiro h1{
-    font-size: 40px;
+    text-align: center;
+    color: #0d1b2a;
+
     margin-bottom: 20px;
-    font-family: "Neogen";
+
+    justify-content: center;
 }
 
-.segundo h2{
- font-size: 30px;
-    line-height: 1.1;
-    font-family: "Neogen";
-}
+.campo{
+     background: white;
 
-.terceiro img{
-    width: 100%;
-    max-width: 350px;
-    height: 250px;
-    object-fit: cover;
-    border: 2px solid #f0b429;
+    padding: 25px;
 
-     position: relative;
-      margin: auto;
-    overflow: hidden;
+    border-left: 6px solid #f0b429;
+
+    transition: .3s;
+
+    margin-left: 100px;
 
 }
 
-.slide{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
+.campo:hover{
+  transform: translateY(-5px);
 }
 
-.slide.ativo{
-    display: block;
+.campo:first-of-type{
+    grid-column: 1 / -1;
 }
-
-.anterior,
-.proximo{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 30px;
-    padding: 10px;
-}
-
-.anterior{
-    left: 10px;
-}
-
-.proximo{
-    right: 10px;
-}
-
-.adm a{
-      text-decoration: none;
-    color: white;
-    background-color: #f0b429;
-    border: #f0b429 1px solid;
-    margin: 5px ;
-    margin-top: 2px;
-    border-radius: 5px;
-   
-      transition: all 0.3s ease;
-
-}
-
-.adm a:hover{
-    
- background-color: #e29e00;
- border: #e29e00 5px solid;
-    margin: 5px ;
-    border-radius: 15px;
-} 
 
 footer{
     background-color: #10243b;;
     color: #ffffff;
     text-align: center;
     padding: 10px;
-    position: fixed;
+  
     bottom: 0;
     width: 100%;
     

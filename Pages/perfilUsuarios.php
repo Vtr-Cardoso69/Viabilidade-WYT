@@ -3,6 +3,16 @@ session_start();
 
 require_once __DIR__ . '/../BE/DB/Database.php';
 require_once __DIR__ . '/../BE/Model/EmpresaModel.php';
+require_once __DIR__ . '/../BE/Controller/EmpresaController.php';
+
+if (isset($_POST['deletar_conta'])) {
+    $idEmpresa = $_SESSION['empresa_id'];
+    $controller = new EmpresaController($pdo);
+    $controller->deletarEmpresa($idEmpresa);
+    session_destroy();
+    header("Location: ../index.php");
+    exit;
+}
 
 $empresaId = $_SESSION['empresa_id'] ?? $_SESSION['id_empresa'] ?? $_GET['id'] ?? null;
 $empresaId = is_numeric($empresaId) ? (int)$empresaId : null;
@@ -36,10 +46,12 @@ $empresaModel = new EmpresaModel($pdo);
 $empresa = $empresaModel->listarInformacoesEmpresa($empresaId);
 $simulacoes = $empresaModel->obterHistoricoSimulacoes($empresaId);
 
+
 function h(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
+
 
 ?>
 
@@ -70,7 +82,8 @@ function h(string $value): string
         .brand{ display:flex; align-items:center; gap:10px; }
         .brand img{ height:34px; width:auto; }
         .actions{ display:flex; gap:10px; flex-wrap:wrap; }
-        .btn{ border:0; cursor:pointer; padding:10px 14px; border-radius: 10px; font-weight:700; color:#fff; background:var(--brand); text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
+        .btn{ border:0; cursor:pointer; padding:10px 14px; border-radius: 10px; font-weight:700; color:#fff; background:var(--brand); 
+        text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
         .btn.secondary{ background: transparent; border:1px solid var(--line); color:var(--txt); }
         .grid{ display:grid; grid-template-columns: 1fr; gap:14px; }
         @media(min-width: 900px){ .grid{ grid-template-columns: 360px 1fr; } }
@@ -88,6 +101,9 @@ function h(string $value): string
         .muted{ color:var(--muted); }
         .empty{ padding: 14px; border:1px dashed var(--line); border-radius: 14px; background: rgba(255,255,255,.02); }
         .print-area{ display:block; }
+       .delete{ background: rgba(255,0,0,.10); border:1px solid rgba(255, 255, 255, 0.35); color: var(--error); border-radius: 16px; padding: 16px; display:flex; }
+       .delete .p{align-self:center; color:var(--muted); font-size:14px; margin-left: 20px; }
+       .btn-D{ background: rgba(199, 10, 10, 0.81); border:1px solid rgba(112, 79, 79, 0.35); color: var(--error); border-radius: 10px; padding:10px 14px; margin-left: 10px; font-weight:700; cursor:pointer; }
         @media print{
             body{ background:#fff; color:#000; }
             header, .no-print{ display:none !important; }
@@ -116,18 +132,13 @@ function h(string $value): string
       <a href="http://localhost/viabilidade-wyt">Início</a>
     
 
-    <div>
-        <h3>NOSSA HISTORIA</h3>
-        <a href="sobre.php">Sobre Nós</a>
-    </div>
-
      <div>
       <h3>SUPORTE</h3>
       <ul>
         <li><a href="rodape/central.php">Central de Ajuda</a></li>
-        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
+        <li><a href="../sobre.php">Sobre nós</a></li>
         <li><a href="rodape/termos.php">Termos de Uso</a></li>
-        <li><a href="rodape/faq.php">FAQ</a></li>
+   
       </ul>
     </div>
     
@@ -140,6 +151,9 @@ function h(string $value): string
       </ul>
     </div>
 
+     <h3>CONSULTA</h3>
+        <p><a href='Simulacao.php'>Simulação</a></p>
+
    </nav>
 
 
@@ -147,7 +161,7 @@ function h(string $value): string
         <header class="no-print">
             <div class="actions">
                 <a class="btn" href="cadastroEMPRESA.php?editar=1">Editar Perfil</a>
-                <a class="btn" href="logout.php">Sair</a>
+                <a class="btn" href="logout.php">Sair da Conta</a>
             </div>
         </header>
 
@@ -220,7 +234,34 @@ function h(string $value): string
                 <?php endif; ?>
             </main>
         </div>
+
+        <br>
+      
+        <?php 
+        $cargo = strtoupper($_SESSION['cargo'] ?? '');
+        if ($cargo !== 'ADM'): 
+        ?>
+            <h2 style="color:#dc3545; margin-top:30px; margin-bottom:10px;">ATENÇÃO - ÁREA DE RISCO</h2>
+
+            <div class="delete" style="display:flex; align-items:center; gap:15px; margin-top:20px;">
+
+                <form method="POST" style="margin:0;">
+                    <button class="btn-D"
+                        type="submit"
+                        name="deletar_conta"
+                        onclick="return confirm('Tem certeza que deseja excluir sua conta?');">
+                        Deletar minha conta
+                    </button>
+                </form>
+
+                <p style="margin:0;">
+                    Esta ação é permanente e não pode ser desfeita.
+                </p>
+
+            </div>
+        <?php endif; ?>
     </div>
+
 </body>
 </html>
 <script>

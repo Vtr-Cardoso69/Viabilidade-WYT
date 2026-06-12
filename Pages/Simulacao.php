@@ -22,149 +22,173 @@ if (!isset($_SESSION['empresa_id'])) {
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMULAÇÃO</title>
-    <link rel="stylesheet" href="CSS/.css">
+    <link rel="stylesheet" href="../CSS/simulacao.css">
 </head>
+
 <body>
-   <header>
-        <img width="100" height="100" src="img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="img/logo.png" alt="Logo">
-        <?php
-    if (isset($_SESSION['empresa_id'])) {
-        echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
-    } elseif(!isset($_SESSION['empresa_id'])){
-        echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
-    }
 
-    ?>
-    </header>
-    
-    <nav>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-             <a href="#"></a>
-            <a href="#"></a>
-          <p><a href='Pages/Simulacao.php'>Simulação</a></p>
+    <nav class="nav1">
+        <header>
+            <img width="100" height="100" src="../img/bussola.png" alt="Bússola" class="bussola" id="bussola">
+
+            <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
+            <?php
+            if (isset($_SESSION['empresa_id'])) {
+                echo "<p><a href='perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
+            } elseif (!isset($_SESSION['empresa_id'])) {
+                echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
+            }
+
+            ?>
+        </header>
     </nav>
-  <?php
-if (isset($_SESSION['empresa_id'])) {
 
-    if ($_SESSION['cargo'] === 'ADM') {
-        echo "<p><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
+    <nav class="nav2" id="menu">
+
+        <a href="http://localhost/viabilidade-wyt">Início</a>
+
+        <div>
+            <h3>SUPORTE</h3>
+            <ul>
+                <li><a href="../rodape/central.php">Central de Ajuda</a></li>
+                <li><a href="../sobre.php">Sobre Nós</a></li>
+                <li><a href="../rodape/termos.php">Termos de Uso</a></li>
+  
+            </ul>
+        </div>
+
+        <div>
+            <h3>SOCIAL</h3>
+            <ul>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Tiktok</a></li>
+            </ul>
+
+        </div>
+
+        <h3>CONSULTA</h3>
+        <p><a href='Simulacao.php'>Simulação</a></p>
+
+    </nav>
+
+    <?php
+    if (isset($_SESSION['empresa_id'])) {
+
+        if ($_SESSION['cargo'] === 'ADM') {
+            echo "<p><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
+        }
     }
-}
-?>
+    ?>
 
-<form method="POST">
-   <label>Cidade:</label>
-<select name="cidade_id" required>
-    <option value="">
-        -- Selecione --
-    </option>
-    <?php foreach ($cidades as $cidade): ?>
-        <option value="<?= $cidade['id'] ?>">
-            <?= htmlspecialchars($cidade['nome']) ?>
-        </option>
-    <?php endforeach; ?>
-</select>
 
-<style>
-    .tooltip {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        color: blue;
-        text-decoration: underline;
-        
-    }
+    <form method="POST">
 
-    .tooltip .tooltiptext {
-        visibility: hidden;
-        width: 280px;
-        background-color: #f8f8f8;
-        color: #333;
-        text-align: left;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        padding: 10px;
-        position: absolute;
-        z-index: 1;
-        top: 125%;
-        left: 50%;
-        transform: translateX(-20%);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
+        <div class="campo">
+            <label>Cidade:</label>
+            <select name="cidade_id" required><br><br>
+                <option value="">
+                    -- Selecione --
+                </option>
 
-    .tooltip.active .tooltiptext {
-        visibility: visible;
-    }
-</style>
+                <?php foreach ($cidades as $cidade): ?>
+                    <option value="<?= $cidade['id'] ?>">
+                        <?= htmlspecialchars($cidade['nome']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
-<label for="investimento">Investimento: </label>
-<input type="number" name="investimento" id="investimento" min="0.01" step="0.01" required><br><br>
+        </div>
+        <style>
+            .tooltip {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+                color: blue;
+                text-decoration: underline;
 
-<label for="quant_ancoras">
-    Quantidade de
-    <span class="tooltip" onclick="toggleTooltip(this)">
-        Âncoras
-        <span class="tooltiptext">
-            Âncoras: pontos próximos que garantem a sustentação, atração e rentabilidade do negócio (escolas, empresas, comércios, etc.).
-        </span>
-    </span>:
-</label>
+            }
 
-<input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 280px;
+                background-color: #f8f8f8;
+                color: #333;
+                text-align: left;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 10px;
+                position: absolute;
+                z-index: 1;
+                top: 125%;
+                left: 50%;
+                transform: translateX(-20%);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
 
-<label for="preco_medio">Preço Médio dos Produtos:</label>
-<input type="number" name="preco_medio" id="preco_medio" min="0.01" step="0.01" required><br><br>
+            .tooltip.active .tooltiptext {
+                visibility: visible;
+            }
+        </style>
 
-<input type="submit" value="Simular">
+        <div class="campo">
+            <label for="investimento">Investimento: </label>
+            <input type="number" name="investimento" id="investimento" min="0.01" step="0.01" required><br><br>
+        </div>
 
-<script>
-function toggleTooltip(element) {
-    element.classList.toggle("active");
-}
-</script>
-</form>
+        <div class="campo">
+            <label for="quant_ancoras">
+                Quantidade de
+                <span class="tooltip" onclick="toggleTooltip(this)">
+                    Âncoras
+                    <span class="tooltiptext">
+                        Âncoras: pontos próximos que garantem a sustentação, atração e rentabilidade do negócio
+                        (escolas, empresas, comércios, etc.).
+                    </span>
+                </span>:
+            </label>
+        </div>
 
-    <footer >
+        <div class="campo">
+            <input type="number" name="quant_ancoras" id="quant_ancoras" min="0" required><br><br>
+        </div>
 
-     <div>
-      <h3>Suporte</h3>
-      <ul>
-      <li><a href="rodape/central.php">Central de Ajuda</a></li>
-        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
-        <li><a href="rodape/termos.php">Termos de Uso</a></li>
-        <li><a href="rodape/faq.php">FAQ</a></li>
-      </ul>
-    </div>
+        <div class="campo">
+            <label for="preco_medio">Preço Médio dos Produtos:</label>
+            <input type="number" name="preco_medio" id="preco_medio" min="0.01" step="0.01" required><br><br>
+        </div>
 
-    <div>
-      <h3>Contato</h3>
-      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
-      <p>(11) 99845-3598</p>
-      <p> wyt@gmail.com.br</p>
-    </div>
+        <div class="">
+            <button type="submit">Simular</button>
+        </div>
 
- <div>
-      <h3>Social</h3>
-      <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Tiktok</a></li>
-      </ul>
-    </div>
+        <script>
+            function toggleTooltip(element) {
+                element.classList.toggle("active");
+            }
+        </script>
 
-    <p>&copy; 2026 WYT - Todos os direitos reservados</p>
-</footer>
+    </form>
+
+
+    <script>
+        const bussola = document.getElementById("bussola");
+        const menu = document.getElementById("menu");
+
+        bussola.addEventListener("click", () => {
+            bussola.classList.toggle("girada");
+            menu.classList.toggle("abrir");
+        });
+    </script>
 
 </body>
-</html>
+
+
 
 
 <?php
@@ -172,7 +196,7 @@ function toggleTooltip(element) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $simulacaoController = new SimulacaoController($pdo);
 
-    
+
     $cidade_id = $_POST['cidade_id'];
     $empresa_id = $_SESSION['empresa_id'];
     $quant_ancoras = $_POST['quant_ancoras'];
@@ -186,15 +210,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $break_even = $simulacaoController->calcularBreakEven($investimento, $cidade_id, $empresa_id, $preco_produto);
 
     $simulacaoController->fazerSimulacao($cidade_id, $empresa_id, $quant_ancoras, $preco_produto, $investimento, $probabilidade_sucesso, $renda_mensal, $break_even);
-    
-    echo "Probabilidade de Sucesso: " . $probabilidade_sucesso . "%<br>";
+
+    echo "<div class='resultado'>";
+    echo "Probabilidade de Sucesso: " . "<strong>" . $probabilidade_sucesso . "</strong>" . "%<br>";
     echo "Caso seu negócio tenha sucesso: <br>";
-    echo "Sua renda mensal será de: R$ " . $renda_mensal . "<br>";
-    if($break_even < 1){
+    echo "Sua renda mensal será de: R$ " . "<strong>" . $renda_mensal . "</strong>" . "<br>";
+    if ($break_even < 1) {
         echo "Você atingirá o break even em menos de 1 mês.<br>";
-    }elseif($break_even == 1 || $break_even > 1){
-    echo "Você atingirá o break even em: " . round($break_even,0) . " " . (round($break_even,0) == 1 ? "mês" : "meses") . ".<br>";
+    } elseif ($break_even == 1 || $break_even > 1) {
+        echo "Você atingirá o break even em: " . round($break_even, 0) . " " . (round($break_even, 0) == 1 ? "mês" : "meses") . ".<br>";
     }
+    echo "</div>";
 }
 
 ?>
+<footer>
+
+    <p>&copy; 2026 WYT - Todos os direitos reservados</p>
+
+</footer>
+
+</html>

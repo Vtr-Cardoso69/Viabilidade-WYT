@@ -3,29 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Termos de Uso - WYT</title>
+     <link rel="stylesheet" href="../CSS/termos.css">
 </head>
 <body>
+    <nav class="nav1">
    <header>
-        <img width="100" height="100" src="img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="img/logo.png" alt="Logo">
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola" class="bussola" id="bussola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
         <?php
     if (isset($_SESSION['empresa_id'])) {
         echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
     } elseif(!isset($_SESSION['empresa_id'])){
-        echo "<p><a href='Pages/cadastroEMPRESA.php'>Cadastre-se</a></p> <p>ou</p> <p><a href='Pages/login.php'>Faça login</a></p>";
+        echo "<p><a href='../Pages/cadastroEMPRESA.php'><strong>Cadastre-se</strong></a></p> <p>ou</p> <p><a href='../Pages/login.php'><strong>Faça login</strong></a></p>";
     }
 
     ?>
     </header>
-    
-    <nav>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-             <a href="#"></a>
-            <a href="#"></a>
-          <p><a href='Pages/Simulacao.php'>Simulação</a></p>
+    </nav>
+
+    <nav class="nav2" id="menu">  
+
+     <a href="http://localhost/viabilidade-wyt">Início</a>
+        
+    <div>
+      <h3>SUPORTE</h3>
+      <ul>
+        <li><a href="central.php">Central de Ajuda</a></li>
+        <li><a href="../sobre.php">Sobre nós</a></li>
+        <li><a href="termos.php">Termos de Uso</a></li>
+  
+      </ul>
+    </div>
+
+ <div>
+      <h3>SOCIAL</h3>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Tiktok</a></li>
+      </ul>
+
+      <h3>CONSULTA</h3>
+          <p><a href='../Pages/Simulacao.php'>Simulação</a></p>
     </nav>
 
     <?php
@@ -36,15 +55,20 @@ if (isset($_SESSION['empresa_id'])) {
     }
 }
 ?>
+
+<section class="termos">
     <h1>Termos de Uso</h1>
 
+   
     <p>
         Bem-vindo ao site da WYT Viabilidade de Negócios. Ao acessar e utilizar este site,
         você concorda com os presentes Termos de Uso. Caso não concorde com qualquer condição,
         recomendamos que não utilize nossos serviços.
     </p>
+   
 
     <h2>1. Objetivo do Site</h2>
+
 
     <p>
         O site da WYT tem como finalidade apresentar informações institucionais,
@@ -60,6 +84,7 @@ if (isset($_SESSION['empresa_id'])) {
         substituem análises personalizadas realizadas por nossa equipe.
     </p>
 
+
     <h2>3. Responsabilidades do Usuário</h2>
 
     <p>Ao utilizar este site, o usuário compromete-se a:</p>
@@ -70,6 +95,7 @@ if (isset($_SESSION['empresa_id'])) {
         <li>Respeitar os direitos de propriedade intelectual da empresa;</li>
         <li>Não tentar acessar áreas restritas ou sistemas internos.</li>
     </ul>
+
 
     <h2>4. Propriedade Intelectual</h2>
 
@@ -97,10 +123,12 @@ if (isset($_SESSION['empresa_id'])) {
 
     <h2>7. Alterações dos Termos</h2>
 
-    <p>
-        A WYT poderá modificar estes Termos de Uso a qualquer momento, sem aviso
-        prévio. Recomendamos a consulta periódica desta página.
-    </p>
+    
+        <p>
+            A WYT poderá modificar estes Termos de Uso a qualquer momento, sem aviso
+            prévio. Recomendamos a consulta periódica desta página.
+        </p>
+  
 
     <h2>8. Contato</h2>
 
@@ -112,36 +140,24 @@ if (isset($_SESSION['empresa_id'])) {
     <p>
         Última atualização: Junho de 2026.
     </p>
+</section>
+   
 
-   <footer >
-
-     <div>
-      <h3>Suporte</h3>
-      <ul>
-        <li><a href="central.php">Central de Ajuda</a></li>
-        <li><a href="politica.php">Política de Privacidade</a></li>
-        <li><a href="termos.php">Termos de Uso</a></li>
-        <li><a href="faq.php">FAQ</a></li>
-      </ul>
     </div>
 
-    <div>
-      <h3>Contato</h3>
-      <p> Avenida Paulista, 1636 – Bela Vista, São Paulo – SP, 01310-200</p>
-      <p>(11) 99845-3598</p>
-      <p> wyt@gmail.com.br</p>
-    </div>
-
- <div>
-      <h3>Social</h3>
-      <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Tiktok</a></li>
-      </ul>
-    </div>
-
+<footer >
     <p>&copy; 2026 WYT - Todos os direitos reservados</p>
 </footer>
+
+ <script>
+        const bussola = document.getElementById("bussola");
+        const menu = document.getElementById("menu");
+
+        bussola.addEventListener("click", () => {
+            bussola.classList.toggle("girada");
+            menu.classList.toggle("abrir");
+        });
+    </script>
+
 </body>
 </html>
