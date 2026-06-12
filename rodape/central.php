@@ -1,23 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCENTRAL DE AJUDA</title>
-</head>
-<body>
+
     <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOBRE</title>
-    <link rel="stylesheet" href="CSS/sobre.css">
+    <title>Central de ajuda</title>
+    <link rel="stylesheet" href="../CSS/central.css">
 </head>
 <body>
+
+<nav class="nav1">
+
    <header>
-        <img width="100" height="100" src="img/bussola.png" alt="Bússola">
-        <img width="100" height="100" src="img/logo.png" alt="Logo">
+        <img width="100" height="100" src="../img/bussola.png" alt="Bússola">
+        <img width="100" height="100" src="../img/logo.png" alt="Logo">
         <?php
     if (isset($_SESSION['empresa_id'])) {
         echo "<p><a href='Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
@@ -27,8 +24,11 @@
     
     ?>
     </header>
+
+</nav>
     
-    <nav>
+    <nav class="nav2">
+
             <a href="#"></a>
             <a href="#"></a>
             <a href="#"></a>
