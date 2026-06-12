@@ -30,8 +30,8 @@ class EmpresaController{
         return $this->model->listarInformacoesEmpresa($id);
     }
 
-    public function editarEmpresa($nome, $email, $cnpj, $senha, $id) {
-        return $this->model->editarEmpresa($nome, $email, $cnpj, $senha, $id);
+    public function editarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha, $id) {
+        return $this->model->editarEmpresa($nome, $email, $cnpj, $tipo_comercio, $perfil_economico, $perfil_etario, $senha, $id);
     }
 
     public function deletarEmpresa($id) {
