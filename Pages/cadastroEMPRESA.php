@@ -133,43 +133,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <nav class="nav1">
 
    <header>
-        <img width="100" height="100" src="../img/bussola.png" alt="Bússola" class="bussola" id="bussola">
-        <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
+     
+       <img width="100" height="100" src="../img/logo.png" alt="Logo" class="logo">
+       <p><a href="../index.php">Voltar</a></p>
     </header>
           
     </nav>
     
-    <nav class="nav2" id="menu">
-
-
-      <a href="http://localhost/viabilidade-wyt">Início</a>
-    
-
-    <div>
-        <h3>NOSSA HISTORIA</h3>
-        <a href="sobre.php">Sobre Nós</a>
-    </div>
-
-     <div>
-      <h3>SUPORTE</h3>
-      <ul>
-        <li><a href="rodape/central.php">Central de Ajuda</a></li>
-        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
-        <li><a href="rodape/termos.php">Termos de Uso</a></li>
-        <li><a href="rodape/faq.php">FAQ</a></li>
-      </ul>
-    </div>
-    
-    <div>
-      <h3>SOCIAL</h3>
-      <ul>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Tiktok</a></li>
-      </ul>
-    </div>
-
-   </nav>
+  
 
     <h1><?= $edicao ? 'EDIÇÃO DE EMPRESA' : 'CADASTRO DE EMPRESA' ?></h1>
 
