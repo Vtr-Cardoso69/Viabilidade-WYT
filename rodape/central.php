@@ -71,7 +71,7 @@
 
     <div>
         <strong>Quanto tempo leva para receber o relatório?<strong>
-            <p>O prazo varia conforme a complexidade do projeto. Em média, nossos estudos são concluídos entre 5 e 15 dias úteis.</p>
+            <p>O prazo varia conforme a complexidade do projeto. Em média, nossos estudos são concluídos na mesma hora.</p>
     </div>
 
     <div>
