@@ -132,18 +132,13 @@ function h(string $value): string
       <a href="http://localhost/viabilidade-wyt">Início</a>
     
 
-    <div>
-        <h3>NOSSA HISTORIA</h3>
-        <a href="sobre.php">Sobre Nós</a>
-    </div>
-
      <div>
       <h3>SUPORTE</h3>
       <ul>
         <li><a href="rodape/central.php">Central de Ajuda</a></li>
-        <li><a href="rodape/politica.php">Política de Privacidade</a></li>
+        <li><a href="../sobre.php">Sobre nós</a></li>
         <li><a href="rodape/termos.php">Termos de Uso</a></li>
-        <li><a href="rodape/faq.php">FAQ</a></li>
+   
       </ul>
     </div>
     
@@ -155,6 +150,9 @@ function h(string $value): string
         <li><a href="#">Tiktok</a></li>
       </ul>
     </div>
+
+     <h3>CONSULTA</h3>
+        <p><a href='Simulacao.php'>Simulação</a></p>
 
    </nav>
 

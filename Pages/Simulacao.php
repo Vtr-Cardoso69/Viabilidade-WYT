@@ -56,9 +56,9 @@ if (!isset($_SESSION['empresa_id'])) {
             <h3>SUPORTE</h3>
             <ul>
                 <li><a href="../rodape/central.php">Central de Ajuda</a></li>
-                <li><a href="../rodape/politica.php">Política/Privacidade</a></li>
+                <li><a href="../sobre.php">Sobre Nós</a></li>
                 <li><a href="../rodape/termos.php">Termos de Uso</a></li>
-                <li><a href="../rodape/faq.php">FAQ</a></li>
+  
             </ul>
         </div>
 
@@ -72,13 +72,8 @@ if (!isset($_SESSION['empresa_id'])) {
 
         </div>
 
-        <div>
-            <h3>NOSSA HISTORIA</h3>
-            <a href="sobre.php">Sobre Nós</a>
-        </div>
-
         <h3>CONSULTA</h3>
-        <p><a href='Pages/Simulacao.php'>Simulação</a></p>
+        <p><a href='Simulacao.php'>Simulação</a></p>
 
     </nav>
 
