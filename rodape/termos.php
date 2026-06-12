@@ -44,7 +44,7 @@
       </ul>
 
       <h3>CONSULTA</h3>
-          <p><a href='Pages/Simulacao.php'>Simulação</a></p>
+          <p><a href='../Pages/Simulacao.php'>Simulação</a></p>
     </nav>
 
     <?php
