@@ -54,6 +54,7 @@ $cidades = $controller->index();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Cidades</title>
+    <link rel="stylesheet" href="../../CSS/index.css">
 
     <!-- ESTILO PARA SITE -->
     <style>
@@ -75,7 +76,7 @@ $cidades = $controller->index();
 
                 font-family:Arial, sans-serif;
 
-                background:#0d2340;
+                background:#f4f4f4;
 
                 padding:30px;
 
@@ -90,7 +91,7 @@ $cidades = $controller->index();
 
                 margin-bottom:20px;
 
-                color:white;
+                color:#2c3e50;
             }
 
             h2{
@@ -99,11 +100,11 @@ $cidades = $controller->index();
 
                 margin-top:25px;
 
-                color:white;
+                color:#rgba(251, 172, 34, 0.9);
             }
 
             h3{
-                color:white;
+                color:#333;
             }
 
             /* =========================
@@ -112,7 +113,7 @@ $cidades = $controller->index();
 
             form{
 
-                background:#162d66;
+                background: #0d1b2a;
 
                 padding:25px;
 
@@ -151,7 +152,7 @@ $cidades = $controller->index();
 
                 padding-bottom:10px;
 
-                border-bottom:3px solid #f0b429;
+                border-bottom:3px solid #e46d05;
             }
 
             /* =========================
@@ -162,7 +163,7 @@ $cidades = $controller->index();
 
                 width:50%;
 
-                background:#0d2340;
+                background:#fafafa;
 
                 border-radius:14px;
 
@@ -170,9 +171,7 @@ $cidades = $controller->index();
 
                 min-height:400px;
 
-                border:2px dashed #f0b429;
-
-                color: white;
+                border:2px dashed #ccc;
             }
 
             /* =========================
@@ -197,8 +196,7 @@ $cidades = $controller->index();
                 margin-bottom:8px;
 
                 font-weight:600;
-                
-                color: white;
+                color:white
             }
 
             /* =========================
@@ -212,7 +210,7 @@ $cidades = $controller->index();
 
                 border-radius:8px;
 
-                border:1px solid #d5d5d5;
+                border:1px solid #f8510f;
 
                 width:100%;
 
@@ -233,7 +231,7 @@ $cidades = $controller->index();
                 border-color:#4CAF50;
 
                 box-shadow:
-                    0 0 0 4px rgba(76,175,80,0.15);
+                    0 0 0 4px rgba(237, 112, 10, 0.15);
             }
 
             /* =========================
@@ -266,8 +264,8 @@ $cidades = $controller->index();
 
                 background:linear-gradient(
                     135deg,
-                    #f0b429,
-                    #f0b429
+                    #dd8811,
+                    #d95f0e
                 );
             }
 
@@ -277,7 +275,7 @@ $cidades = $controller->index();
                 transform:translateY(-2px);
 
                 box-shadow:
-                    0 6px 15px rgba(76,175,80,0.25);
+                    0 6px 15px rgba(237, 133, 14, 0.25);
             }
 
             /* CANCELAR */
@@ -353,7 +351,7 @@ $cidades = $controller->index();
 
             th{
 
-                background:#f0b429;
+                background: #0d1b2a;
 
                 color:white;
             }
@@ -381,9 +379,9 @@ $cidades = $controller->index();
 
             .btn-edit{
 
-                background:#2196F3;
+                background:#f0b429;
 
-                color:white;
+                color:#0d1b2a;
 
                 padding:8px 13px;
 
@@ -391,21 +389,21 @@ $cidades = $controller->index();
 
                 border-radius:8px;
 
-                transition:0.2s ease;
-
-                border: #f44336;
+                transition:0.18s ease;
+                font-weight:700;
             }
 
             .btn-edit:hover{
 
-                background:#1976D2;
+                background:#e6a800;
+                color:#0d1b2a;
             }
 
             .btn-delete{
 
-                background:#f44336;
+                background:rgb(215, 108, 26);
 
-                color:white;
+                color:#0d1b2a;
 
                 padding:8px 13px;
 
@@ -413,14 +411,14 @@ $cidades = $controller->index();
 
                 border-radius:8px;
 
-                transition:0.2s ease;
-
-                border: #f44336;
+                transition:0.18s ease;
+                font-weight:700;
             }
 
             .btn-delete:hover{
 
-                background:#d32f2f;
+                background:#d9a100;
+                color:#0d1b2a;
             }
 
             /* =========================
@@ -470,7 +468,7 @@ $cidades = $controller->index();
 
                 padding-bottom:12px;
 
-                border-bottom:3px solid #4CAF50;
+                border-bottom:3px solid #c17f23;
             }
 
             /* =========================
@@ -515,7 +513,7 @@ $cidades = $controller->index();
 
                 background:linear-gradient(
                     135deg,
-                    #4CAF50,
+                    #b05b15,
                     #43a047
                 );
 
@@ -632,7 +630,7 @@ $cidades = $controller->index();
 
                 justify-content:center;
 
-                background:#f1f1f1;
+                background:rgba(121, 23, 23, 0.05);
 
                 border:2px solid transparent;
 
@@ -651,7 +649,7 @@ $cidades = $controller->index();
 
             .radio-item span:hover{
 
-                background:#e8f5e9;
+                background:#fff4d9;
 
                 border-color:#f0b429;
 
@@ -664,14 +662,15 @@ $cidades = $controller->index();
 
                 background:#f0b429;
 
-                color:white;
+                color:#0d1b2a;
 
                 border-color:#f0b429;
 
                 transform:scale(1.08);
 
                 box-shadow:
-                    0 5px 12px rgba(76,175,80,0.35);
+                    0 5px 12px rgba(240,180,41,0.45);
+                font-weight:700;
             }
 
             /* =========================
@@ -708,18 +707,24 @@ $cidades = $controller->index();
             }
     </style>
     
-<!-- ESTILOS PARA OS TOGGLES -->
+<!-- ESTILOS PARA OS TOGGLES E NAV -->
     <style>
 
-        a{
-              text-decoration: none;
-    color: white;
-    background-color: #f0b429;
-    border: #f0b429 5px solid;
-    margin: 5px ;
-    border-radius: 15px;
-   
-      transition: all 0.3s ease;
+        /* LINKS PADRÃO */
+        a {
+            text-decoration: none;
+            color: #f0b429;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #ffcc00;
+        }
+
+        .btn-edit,
+        .btn-delete,
+        .btn-cancel {
+            color: white !important;
         }
 
         .toggle-btn {
@@ -727,15 +732,17 @@ $cidades = $controller->index();
             padding: 12px;
             border: none;
             border-radius: 8px;
-            background: #5a88b9;
-            color: white;
+            background: #f0b429;
+            color: #0d1b2a;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+            font-weight:700;
         }
 
         .toggle-btn:hover {
-            background-color: #4a7aa0;
+            background-color: #e6a800;
+            transform: translateY(-2px);
         }
 
         .hidden-box {
@@ -789,9 +796,31 @@ $cidades = $controller->index();
 
 <body>
 
+    <nav class="nav1">
+
+        <header>
+            <p><a href="http://localhost/viabilidade-wyt/index.php">Voltar</a></p>
+            <img width="100" height="100" src="../../img/logo.png" alt="Logo" class="logo">
+            <?php
+            if (isset($_SESSION['empresa_id'])) {
+                echo "<p><a href='../../Pages/perfilUsuarios.php?id=" . $_SESSION['empresa_id'] . "'>Bem-vindo(a), " . $_SESSION['nome'] . "!</a></p>";
+            } elseif (!isset($_SESSION['empresa_id'])) {
+                echo "<p><a href='../../Pages/cadastroEMPRESA.php'><strong>Cadastre-se</strong></a></p> <p>ou</p> <p><a href='../../Pages/login.php'><strong>Faça login</strong></a></p>";
+            }
+
+            ?>
+        </header>
+
+    </nav>
+
+    <nav class="nav2" id="menu">
+
+    </nav>
+
+<br>
     <h1>Painel Administrativo</h1>
 
-    <p><a href="../cadastroEMPRESA.php?cargo=ADM">Cadastrar novo ADM</a></p>
+    <h3><a href="../cadastroEMPRESA.php?cargo=ADM">Cadastrar novo ADM</a></h3>
 
     <h2>
         <?= isset($cidadeEdit) && $cidadeEdit ? 'Editar Cidade' : 'Criar Nova Cidade' ?>
@@ -877,7 +906,7 @@ $cidades = $controller->index();
                 </div>
               
 
- <h2>Avalie a Cidade com Chances de Negócio</h2>
+ <h2 style="background: #0d1b2a; color: white; padding: 10px;">Avalie a Cidade com Chances de Negócio</h2>
 <div name=" GERAL ">     
         
     <div class="business-section">

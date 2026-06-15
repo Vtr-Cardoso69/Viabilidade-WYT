@@ -69,7 +69,7 @@ session_start();
     if (isset($_SESSION['empresa_id'])) {
 
         if ($_SESSION['cargo'] === 'ADM') {
-            echo "<p class='adm'><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
+            echo "<br> <p class='adm'><a href='Pages/adm/index.php'>Admin Cidades</a></p>";
         }
     }
     ?>
