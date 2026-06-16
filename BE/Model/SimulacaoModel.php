@@ -236,7 +236,58 @@ class SimulacaoModel
         return $fator5;
     }
 
-    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras)
+    public function calcularMultiplicadorInvestimento($cidade_id, $investimento)
+    {
+        // Buscar investimento mínimo da cidade
+        $stmtCidade = $this->pdo->prepare("SELECT investimento_minimo FROM cidades WHERE id = ?");
+        $stmtCidade->execute([$cidade_id]);
+        $cidade = $stmtCidade->fetch(PDO::FETCH_ASSOC);
+
+        $multiplicador = 0;
+        if ($cidade && $cidade['investimento_minimo'] > 0) {
+            // Calcula percentual do investimento em relação ao mínimo
+            $percentual = $investimento / $cidade['investimento_minimo'];
+            
+            if ($percentual >= 1.0) {
+                // Investimento é 100% ou mais do mínimo
+                $multiplicador = 1.5;
+            } elseif ($percentual >= 0.9) {
+                // Investimento está entre 90% e 100% do mínimo
+                $multiplicador = 1.2;
+            } elseif ($percentual >= 0.8) {
+                // Investimento está entre 80% e 90% do mínimo
+                $multiplicador = 1.4;
+            } elseif ($percentual >= 0.7) {
+                // Investimento está entre 70% e 80% do mínimo
+                $multiplicador = 1.3;
+            } elseif ($percentual >= 0.6) {
+                // Investimento está entre 60% e 70% do mínimo
+                $multiplicador = 1.2;
+            } elseif ($percentual >= 0.5) {
+                // Investimento está entre 50% e 60% do mínimo
+                $multiplicador = 0.99;
+            } elseif ($percentual >= 0.4) {
+                // Investimento está entre 40% e 50% do mínimo
+                $multiplicador = 0.85;
+            } elseif ($percentual >= 0.3) {
+                // Investimento está entre 30% e 40% do mínimo
+                $multiplicador = 0.62;
+            } elseif ($percentual >= 0.2) {
+                // Investimento está entre 20% e 30% do mínimo
+                $multiplicador = 0.48;
+            } elseif ($percentual >= 0.1) {
+                // Investimento está entre 10% e 20% do mínimo
+                $multiplicador = 0.32;
+            } else {
+                // Investimento é inferior a 10% do mínimo - muito baixo
+                $multiplicador = 0.18;
+            }
+        }
+
+        return $multiplicador;
+    }
+
+    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras, $investimento)
     {
         $fator1 = $this->fatorTipoComercial($cidade_id, $empresa_id);
         $fator2 = $this->fatorPerfilEconomico($cidade_id, $empresa_id);
@@ -244,7 +295,18 @@ class SimulacaoModel
         $fator4 = $this->fatorFluxo($cidade_id, $empresa_id);
         $fator5 = $this->fatorQuantidadeAncoras($quant_ancoras);
 
-        $probabilidade_sucesso = $fator1 + $fator2 + $fator3 + $fator4 + $fator5;
+        // Soma os 5 fatores (máximo 100 pontos)
+        $soma_fatores = $fator1 + $fator2 + $fator3 + $fator4 + $fator5;
+        
+        // Calcula multiplicador baseado no investimento mínimo
+        $multiplicador = $this->calcularMultiplicadorInvestimento($cidade_id, $investimento);
+        
+        // Aplica o multiplicador ao resultado final
+        $probabilidade_sucesso = $soma_fatores * $multiplicador;
+        
+        // Limita probabilidade entre 0 e 100%
+        $probabilidade_sucesso = max(0, min($probabilidade_sucesso, 100));
+        
         return $probabilidade_sucesso;
     }
 
@@ -259,16 +321,17 @@ class SimulacaoModel
         $fatorComercio = $this->fatorTipoComercial($cidade_id, $empresa_id);
 
         if ($fatorComercio >= 15 && $fatorComercio <= 20) {
-            $fluxo = $cidade['populacao_quant'] * 0.06; // 6% da população
-        } elseif ($fatorComercio >= 10 && $fatorComercio < 15) {
             $fluxo = $cidade['populacao_quant'] * 0.04; // 4% da população
+        } elseif ($fatorComercio >= 10 && $fatorComercio < 15) {
+            $fluxo = $cidade['populacao_quant'] * 0.03; // 3% da população
         } elseif ($fatorComercio >= 5 && $fatorComercio < 10) {
-            $fluxo = $cidade['populacao_quant'] * 0.02; // 2% da população
+            $fluxo = $cidade['populacao_quant'] * 0.015; // 1,5% da população
         } elseif ($fatorComercio >= 0 && $fatorComercio < 5) {
-            $fluxo = $cidade['populacao_quant'] * 0.009; // 0,9% da população
+            $fluxo = $cidade['populacao_quant'] * 0.007; // 0,7% da população
         };
 
-        $renda_mensal = $fluxo * $preco_produto;
+        // Ajuste de realidade para renda mensal: consideramos conversão de fluxo realista
+        $renda_mensal = $fluxo * $preco_produto * 0.4;
         return $renda_mensal;
     }
 

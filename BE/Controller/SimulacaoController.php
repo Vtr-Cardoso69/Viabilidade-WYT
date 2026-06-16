@@ -10,8 +10,8 @@ class SimulacaoController {
         $this->model = new SimulacaoModel($pdo);
     }
 
-    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras){
-        return $this->model->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
+    public function calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras, $investimento){
+        return $this->model->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras, $investimento);
     }
 
     public function calcularRendaMensal($cidade_id, $empresa_id, $preco_produto){

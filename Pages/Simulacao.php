@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $preco_produto = $_POST['preco_medio'];
     $investimento = $_POST['investimento'];
     $preco_produto = $_POST['preco_medio'];
-    $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras);
+    $probabilidade_sucesso = $simulacaoController->calcularProbabilidadeSucesso($cidade_id, $empresa_id, $quant_ancoras, $investimento);
 
     $renda_mensal = $simulacaoController->calcularRendaMensal($cidade_id, $empresa_id, $preco_produto);
 

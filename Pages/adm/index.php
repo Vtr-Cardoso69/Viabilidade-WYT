@@ -907,6 +907,19 @@ $cidades = $controller->index();
                         </option>
                     </select>
                 </div>
+
+                <!-- INVESTIMENTO MÍNIMO -->
+                <div class="form-group">
+                    <label>Investimento Mínimo (R$)</label>
+                    <input
+                        type="number"
+                        name="investimento_minimo"
+                        min="1000"
+                        step="1000"
+                        placeholder="Ex: 50000"
+                        value="<?= htmlspecialchars($cidadeEdit['investimento_minimo'] ?? '') ?>"
+                        required>
+                </div>
               
 
  <h2 style="background: #0d1b2a; color: white; padding: 10px;">Avalie a Cidade com Chances de Negócio</h2>
@@ -1167,6 +1180,7 @@ $cidades = $controller->index();
                     <th>População</th>
                     <th>Perfil Etário</th>
                     <th>Perfil Econômico</th>
+                    <th>Investimento Mínimo</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -1186,6 +1200,8 @@ $cidades = $controller->index();
                         <td><?= htmlspecialchars($cidade['perfil_etario']) ?></td>
 
                         <td><?= htmlspecialchars($cidade['perfil_economico']) ?></td>
+
+                        <td>R$ <?= htmlspecialchars(number_format($cidade['investimento_minimo'], 0, ',', '.')) ?></td>
 
                         <td>
 

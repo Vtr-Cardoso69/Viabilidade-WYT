@@ -115,7 +115,7 @@ class EmpresaModel {
             return [];
         }
 
-        $sql = "SELECT * FROM simulacoes WHERE empresa_id = :empresa_id ORDER BY id DESC";
+        $sql = "SELECT s.*, c.nome AS cidade_nome FROM simulacoes s JOIN cidades c ON s.cidade_id = c.id WHERE s.empresa_id = :empresa_id ORDER BY s.id DESC";
 
         if ($limit !== null) {
             $limit = (int)$limit;

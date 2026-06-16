@@ -207,6 +207,7 @@ function h(string $value): string
                         <table aria-label="Histórico de simulações" style="font-size: 12px;">
                             <thead>
                                 <tr>
+                                    <th>Cidade</th>
                                     <th>Quant. Âncoras</th>
                                     <th>Preço Produto</th>
                                     <th>Investimento</th>
@@ -219,6 +220,7 @@ function h(string $value): string
                             <tbody>
                             <?php foreach ($simulacoes as $simulacao): ?>
                                 <tr>
+                                    <td><?= h((string)($simulacao['cidade_nome'] ?? '')) ?></td>
                                     <td><?= h((string)($simulacao['quant_ancoras'] ?? '')) ?></td>
                                     <td>R$ <?= h((string)($simulacao['preco_produto'] ?? '0')) ?></td>
                                     <td>R$ <?= h((string)($simulacao['investimento'] ?? '0')) ?></td>

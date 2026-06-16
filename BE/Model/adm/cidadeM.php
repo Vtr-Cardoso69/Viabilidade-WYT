@@ -15,8 +15,8 @@ class CidadeModel {
         $sql = "INSERT INTO cidades (
             nome, populacao_quant, perfil_etario, perfil_economico,
             comercio_alimentacao, comercio_moda, comercio_tecnologia,
-            comercio_varejo, comercio_servicos, comercio_turismo
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            comercio_varejo, comercio_servicos, comercio_turismo, investimento_minimo
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->pdo->prepare($sql);
 
@@ -30,7 +30,8 @@ class CidadeModel {
             $data['tecnologia'],
             $data['varejo'],
             $data['servicos'],
-            $data['turismo']
+            $data['turismo'],
+            $data['investimento_minimo']
         ]);
     }
 
@@ -57,7 +58,8 @@ class CidadeModel {
             comercio_tecnologia = ?,
             comercio_varejo = ?,
             comercio_servicos = ?,
-            comercio_turismo = ?
+            comercio_turismo = ?,
+            investimento_minimo = ?
             WHERE id = ?";
 
         $stmt = $this->pdo->prepare($sql);
@@ -73,6 +75,7 @@ class CidadeModel {
             $data['varejo'],
             $data['servicos'],
             $data['turismo'],
+            $data['investimento_minimo'],
             $data['id']
         ]);
     }
