@@ -82,7 +82,7 @@ function h(string $value): string
         .brand{ display:flex; align-items:center; gap:10px; }
         .brand img{ height:34px; width:auto; }
         .actions{ display:flex; gap:10px; flex-wrap:wrap; }
-        .btn{ border:0; cursor:pointer; padding:10px 14px; border-radius: 10px; font-weight:700; color:#fff; background:var(--brand); 
+        .btn{ border:0; cursor:pointer; padding:10px 14px; border-radius: 10px; font-weight:700; color:#fff; background:rgb(250, 181, 62); 
         text-decoration:none; display:inline-flex; align-items:center; gap:8px; }
         .btn.secondary{ background: transparent; border:1px solid var(--line); color:var(--txt); }
         .grid{ display:grid; grid-template-columns: 1fr; gap:14px; }

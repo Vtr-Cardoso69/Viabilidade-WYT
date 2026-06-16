@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -72,13 +73,18 @@ $cidades = $controller->index();
             BODY
             ========================= */
 
+            .container{
+                max-width:1500px;
+                margin:0 auto;
+                padding:20px;
+            }
+
+
             body{
 
                 font-family:Arial, sans-serif;
 
                 background:#f4f4f4;
-
-                padding:30px;
 
                 color:#333;
             }
@@ -813,10 +819,7 @@ $cidades = $controller->index();
 
     </nav>
 
-    <nav class="nav2" id="menu">
-
-    </nav>
-
+<div class="container">
 <br>
     <h1>Painel Administrativo</h1>
 
@@ -1218,6 +1221,8 @@ $cidades = $controller->index();
         <p>Nenhuma cidade cadastrada.</p>
 
     <?php endif; ?>
+
+    </div>
 
 </body>
 
